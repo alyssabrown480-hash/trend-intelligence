@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas — Trend Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5EEE3;
+    --surface:#FFFCF6;
+    --ink:#241C15;
+    --ink-soft:#786D5F;
+    --ink-faint:#AA9C88;
+    --line:#E6D9C4;
+    --accent:#A8462D;
+    --accent-soft:#F3E2D3;
+    --c-emerging:#5F7A4E;
+    --c-growing:#C08A2E;
+    --c-peaking:#A8462D;
+    --c-steady:#7A6A52;
+    --c-declining:#AA9C88;
+    --radius:14px;
+    --radius-sm:8px;
+    --shadow:0 1px 2px rgba(60,40,20,.05), 0 12px 30px rgba(60,40,20,.07);
+    --shadow-sm:0 1px 2px rgba(60,40,20,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1C1712; --surface:#26201A; --ink:#F1E9DD; --ink-soft:#B8AA97; --ink-faint:#8A7C69;
+      --line:#3A3128; --accent:#E08A62; --accent-soft:#3A2A22;
+      --c-emerging:#8FAE7A; --c-growing:#E0B255; --c-peaking:#E08A62; --c-steady:#A99A85; --c-declining:#75695A;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px rgba(0,0,0,.35);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1C1712; --surface:#26201A; --ink:#F1E9DD; --ink-soft:#B8AA97; --ink-faint:#8A7C69;
+    --line:#3A3128; --accent:#E08A62; --accent-soft:#3A2A22;
+    --c-emerging:#8FAE7A; --c-growing:#E0B255; --c-peaking:#E08A62; --c-steady:#A99A85; --c-declining:#75695A;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px rgba(0,0,0,.35);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Spectral',serif;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  ::selection{background:var(--accent-soft);}
+
+  /* ---------- Layout ---------- */
+  .app{display:flex;min-height:100vh;}
+  .sidebar{
+    width:232px;flex:none;background:var(--surface);
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;
+    padding:28px 18px;position:sticky;top:0;height:100vh;
+  }
+  .brand{margin-bottom:30px;padding:0 8px;}
+  .brand .mark{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(155deg,#A8462D,#C97A4A);
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+    box-shadow:0 4px 10px rgba(168,70,45,.28);
+  }
+  .brand .mark span{font-family:'Spectral',serif;font-size:16px;font-weight:600;color:#fff;}
+  .brand h1{font-size:19px;margin:0 0 2px;font-weight:600;letter-spacing:.1px;}
+  .brand p{margin:0;font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;}
+
+  nav{flex:1;display:flex;flex-direction:column;gap:2px;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 12px;border-radius:10px;cursor:pointer;
+    color:var(--ink-soft);font-size:13.4px;font-weight:500;
+    border:1px solid transparent;transition:background .15s ease, color .15s ease;
+    background:none;text-align:left;width:100%;
+  }
+  .nav-item svg{width:17px;height:17px;flex:none;opacity:.85;}
+  .nav-item:hover{background:var(--bg);color:var(--ink);}
+  .nav-item.active{background:var(--accent-soft);color:var(--accent);font-weight:600;}
+  .nav-item.active svg{opacity:1;}
+
+  .sidebar-foot{border-top:1px solid var(--line);padding-top:16px;margin-top:16px;}
+  .season-pill{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:12px;color:var(--ink-soft);padding:9px 12px;border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .season-pill b{color:var(--ink);font-weight:600;}
+
+  .main{flex:1;min-width:0;padding:30px 42px 60px;max-width:1200px;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    margin-bottom:26px;gap:20px;flex-wrap:wrap;
+  }
+  .topbar h2{font-size:28px;margin:0 0 6px;font-weight:600;letter-spacing:.1px;}
+  .topbar .sub{color:var(--ink-soft);font-size:13.6px;max-width:520px;line-height:1.55;}
+  .topbar-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .updated{font-size:11.5px;color:var(--ink-faint);margin-right:4px;white-space:nowrap;}
+  .btn{
+    font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:10px;
+    border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .btn:hover{border-color:#C7C4BA;}
+  .btn:active{transform:scale(.98);}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn.primary:hover{background:#8A3A24;}
+  .btn svg{width:13px;height:13px;}
+
+  section.view{display:none;animation:fade .4s ease;}
+  section.view.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- Reusable pieces ---------- */
+  .grid{display:grid;gap:18px;}
+  .cols-4{grid-template-columns:repeat(4,1fr);}
+  .cols-3{grid-template-columns:repeat(3,1fr);}
+  .cols-2{grid-template-columns:2fr 1fr;}
+
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;box-shadow:var(--shadow-sm);
+  }
+  .card h3{
+    font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-soft);
+    margin:0 0 14px;letter-spacing:.01em;
+  }
+  .kpi .num{font-family:'Spectral',serif;font-size:31px;font-weight:600;line-height:1;}
+  .kpi .label{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+  .kpi .delta{font-size:11.5px;margin-top:8px;color:var(--c-emerging);font-weight:600;}
+  .kpi .delta.down{color:var(--c-peaking);}
+
+  .section-block{margin-bottom:26px;}
+  .section-block > .block-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
+  .section-block > .block-head h3{font-family:'Spectral',serif;font-size:18px;font-weight:600;color:var(--ink);margin:0;}
+  .section-block > .block-head .link{font-size:12px;color:var(--accent);cursor:pointer;font-weight:600;}
+
+  .pill{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+    padding:4px 11px 4px 8px;border-radius:20px;
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;flex:none;}
+
+  .meta-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0 22px;}
+  .meta-chip{font-size:11.5px;font-weight:600;color:var(--ink-soft);}
+  .meta-sep{color:var(--ink-faint);font-size:11px;}
+  .source-note{font-size:10.8px;color:var(--ink-faint);margin-top:10px;line-height:1.4;font-style:italic;}
+
+  /* Hero banner */
+  .hero{
+    position:relative;border-radius:20px;overflow:hidden;margin-bottom:26px;
+    min-height:190px;display:flex;align-items:flex-end;box-shadow:var(--shadow);
+    background:linear-gradient(135deg,#2A2118 0%,#3E2E20 48%,#6B3E27 100%);
+  }
+  .hero-pattern{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-pattern circle{fill:none;stroke:#F5EEE3;stroke-width:1;opacity:.16;}
+  .hero-content{position:relative;z-index:1;padding:28px 32px;color:#fff;}
+  .hero-content .eyebrow{font-size:11.5px;letter-spacing:.04em;opacity:.85;margin-bottom:6px;}
+  .hero-content h2{font-family:'Spectral',serif;font-size:26px;font-weight:600;margin:0 0 6px;color:#fff;}
+  .hero-content p{font-size:13.2px;max-width:480px;line-height:1.5;opacity:.92;margin:0;}
+
+  /* Trend chip cards */
+  .trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .trend-card{
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:var(--surface);box-shadow:var(--shadow-sm);transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .trend-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+  .trend-card .photo{
+    aspect-ratio:16/11;position:relative;display:flex;align-items:center;justify-content:center;
+  }
+  .trend-card .photo svg{width:34%;height:34%;}
+  .trend-card .photo .status-pill{
+    position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);
+    padding:4px 10px 4px 8px;border-radius:20px;font-size:10.5px;font-weight:600;
+    display:flex;align-items:center;gap:5px;color:var(--ink);backdrop-filter:blur(2px);
+  }
+  .trend-card .photo .status-pill .dot{width:6px;height:6px;border-radius:50%;}
+  .trend-card .body{padding:15px 17px 18px;}
+  .trend-card .name{font-family:'Spectral',serif;font-size:16.5px;font-weight:600;margin-bottom:5px;}
+  .trend-card .desc{font-size:12.3px;color:var(--ink-soft);line-height:1.5;margin-bottom:11px;min-height:36px;}
+  .swatches{display:flex;gap:5px;}
+  .swatches span{width:15px;height:15px;border-radius:50%;border:1px solid rgba(0,0,0,.08);}
+
+  /* Donut + legend */
+  .donut-wrap{display:flex;align-items:center;gap:22px;}
+  .legend{display:flex;flex-direction:column;gap:7px;flex:1;}
+  .legend-row{display:flex;justify-content:space-between;font-size:12.5px;}
+  .legend-row .left{display:flex;align-items:center;gap:7px;color:var(--ink-soft);}
+  .legend-row .dot{width:7px;height:7px;border-radius:50%;}
+  .legend-row .val{font-weight:600;color:var(--ink);}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:12.6px;}
+  th{
+    text-align:left;font-weight:600;color:var(--ink-faint);font-size:11px;
+    padding:0 10px 10px 0;border-bottom:1px solid var(--line);
+  }
+  td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .row-title{font-weight:600;display:flex;align-items:center;gap:10px;}
+  .row-photo{
+    width:30px;height:30px;border-radius:50%;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 2px #fff, 0 0 0 3px var(--line);
+  }
+  .row-photo svg{width:56%;height:56%;}
+  .pct.up{color:var(--c-emerging);font-weight:600;}
+  .pct.down{color:var(--c-peaking);font-weight:600;}
+  .dotscale{display:flex;gap:3px;}
+  .dotscale span{width:6px;height:6px;border-radius:50%;background:var(--line);}
+  .dotscale span.on{background:var(--accent);}
+
+  .opp-cell{font-size:11px;font-weight:600;padding:8px 8px;border-radius:8px;text-align:center;}
+
+  .list-rank{display:flex;flex-direction:column;}
+  .list-rank .item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .list-rank .item:last-child{border-bottom:none;}
+  .list-rank .name{display:flex;align-items:center;gap:10px;}
+  .list-rank .idx{color:var(--ink-faint);font-size:11.5px;width:14px;}
+
+  .insight-box{
+    background:var(--accent-soft);border-radius:var(--radius);padding:19px 22px;
+    font-size:13px;line-height:1.6;color:var(--ink);
+  }
+  .insight-box .kicker{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;display:block;}
+
+  .bullets{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .bullets li{font-size:12.8px;line-height:1.5;padding-left:16px;position:relative;color:var(--ink);}
+  .bullets li::before{content:'';position:absolute;left:0;top:6px;width:5px;height:5px;border-radius:50%;background:var(--accent);}
+
+  /* Color swatch strip */
+  .swatch-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  .swatch-strip .chip{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);}
+  .swatch-strip .block{height:64px;}
+  .swatch-strip .meta{padding:10px 12px;}
+  .swatch-strip .meta .name{font-weight:600;font-size:12.5px;margin-bottom:3px;}
+
+  /* Material chips */
+  .mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .mat-chip{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm);}
+  .mat-chip .photo{height:78px;display:flex;align-items:center;justify-content:center;}
+  .mat-chip .photo svg{width:32%;height:32%;}
+  .mat-chip .icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:14px 0 0 14px;}
+  .mat-chip .icon svg{width:55%;height:55%;}
+  .mat-chip .txt{padding:12px 14px 14px;display:flex;flex-direction:column;gap:7px;}
+  .mat-chip .name{font-weight:600;font-size:12.8px;}
+
+  /* Timing guide */
+  .timing-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .timing-col{border:1px solid var(--line);border-radius:var(--radius);padding:19px;background:var(--surface);box-shadow:var(--shadow-sm);}
+  .timing-col .head{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .timing-col .head .dot{width:8px;height:8px;border-radius:50%;}
+  .timing-col .head h4{font-family:'Spectral',serif;font-size:16.5px;margin:0;font-weight:600;}
+  .timing-col .window{font-size:11px;color:var(--ink-faint);margin-bottom:4px;}
+  .timing-col .confidence{font-size:11px;color:var(--accent);font-weight:600;margin-bottom:14px;}
+  .timing-item{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;}
+  .timing-item:first-of-type{border-top:none;padding-top:6px;}
+  .t-photo{
+    width:44px;height:44px;border-radius:10px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    transition:filter .3s ease;
+  }
+  .t-photo svg{width:52%;height:52%;}
+  .t-photo.grain-mid{filter:grayscale(45%) saturate(80%) brightness(1.02);}
+  .t-photo.grain-far{filter:grayscale(85%) saturate(35%) brightness(1.05);}
+  .timing-item .t-name{font-weight:600;font-size:13px;margin-bottom:2px;}
+  .timing-item .t-desc{font-size:12px;color:var(--ink-soft);line-height:1.45;}
+  .why{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:11.6px;color:var(--ink-soft);line-height:1.5;}
+
+  /* Sentiment bar */
+  .sentiment-bar{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:10px 0 8px;}
+  .sentiment-legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-soft);}
+  .sentiment-legend .dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px;}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;
+    font-size:12.5px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:50;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* Story modal */
+  .story-clickable{cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;}
+  .story-clickable:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(60,40,20,.12);}
+  .story-clickable .tap-hint{font-size:11px;color:var(--accent);font-weight:600;margin-top:10px;display:flex;align-items:center;gap:4px;}
+  .story-modal-overlay{
+    position:fixed;inset:0;background:rgba(20,15,10,.45);backdrop-filter:blur(2px);
+    display:none;align-items:flex-start;justify-content:center;z-index:100;padding:5vh 20px;overflow-y:auto;
+  }
+  .story-modal-overlay.show{display:flex;}
+  .story-modal{
+    background:var(--surface);border-radius:20px;max-width:640px;width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);padding:30px 32px 32px;position:relative;
+    animation:modalIn .25s ease;
+  }
+  @keyframes modalIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+  .story-modal .close-btn{
+    position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:50%;
+    border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;
+  }
+  .story-modal .close-btn:hover{color:var(--ink);}
+  .story-modal .m-photo{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .story-modal .m-photo svg{width:28px;height:28px;}
+  .story-modal h3.m-title{font-family:'Spectral',serif;font-size:23px;font-weight:600;margin:0 0 8px;padding-right:30px;}
+  .story-modal .m-hook{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:18px;}
+  .story-modal .m-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+  .story-modal .m-fact{background:var(--bg);border-radius:10px;padding:10px 12px;}
+  .story-modal .m-fact .k{font-size:10.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
+  .story-modal .m-fact .v{font-size:12.5px;font-weight:600;}
+  .story-modal .m-key-head{font-family:'Spectral',serif;font-size:15px;font-weight:600;margin:0 0 12px;}
+  .key-items-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .key-item-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);}
+  .key-item-card .ki-photo{
+    aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  }
+  .key-item-card .ki-photo svg{width:34%;height:34%;}
+  .key-item-card .ki-title{font-size:11.8px;font-weight:600;padding:9px 10px;line-height:1.35;}
+  @media (max-width:560px){
+    .story-modal .m-facts{grid-template-columns:1fr;}
+    .key-items-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* Trend Radar filters + rows */
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .filter-chip{
+    font-size:12px;font-weight:600;padding:7px 13px;border-radius:20px;border:1px solid var(--line);
+    background:var(--surface);color:var(--ink-soft);cursor:pointer;transition:all .15s ease;
+  }
+  .filter-chip span{color:var(--ink-faint);font-weight:500;}
+  .filter-chip:hover{border-color:#D8CBB6;}
+  .filter-chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .filter-chip.active span{color:rgba(255,255,255,.65);}
+  .radar-list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;}
+  .radar-row{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line);}
+  .radar-row:last-child{border-bottom:none;}
+  .radar-photo{width:46px;height:46px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;}
+  .radar-photo svg{width:52%;height:52%;}
+  .radar-mid{flex:1;min-width:0;}
+  .radar-name{font-weight:600;font-size:13.5px;margin-bottom:2px;}
+  .radar-desc{font-size:12px;color:var(--ink-soft);line-height:1.4;max-width:440px;}
+  .radar-cat{font-size:11.5px;color:var(--ink-faint);width:140px;flex:none;}
+  .radar-status{width:110px;flex:none;}
+
+  /* Micro trend drops */
+  .micro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .micro-chip{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm);}
+  .micro-photo{height:86px;display:flex;align-items:center;justify-content:center;position:relative;}
+  .micro-photo svg{width:36%;height:36%;}
+  .micro-badge{
+    position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;font-size:9.5px;font-weight:700;
+    padding:3px 8px;border-radius:20px;letter-spacing:.02em;
+  }
+  .micro-txt{padding:11px 12px 13px;}
+  .micro-name{font-weight:600;font-size:12.5px;margin-bottom:4px;}
+  .micro-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.45;}
+
+  /* Resources */
+  .resource-list{display:flex;flex-direction:column;}
+  .resource-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);}
+  .resource-row:last-child{border-bottom:none;}
+  .resource-icon{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .resource-icon svg{width:18px;height:18px;}
+  .resource-mid{flex:1;}
+  .resource-name{font-weight:600;font-size:13.5px;}
+  .resource-meta{font-size:11.5px;color:var(--ink-faint);margin-top:2px;}
+  .resource-btn{padding:7px 14px;font-size:12px;}
+
+  @media(max-width:980px){
+    .sidebar{display:none;}
+    .main{padding:22px;}
+    .grid.cols-4,.grid.cols-3,.trend-grid,.mat-grid,.swatch-strip,.micro-grid{grid-template-columns:repeat(2,1fr);}
+    .grid.cols-2,.timing-cols{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark"><span>A</span></div>
+      <h1>Atlas</h1>
+      <p>Trend intelligence</p>
+    </div>
+    <nav id="nav"></nav>
+    <div class="sidebar-foot">
+      <div class="season-pill"><span>Season</span><b>Summer 2027</b></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="view-title">—</h2>
+        <div class="sub" id="view-sub"></div>
+      </div>
+      <div class="topbar-actions">
+        <span class="updated" id="updated-label"></span>
+        <button class="btn" id="refresh-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+          Refresh
+        </button>
+        <button class="btn" id="download-btn">Download report</button>
+        <button class="btn primary" id="share-btn">Copy live link</button>
+      </div>
+    </div>
+
+    <div id="views"></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="story-modal-overlay" id="story-modal-overlay">
+  <div class="story-modal" id="story-modal"></div>
+</div>
+
+<script>
+/* =========================================================
+   Tokens & helpers
+========================================================= */
+const HEX = {emerging:'#5F7A4E', growing:'#C08A2E', peaking:'#A8462D', steady:'#7A6A52', declining:'#AA9C88', accent:'#A8462D'};
+const STATUS = {
+  emerging:  {label:'Emerging',  color:HEX.emerging,  bg:'#E7EEE0', fg:'#41562F'},
+  growing:   {label:'Growing',   color:HEX.growing,   bg:'#FAEFD9', fg:'#8A5A12'},
+  peaking:   {label:'Peaking',   color:HEX.peaking,   bg:'#F5E0D3', fg:'#833520'},
+  steady:    {label:'Steady',    color:HEX.steady,    bg:'#ECE5D8', fg:'#59493A'},
+  declining: {label:'Declining', color:HEX.declining, bg:'#EFEAE0', fg:'#79705F'}
+};
+
+function tag(status, textOverride){
+  const s = STATUS[status];
+  return `<span class="pill" style="background:${s.bg};color:${s.fg}"><span class="dot" style="background:${s.color}"></span>${textOverride||s.label}</span>`;
+}
+
+function metaRow(chips){
+  return `<div class="meta-row">${chips.map(c=>`<span class="meta-chip">${c}</span>`).join('<span class="meta-sep">·</span>')}</div>`;
+}
+
+function source(text){
+  return `<div class="source-note">${text}</div>`;
+}
+
+function markIcon(kind){
+  const M = {
+    cherry: `<circle cx="24" cy="42" r="10"/><circle cx="42" cy="44" r="8"/><path d="M25 32 Q30 15 41 12"/><path d="M42 36 Q41 20 41 12"/>`,
+    coast:  `<path d="M4 40 Q14 30 24 40 T44 40 T64 40"/><path d="M4 48 Q14 38 24 48 T44 48 T64 48"/><circle cx="46" cy="20" r="4" fill="currentColor" stroke="none"/>`,
+    locket: `<circle cx="32" cy="30" r="19"/><circle cx="32" cy="30" r="12"/><circle cx="32" cy="30" r="3" fill="currentColor" stroke="none"/><path d="M24 12 L32 5 L40 12"/>`,
+    resin:  `<circle cx="20" cy="24" r="9" fill="currentColor" stroke="none"/><circle cx="40" cy="20" r="6" fill="currentColor" stroke="none" opacity=".55"/><circle cx="34" cy="40" r="12" fill="currentColor" stroke="none" opacity=".8"/><circle cx="14" cy="44" r="5" fill="currentColor" stroke="none" opacity=".4"/>`,
+    rope:   `<path d="M8 14 L56 50"/><path d="M8 26 L56 62"/><path d="M8 38 L44 12"/><path d="M20 62 L56 38"/>`,
+    layers: `<path d="M14 20 Q32 8 50 20"/><path d="M12 32 Q32 18 52 32"/><path d="M10 44 Q32 28 54 44"/>`,
+    sport:  `<path d="M6 46 L20 30 L34 46 L48 30 L58 42"/><circle cx="20" cy="30" r="2.4" fill="currentColor" stroke="none"/><circle cx="48" cy="30" r="2.4" fill="currentColor" stroke="none"/>`,
+    bow:    `<path d="M32 32 C20 18 6 22 8 32 C6 42 20 46 32 32 C44 46 58 42 56 32 C58 22 44 18 32 32 Z"/><circle cx="32" cy="32" r="3.4" fill="currentColor" stroke="none"/>`,
+    star:   `<path d="M32 8 L37 26 L56 32 L37 38 L32 56 L27 38 L8 32 L27 26 Z"/>`,
+    droplet:`<path d="M32 10 C32 10 16 30 16 42 A16 16 0 0 0 48 42 C48 30 32 10 32 10 Z"/>`,
+    weave:  `<path d="M10 22 H54 M10 32 H54 M10 42 H54"/><path d="M20 12 V52 M32 12 V52 M44 12 V52"/>`,
+    leaf:   `<path d="M14 50 C14 24 40 14 52 12 C50 24 40 50 14 50 Z"/><path d="M16 48 C26 38 34 28 50 14"/>`,
+    hex:    `<path d="M32 8 L54 20 V44 L32 56 L10 44 V20 Z"/>`,
+    ring:   `<circle cx="32" cy="32" r="18"/><path d="M24 18 L32 6 L40 18"/>`,
+    box:    `<path d="M10 22 L54 22 L54 54 L10 54 Z"/><path d="M10 22 L32 8 L54 22"/><path d="M32 22 V54"/>`,
+    ribbon: `<rect x="10" y="24" width="44" height="30" rx="2"/><path d="M10 24 H54 M32 24 V54"/><path d="M22 8 L32 24 L42 8"/>`,
+    card:   `<rect x="8" y="14" width="48" height="36" rx="2"/><path d="M16 28 H48 M16 38 H36"/>`
+  };
+  return `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${M[kind]||M.hex}</svg>`;
+}
+
+function navIcon(kind){
+  const I = {
+    overview:`<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.6"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/>`,
+    radar:`<circle cx="12" cy="12" r="8"/><path d="M12 12 L12 5"/><path d="M12 12 L16.5 9"/>`,
+    stories:`<path d="M4 5h16M4 11h16M4 17h10"/>`,
+    micro:`<path d="M12 3.5c0 0-5 6.5-5 10a5 5 0 0 0 10 0c0-3.5-5-10-5-10Z"/>`,
+    opp:`<rect x="3" y="3" width="7.5" height="7.5" rx=".5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx=".5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx=".5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx=".5"/>`,
+    heat:`<path d="M4 20 V13 M9.5 20 V9 M15 20 V5 M20.5 20 V12"/>`,
+    timing:`<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>`,
+    color:`<circle cx="9" cy="10" r="6.4"/><circle cx="15" cy="10" r="6.4"/><circle cx="12" cy="15" r="6.4"/>`,
+    materials:`<path d="M12 2.5 L21 7.5 V16.5 L12 21.5 L3 16.5 V7.5 Z"/>`,
+    retail:`<path d="M3 8 L4.5 3.5H19.5L21 8"/><path d="M3 8H21V20H3Z"/><path d="M9.5 20V14H14.5V20"/>`,
+    inspo:`<path d="M12 3 L14 10 L21 12 L14 14 L12 21 L10 14 L3 12 L10 10 Z"/>`,
+    merch:`<path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>`,
+    packaging:`<rect x="4" y="9" width="16" height="11" rx=".5"/><path d="M4 9h16M12 9v11M9 9c0-2.2 1.3-4 3-4s3 1.8 3 4"/>`,
+    resources:`<path d="M7 3h7l4 4v14H7Z"/><path d="M14 3v4h4"/><path d="M9.5 12.5h5M9.5 15.5h5"/>`
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${I[kind]}</svg>`;
+}
+
+function donut(segments, size, thickness){
+  size = size||118; thickness = thickness||15;
+  const total = segments.reduce((a,s)=>a+s.value,0);
+  const r = (size - thickness)/2, c = size/2;
+  const circ = 2*Math.PI*r;
+  let cum = 0;
+  const circles = segments.map(seg=>{
+    const dash = (seg.value/total)*circ;
+    const el = `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${seg.color}" stroke-width="${thickness}"
+      stroke-dasharray="${dash.toFixed(2)} ${(circ-dash).toFixed(2)}" stroke-dashoffset="${(-cum).toFixed(2)}" stroke-linecap="round"/>`;
+    cum += dash;
+    return el;
+  }).join('');
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" style="transform:rotate(-90deg)">${circles}</svg>`;
+}
+
+function sparkline(values, w, h){
+  w=w||280; h=h||90;
+  const pad=10;
+  const max=Math.max(...values), min=Math.min(...values);
+  const range=(max-min)||1;
+  const stepX=(w-2*pad)/(values.length-1);
+  const pts=values.map((v,i)=>[pad+i*stepX, h-pad-((v-min)/range)*(h-2*pad)]);
+  const d=pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const dots=pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.8" fill="var(--accent)"/>`).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">
+    <path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>${dots}
+  </svg>`;
+}
+
+function dotScale(n, of){
+  of = of||5;
+  let s='<div class="dotscale">';
+  for(let i=0;i<of;i++) s+=`<span class="${i<n?'on':''}"></span>`;
+  return s+'</div>';
+}
+
+function heroBanner(eyebrow, title, sub){
+  return `
+    <div class="hero">
+      <svg class="hero-pattern" viewBox="0 0 400 190" preserveAspectRatio="xMaxYMid slice">
+        <circle cx="330" cy="70" r="26"/><circle cx="330" cy="70" r="50"/><circle cx="330" cy="70" r="74"/><circle cx="330" cy="70" r="98"/><circle cx="330" cy="70" r="122"/>
+      </svg>
+      <div class="hero-content">
+        <div class="eyebrow">${eyebrow}</div>
+        <h2>${title}</h2>
+        <p>${sub}</p>
+      </div>
+    </div>`;
+}
+
+/* =========================================================
+   Data
+========================================================= */
+const trends = [
+  {id:'cherry', name:'Cherry Code', status:'peaking', category:'Jewelry', mark:'cherry',
+    desc:'Playful, nostalgic motifs — cherries turn up on everything from studs to charm bracelets.',
+    colors:['#B4472A','#EFEFE9','#5B7A5B','#D9C9A3'], change:'+320%'},
+  {id:'coastal', name:'Coastal Romance', status:'growing', category:'Jewelry, Hair', mark:'coast',
+    desc:'Ocean-worn textures and soft, sun-faded tones carry a quiet romance through the line.',
+    colors:['#EFEFE9','#8FA7B3','#D9C9A3','#33436F']},
+  {id:'heirloom', name:'Modern Heirloom', status:'growing', category:'Jewelry', mark:'locket',
+    desc:'Vintage keepsakes and family-crest details — pieces meant to be collected, not bought all at once.',
+    colors:['#C08A2E','#17181C','#8C6A3F','#5B7A5B']},
+  {id:'resin', name:'Color Pop Resin', status:'peaking', category:'Bags, Jewelry', mark:'resin',
+    desc:'Bold, saturated resin pieces bring a mood-boosting hit of color to summer assortments.',
+    colors:['#B4472A','#33436F','#5B7A5B','#C08A2E']},
+  {id:'rope', name:'Rope & Texture', status:'peaking', category:'Jewelry', mark:'rope',
+    desc:'Tactile woven and braided finishes in gold and mixed metal add dimension to layered looks.',
+    colors:['#D9C9A3','#8C6A3F','#17181C','#EFEFE9']},
+  {id:'sport', name:'Sporty Prep', status:'emerging', category:'Jewelry, Bags', mark:'sport',
+    desc:'Tennis-core meets nautical detailing — elevated classics with a competitive edge.',
+    colors:['#33436F','#B4472A','#EFEFE9','#17181C']},
+  {id:'bubble', name:'Bubble Letters', status:'declining', category:'Jewelry', mark:'bow',
+    desc:'Playful initial charms are losing shelf space as personalization shifts toward subtler cues.',
+    colors:['#AA9C88','#EFEFE9','#7A6A52','#241C15']},
+  {id:'charmstory', name:'Charm Storytelling', status:'growing', category:'Jewelry, Bags', mark:'locket',
+    desc:'Maximalist, memory-laden charm necklaces and bracelets are replacing simple pendants as jewelry becomes a wearable personal archive.',
+    colors:['#C08A2E','#B4472A','#8C6A3F','#EFEFE9']},
+  {id:'personalcharm', name:'Personalized Charm Necklaces', status:'steady', category:'Jewelry', mark:'locket',
+    desc:'Charm necklaces have graduated from trend to core assortment, with specialty retailers now running permanent personalization shops.',
+    colors:['#C08A2E','#17181C','#8C6A3F','#5B7A5B']},
+  {id:'sculptural', name:'Sculptural Jewelry', status:'growing', category:'Jewelry', mark:'hex',
+    desc:'Oversized cuffs and hammered bangles are treated as wearable art \u2014 pieces built to anchor an outfit, not quietly finish it.',
+    colors:['#C08A2E','#8C6A3F','#17181C','#AA9C88']},
+  {id:'mixedmetal', name:'Mixed Metal Layering', status:'growing', category:'Jewelry', mark:'layers',
+    desc:'Gold and silver worn together is now the default, not the exception, as consumers move past the one-metal styling rule.',
+    colors:['#C08A2E','#AA9C88','#7A6A52','#241C15']},
+  {id:'colorpunc', name:'Color-as-Punctuation', status:'emerging', category:'Bags, Jewelry', mark:'star',
+    desc:'A single saturated accessory carries the color story against an otherwise neutral, tailored outfit \u2014 first seen at Spring 2027 New York shows.',
+    colors:['#B4472A','#17181C','#EFEFE9','#5B7A5B']},
+  {id:'brooch', name:'Brooch Revival', status:'emerging', category:'Jewelry', mark:'ring',
+    desc:'A Millennial and Gen-X heirloom-brooch moment is expanding into menswear \u2014 worn on lapels, ties, socks and bag straps.',
+    colors:['#8C6A3F','#C08A2E','#17181C','#EFEFE9']},
+  {id:'gummy', name:'Dimensional & Tactile Finishes', status:'emerging', category:'Jewelry, Bags', mark:'resin',
+    desc:'Bendy, glossy, 3D-effect textures \u2014 rubberized or high-gloss resin \u2014 are emerging as a tactile complement to color-driven pieces.',
+    colors:['#B4472A','#D9793A','#EFEFE9','#33436F']},
+  {id:'lace', name:'Lace & Romantic Detailing', status:'emerging', category:'Hair, Jewelry', mark:'droplet',
+    desc:'Lace, pearls and Victorian-era motifs are moving from runway hair pieces into pendant and clip detailing.',
+    colors:['#EFEFE9','#C08A2E','#8FA7B3','#241C15']},
+  {id:'bagcharmfatigue', name:'Bag Charm Fatigue', status:'declining', category:'Bags', mark:'bow',
+    desc:'Generic clip-on bag charms remain high-volume on social, but the community itself is questioning the format \u2014 an early signal to move upmarket in materials.',
+    colors:['#AA9C88','#EFEFE9','#7A6A52','#241C15']},
+];
+
+const overviewDonut = [
+  {label:'Emerging', value:18, color:HEX.emerging},
+  {label:'Growing',  value:24, color:HEX.growing},
+  {label:'Peaking',  value:11, color:HEX.peaking},
+  {label:'Steady',   value:16, color:HEX.steady},
+  {label:'Declining',value:5,  color:HEX.declining},
+];
+
+const fastestGrowing = [
+  {name:'Cherry Code', change:'+320%'},
+  {name:'Coastal Romance', change:'+210%'},
+  {name:'Modern Heirloom', change:'+180%'},
+  {name:'Sporty Prep', change:'+150%'},
+  {name:'Rope & Texture', change:'+130%'},
+];
+
+const stories = [
+  {id:'heirloom', name:'Modern Heirloom', mark:'locket', status:'growing',
+   hook:'Timeless pieces with a personal story — consumers are collecting, not just buying.',
+   facts:[['Consumer','Sentimental maximalist'],['Price point','$32–$68'],['Key materials','Antique metals, pearl, enamel']],
+   keyItems:[
+     {name:'Vintage Locket Pendant', mark:'locket'},
+     {name:'Antique Signet Ring', mark:'ring'},
+     {name:'Charm Bracelet', mark:'layers'}]},
+  {id:'coastal', name:'Coastal Romance', mark:'coast', status:'growing',
+   hook:'Sea-worn textures and soft palettes bring an elevated, unfussy romance to the season.',
+   facts:[['Consumer','Relaxed & elevated'],['Price point','$18–$46'],['Key materials','Pearl, shell, sea glass']],
+   keyItems:[
+     {name:'Sea Glass Stud Earrings', mark:'droplet'},
+     {name:'Shell Pendant Necklace', mark:'coast'},
+     {name:'Pearl Anklet', mark:'droplet'}]},
+  {id:'resin', name:'Color Pop Resin', mark:'resin', status:'peaking',
+   hook:'Saturated, playful resin shapes are peaking fast — big visual impact at an accessible price.',
+   facts:[['Consumer','Gen Z & playful dresser'],['Price point','$12–$32'],['Key materials','Acrylic, resin']],
+   keyItems:[
+     {name:'Resin Hoop Earrings', mark:'resin'},
+     {name:'Acrylic Bangle Stack', mark:'layers'},
+     {name:'Color-Block Bag Charm', mark:'ribbon'}]},
+  {id:'charmstory', name:'Charm Storytelling', mark:'locket', status:'growing',
+   hook:'Jewelry as a personal archive — charms and pendants that carry meaning are outpacing simple, single-pendant necklaces.',
+   facts:[['Consumer','Sentimental self-expressor'],['Price point','$18–$65'],['Key materials','Enamel, resin, freshwater pearl']],
+   keyItems:[
+     {name:'Build-Your-Story Necklace', mark:'locket'},
+     {name:'Enamel Initial Charm', mark:'hex'},
+     {name:'Freshwater Pearl Charm', mark:'droplet'}]},
+  {id:'brooch', name:'Brooch Revival', mark:'ring', status:'emerging',
+   hook:'A heirloom-coded pin is crossing into menswear lapels and straps, opening a genuine cross-gender gifting opportunity.',
+   facts:[['Consumer','Cross-gender, gifting-driven'],['Price point','$35–$95'],['Key materials','Antiqued metal, enamel, cubic zirconia']],
+   keyItems:[
+     {name:'Antique Floral Brooch', mark:'ring'},
+     {name:'Lapel Pin Trio', mark:'star'},
+     {name:'Bag-Strap Pin', mark:'ribbon'}]},
+  {id:'sculptural', name:'Sculptural & Mixed-Metal Jewelry', mark:'hex', status:'growing',
+   hook:'Jewelry is being treated as wearable sculpture — oversized, hammered, and deliberately mixed in metal tone.',
+   facts:[['Consumer','Maximalist dresser'],['Price point','$40–$110'],['Key materials','Hammered metal, mixed gold/silver plating']],
+   keyItems:[
+     {name:'Bold Embellished Cuffs', mark:'hex'},
+     {name:'Hammered Statement Bangle', mark:'layers'},
+     {name:'Two-Tone Stacking Ring Set', mark:'ring'}]},
+];
+
+const opportunityRows = [
+  {name:'Cherry Code', mark:'cherry', status:'peaking', cells:['high','med','high','med']},
+  {name:'Coastal Romance', mark:'coast', status:'growing', cells:['high','med','low','med']},
+  {name:'Modern Heirloom', mark:'locket', status:'growing', cells:['high','low','med','low']},
+  {name:'Sporty Prep', mark:'sport', status:'emerging', cells:['med','high','med','high']},
+  {name:'Rope & Texture', mark:'rope', status:'peaking', cells:['med','med','low','med']},
+];
+const opportunityCols = ['Jewelry','Hair Access.','Bags & Access.','Sunglasses'];
+const oppStyle = {
+  high:{bg:'#EBF0EA',color:'#3F5940',label:'High'},
+  med:{bg:'#FBF3E3',color:'#8A6417',label:'Medium'},
+  low:{bg:'#F7E9E4',color:'#8C3D26',label:'Low'},
+};
+const whiteSpace = [
+  {name:'Cherry charms & pendants', note:'High search volume, low mass-market saturation', score:92},
+  {name:'Coastal pearl hair accessories', note:'Under-indexed, strong Pinterest growth', score:88},
+  {name:'Vintage-inspired lockets', note:'Strong sentiment, room to grow in mid-tier', score:85},
+];
+
+const watchList = [
+  {name:'Dimensional & tactile "gummy" jewelry', need:'Visible product at specialty or mass retailers, not just nail art, before committing production budget.'},
+  {name:'Menswear brooch adoption', need:'A named retailer building a men\u2019s pin assortment, or repeated street-style sightings on male public figures.'},
+  {name:'Color-as-punctuation styling', need:'Confirmation from London, Milan and Paris Spring 2027 shows before treating it as an established seasonal direction.'},
+  {name:'Exotic and faux-skin small accessories', need:'Evidence the material moves beyond bags into jewelry, hair accessories or bag charms \u2014 also flag sourcing and cultural-sensitivity considerations.'},
+  {name:'Next-generation bag charm format', need:'A specific alternative mechanic (modular systems, collectible drops) showing repeated traction across two or more sources.'},
+];
+
+const heatRows = [
+  {name:'Cherry Code', mark:'cherry', status:'peaking', change:'+320%', interest:5, stage:'Emerging'},
+  {name:'Coastal Romance', mark:'coast', status:'growing', change:'+210%', interest:5, stage:'Growing'},
+  {name:'Modern Heirloom', mark:'locket', status:'growing', change:'+180%', interest:4, stage:'Growing'},
+  {name:'Color Pop Resin', mark:'resin', status:'steady', change:'+35%', interest:3, stage:'Core'},
+  {name:'Rope & Texture', mark:'rope', status:'steady', change:'+15%', interest:3, stage:'Core'},
+];
+const rising = [{name:'Cherry Code',change:'+320%'},{name:'Coastal Romance',change:'+210%'},{name:'Color Pop Resin',change:'+180%'}];
+const cooling = [{name:'Bubble Letters',change:'-35%'},{name:'Neon Resin',change:'-28%'},{name:'Tie Dye',change:'-23%'}];
+
+const timing = {
+  now:{window:'Trending now — act today', confidence:'High confidence — proven in market', items:[
+      ['Cherry Code','High demand and retail visibility — stock and sell now.', 'cherry'],
+      ['Modern Heirloom','Timeless pieces with personal meaning.', 'locket'],
+      ['Coastal Romance','Soft, ocean-inspired and elevated.', 'coast'],
+      ['Charm Storytelling','Maximalist, personal charms are driving repeat purchases — stock and sell now.', 'locket'],
+      ['Personalized Charm Necklaces','Core, replenishable business — innovate on drop mechanics, not the base concept.', 'locket']],
+    why:'These trends have proven demand — prioritize for immediate reorders.'},
+  next:{window:'6–12 months — build the pipeline', confidence:'Directional — early signals strengthening', items:[
+      ['Charm Personalization','Curated charms for self-expression.', 'ring'],
+      ['Italian Riviera','Mediterranean mood meets everyday luxury.', 'coast'],
+      ['Enamel Blooms','Fresh florals with a modern twist.', 'leaf'],
+      ['Brooch Revival','Cross-gender heirloom pins moving from search signal toward pilot capsules.', 'ring'],
+      ['Lace & Romantic Detailing','Victorian-inspired hair pieces and pendants for occasion and bridal gifting.', 'droplet']],
+    why:'Early signals are strong enough to start development now.'},
+  future:{window:'12–24 months — inspire innovation', confidence:'Early signal — a bet, not a certainty', items:[
+      ['Sculptural Shapes','Artistic forms make a quiet statement.', 'hex'],
+      ['Sustainable Materials','Conscious choices reshape sourcing.', 'leaf'],
+      ['Cosmic Symbols','Mystical motifs capture curiosity.', 'star'],
+      ['Cross-Gender Heirloom Category','Brooches and pins expand into a broader unisex accessories category.', 'ring'],
+      ['Modular Attachment Systems','Charms, clips and pins converge into shared hardware across bags, hair and jewelry.', 'layers']],
+    why:'Long-range signals worth tracking as differentiation stories.'}
+};
+
+const palette = [
+  {name:'Cherry Red', hex:'#B4472A', status:'peaking'},
+  {name:'Apricot Zest', hex:'#D9793A', status:'growing'},
+  {name:'Butter Yellow', hex:'#D9B24C', status:'growing'},
+  {name:'Sea Glass', hex:'#7FA79A', status:'steady'},
+  {name:'Pure Blue', hex:'#7C93B0', status:'steady'},
+  {name:'Lavender Haze', hex:'#A79BC2', status:'emerging'},
+  {name:'Olive Leaf', hex:'#71773F', status:'steady'},
+  {name:'Sand Dune', hex:'#C7B393', status:'steady'},
+  {name:'Ivory', hex:'#EFEAE0', status:'steady'},
+  {name:'Night Sky', hex:'#1B2130', status:'steady'},
+];
+const colorDonut = [
+  {label:'Rising fast', value:8, color:HEX.peaking},
+  {label:'Growing', value:10, color:HEX.growing},
+  {label:'Steady', value:7, color:HEX.steady},
+  {label:'Emerging', value:6, color:HEX.emerging},
+  {label:'Cooling', value:3, color:HEX.declining},
+];
+const colorTakeaways = [
+  'Bright accents continue to drive excitement in social engagement.',
+  'Oceanic and sea-glass tones show strong retail adoption across categories.',
+  'Warm neutrals and soft pastels remain the core of everyday styling.',
+];
+
+const fallPalette = [
+  {name:'Antique Gold', hex:'#C08A2E', status:'growing'},
+  {name:'Chestnut', hex:'#7A4B2E', status:'growing'},
+  {name:'Burgundy', hex:'#6B2A2C', status:'emerging'},
+  {name:'Forest Green', hex:'#3E4F35', status:'emerging'},
+  {name:'Dove Gray', hex:'#8C8577', status:'steady'},
+  {name:'Charcoal', hex:'#2A2622', status:'steady'},
+];
+const fallTakeaways = [
+  'Warm metallics (antique gold, aged brass) carry over from summer into richer, deeper settings.',
+  'Jewel tones — burgundy, forest green — pair naturally with the season\u2019s sculptural and heirloom pieces.',
+  'Directional forecast: builds on current signals, not yet confirmed by Fall 2027 runway or retail data.',
+];
+
+const holidayPalette = [
+  {name:'Deep Emerald', hex:'#2E4A3A', status:'emerging'},
+  {name:'Cranberry', hex:'#8C2F3A', status:'emerging'},
+  {name:'Champagne Gold', hex:'#D4B26A', status:'growing'},
+  {name:'Ivory Lace', hex:'#EFEAE0', status:'steady'},
+  {name:'Midnight Navy', hex:'#1B2130', status:'steady'},
+  {name:'Warm Silver', hex:'#AA9C88', status:'growing'},
+];
+const holidayTakeaways = [
+  'Gift-forward metallics (champagne gold, warm silver) lean into the season\u2019s personalization and gifting story.',
+  'Jewel tones stay rich rather than bright, pairing with lace/pearl detailing for occasion dressing.',
+  'Directional forecast: extends current signals toward holiday gifting; confirm against Q4 retail assortments.',
+];
+
+const materials = [
+  {name:'Freshwater Pearl', status:'growing', icon:'droplet'},
+  {name:'Natural Stone', status:'growing', icon:'leaf'},
+  {name:'Resin & Acrylic', status:'peaking', icon:'resin'},
+  {name:'Enamel', status:'steady', icon:'hex'},
+  {name:'Mixed Metals', status:'peaking', icon:'layers'},
+  {name:'Gold Plated', status:'steady', icon:'ring'},
+  {name:'Recycled Metals', status:'emerging', icon:'hex'},
+  {name:'Fabric & Cord', status:'emerging', icon:'weave'},
+];
+const materialDonut = [
+  {label:'Rising fast', value:9, color:HEX.peaking},
+  {label:'Growing', value:12, color:HEX.growing},
+  {label:'Steady', value:7, color:HEX.steady},
+  {label:'Emerging', value:5, color:HEX.emerging},
+  {label:'Cooling', value:2, color:HEX.declining},
+];
+const materialTakeaways = [
+  'Mixed metals and two-tone finishes continue gaining traction.',
+  'Natural stone, pearl and organic textures feel authentic and timeless.',
+  'Recycled and low-impact materials increasingly influence purchase decisions.',
+];
+
+const fallMaterials = [
+  {name:'Hammered / Brushed Metal', status:'growing', icon:'hex'},
+  {name:'Antiqued Metal', status:'emerging', icon:'ring'},
+  {name:'Suede & Leather Cord', status:'emerging', icon:'weave'},
+  {name:'Enamel', status:'growing', icon:'hex'},
+  {name:'Velvet Ribbon', status:'emerging', icon:'ribbon'},
+];
+const fallMaterialTakeaways = [
+  'Texture deepens for fall — brushed and antiqued metal finishes replace summer\u2019s high-shine plating.',
+  'Suede cord and velvet ribbon bring a tactile, cozy-luxe note to charms and hair pieces.',
+];
+
+const holidayMaterials = [
+  {name:'Champagne Gold Plating', status:'growing', icon:'ring'},
+  {name:'Freshwater Pearl', status:'growing', icon:'droplet'},
+  {name:'Cubic Zirconia Pav\u00e9', status:'emerging', icon:'star'},
+  {name:'Lace Appliqu\u00e9', status:'emerging', icon:'weave'},
+  {name:'Gift-Ready Velvet Pouch', status:'emerging', icon:'box'},
+];
+const holidayMaterialTakeaways = [
+  'Sparkle returns for the gifting season — pav\u00e9 and pearl detailing lift everyday charm pieces into occasion territory.',
+  'Packaging-adjacent materials (velvet pouches, ribbon) matter as much as the piece itself for holiday sell-through.',
+];
+
+
+
+const retail = {
+  pulse: 68, pulseDelta:'+12 vs. last season', pulseSpark:[52,55,58,61,64,68],
+  growingCats:[
+    ['Jewelry — charms & pendants','+28%'],['Beaded necklaces','+22%'],
+    ['Mixed metal jewelry','+18%'],['Resin & acrylic accents','+17%'],['Nautical & coastal pieces','+15%']],
+  pricePoints:[['$15–$25','+24%'],['$25–$40','+19%'],['$40–$60','+12%'],['$60+','+8%']],
+  sentiment:{positive:72, neutral:18, negative:10}
+};
+
+const retailSignals = [
+  {name:'Anthropologie', desc:'Now runs a permanent, shop-in-shop personalized charm-necklace assortment with built-in styling guidance \u2014 a signal the category has matured from trend to core, replenishable business.'},
+  {name:'Kendra Scott', desc:'Continues extending its signature customizable, center-stone design language into new categories (watches, men\u2019s bracelets, now engagement rings) rather than launching unrelated lines \u2014 validates personalization as a durable growth lever.'},
+  {name:'Gorjana & Mejuri', desc:'Continue to anchor the everyday-layering, mixed-metal jewelry conversation that dominates TikTok \u201cjewelry tour\u201d content, reinforcing mixed metals as mainstream rather than a rule-break.'},
+];
+
+const inspoThemes = [
+  {name:'Coastal Romance', mark:'coast', color:HEX.growing, desc:'Oceanic textures, pearls and soft romance.'},
+  {name:'Modern Heirloom', mark:'locket', color:HEX.steady, desc:'Timeless keepsakes with a personal story.'},
+  {name:'Color Pop Resin', mark:'resin', color:HEX.peaking, desc:'Playful, bold shapes and joyful energy.'},
+  {name:'Nautical Escape', mark:'sport', color:HEX.emerging, desc:'Sailor stripes, shells and seaside details.'},
+  {name:'Golden Hour', mark:'ring', color:HEX.growing, desc:'Warm metals and rich, sun-soaked tones.'},
+  {name:'Natural Elements', mark:'leaf', color:HEX.emerging, desc:'Organic forms inspired by nature.'},
+];
+
+const microTrends = [
+  {name:'Sea-Glass Studs', mark:'droplet', color:HEX.growing, desc:'Cloudy, sea-worn glass tones on delicate posts.'},
+  {name:'Charm Stacking 2.0', mark:'locket', color:HEX.steady, desc:'Denser charm clusters replace single pendants.'},
+  {name:'Woven Huggies', mark:'rope', color:HEX.peaking, desc:'Small hoops finished with a woven thread wrap.'},
+  {name:'Mini Chain Anklets', mark:'coast', color:HEX.growing, desc:'Delicate ankle chains move from beachwear to daily wear.'},
+  {name:'Painted Resin Hoops', mark:'resin', color:HEX.peaking, desc:'Hand-painted resin adds an artisanal note to hoops.'},
+  {name:'Vintage Coin Pendants', mark:'ring', color:HEX.steady, desc:'Found-coin pendants echo the heirloom mood.'},
+  {name:'Pearl Huggies', mark:'droplet', color:HEX.growing, desc:'Tiny hoops finished with a single freshwater pearl.'},
+  {name:'Two-Tone Signets', mark:'layers', color:HEX.emerging, desc:'Mixed gold-and-silver signet rings, worn stacked.'},
+  {name:'Elevated Bag Charms', mark:'ribbon', color:HEX.growing, desc:'Ribbon, shell-inspired resin and enamel replace generic clip-on dangles.'},
+  {name:'Dimensional Resin Finishes', mark:'resin', color:HEX.emerging, desc:'Glossy, bendy-look resin and enamel add tactile, 3D depth to small pieces.'},
+  {name:'Lace-Trimmed Hair Clips', mark:'droplet', color:HEX.emerging, desc:'Delicate lace appliqu\u00e9 brings a romantic, Victorian note to everyday hair pieces.'},
+  {name:'Menswear Lapel Pins', mark:'ring', color:HEX.emerging, desc:'Heirloom-style brooches move onto men\u2019s lapels, ties and bag straps.'},
+];
+
+const merchandisingIdeas = [
+  {title:'Layered storytelling tables', tag:'Display', desc:'Group Now, Next and Future pieces together so buyers see the full arc of where a trend is headed, not just where it is today.'},
+  {title:'Build-your-own charm bar', tag:'Engagement', desc:'Let shoppers combine chains and charms in-store — Modern Heirloom and Cherry Code both reward personalization.'},
+  {title:'Color-blocked tables', tag:'Merchandising', desc:'Group by palette rather than category to spotlight Butter Yellow and Sea Glass as a seasonal statement.'},
+  {title:'Vintage-inspired props', tag:'Styling', desc:'Style heirloom pieces alongside found objects — books, frames, keepsake boxes — to reinforce a collected-over-time feel.'},
+  {title:'Meaning cards at shelf', tag:'Conversion', desc:'A short card on the story behind a piece consistently outsells a bare price tag on sentimental categories.'},
+  {title:'Eye-level try-on mirrors', tag:'Conversion', desc:'Small fixture changes near statement pieces reduce friction on the highest price points.'},
+  {title:'Key-item timed drops', tag:'Merchandising', desc:'Time a single flagship charm, pendant or hair piece to a cultural or seasonal moment and let it sell out fast, rather than releasing a diffuse assortment all at once.'},
+  {title:'Mixed-metal styled stacks', tag:'Merchandising', desc:'Merchandise cuffs and bangles as pre-styled gold-and-silver sets rather than separating by metal tone \u2014 mirrors how shoppers are already buying.'},
+];
+
+const packagingIdeas = [
+  {name:'Gift-ready by default', mark:'box', color:HEX.steady, desc:'Every order leaves the register looking like a gift — no separate wrapping counter needed.'},
+  {name:'Unboxing as a story beat', mark:'ribbon', color:HEX.peaking, desc:'A small reveal moment (a ribbon pull, a tuck-fold lid) gives customers something worth filming.'},
+  {name:'Personalized note cards', mark:'card', color:HEX.growing, desc:'A handwritten line on a printed card reinforces the collected, not mass-bought, feeling.'},
+  {name:'Reusable, low-impact pouches', mark:'leaf', color:HEX.emerging, desc:'Fabric pouches over single-use plastic align packaging with the season\u2019s sustainability signal.'},
+];
+
+const resources = [
+  {name:'Summer 2027 Trend Radar', type:'PDF', size:'2.1 MB'},
+  {name:'Trend Data & Drivers', type:'Excel', size:'640 KB'},
+  {name:'Color Direction Report', type:'PDF', size:'3.4 MB'},
+  {name:'Retailer Trend Scan', type:'PDF', size:'1.8 MB'},
+  {name:'Social Trend Report', type:'PDF', size:'2.6 MB'},
+];
+
+/* =========================================================
+   Render functions
+========================================================= */
+function renderOverview(){
+  return `
+    ${heroBanner('Summer 2027 · Updated continuously', 'What\u2019s moving this season', 'A live read on emerging, growing and peaking trends across every accessory category.')}
+    ${metaRow(['74 trends tracked','26 retailers monitored','Refreshed daily'])}
+
+    <div class="grid cols-4 section-block">
+      <div class="card kpi"><div class="num">74</div><div class="label">Total trends tracked</div><div class="delta">+8 new signals this week</div></div>
+      <div class="card kpi"><div class="num">14</div><div class="label">Accelerating fast</div><div class="delta">Across 4 categories</div></div>
+      <div class="card kpi"><div class="num">6</div><div class="label">Categories monitored</div><div class="delta" style="color:var(--ink-faint)">Jewelry to footwear</div></div>
+      <div class="card kpi"><div class="num">26</div><div class="label">Retailers tracked</div><div class="delta" style="color:var(--ink-faint)">Zara to Anthropologie</div></div>
+    </div>
+
+    <div class="grid cols-2 section-block">
+      <div class="card">
+        <h3>Trend momentum</h3>
+        <div class="donut-wrap">
+          ${donut(overviewDonut)}
+          <div class="legend">
+            ${overviewDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}
+          </div>
+        </div>
+        ${source('Based on 38,400 social mentions and 1,240 retailer SKUs across 24 retailers.')}
+      </div>
+      <div class="card">
+        <h3>Top categories</h3>
+        <div class="list-rank">
+          ${[['Jewelry & charms','25'],['Earrings','14'],['Necklaces','12'],['Hair accessories','8'],['Bags & accessories','6']]
+            .map(([n,v])=>`<div class="item"><span class="name">${n}</span><b>${v}</b></div>`).join('')}
+        </div>
+        ${source('Trend count by category, Summer 2027 tracking period.')}
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="block-head"><h3>What's moving</h3><span class="link" data-tab="stories">View trend stories</span></div>
+      <div class="trend-grid">
+        ${trends.slice(0,6).map(t=>`
+          <div class="trend-card" style="border-top:3px solid ${HEX[t.status]}">
+            <div class="photo" style="background:${HEX[t.status]}17;color:${HEX[t.status]}">
+              ${markIcon(t.mark)}
+            </div>
+            <div class="body">
+              <div class="name">${t.name}</div>
+              <div style="margin:6px 0 10px">${tag(t.status)}</div>
+              <div class="desc">${t.desc}</div>
+              <div class="swatches">${t.colors.map(c=>`<span style="background:${c}"></span>`).join('')}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="grid cols-3 section-block">
+      <div class="card">
+        <h3>Momentum, last 6 months</h3>
+        ${sparkline([42,48,55,63,68,74])}
+        ${source('Composite index of search, social and retail-adoption signals.')}
+      </div>
+      <div class="card">
+        <h3>Fastest growing</h3>
+        <div class="list-rank">
+          ${fastestGrowing.map((f,i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${f.name}</span><span class="pct up">${f.change}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="insight-box">
+        <span class="kicker">Trend insight</span>
+        Summer 2027 rewards contrast: heirloom sentimentality paired with playful, saturated color. Shoppers want pieces that feel personal, yet easy to wear every day.
+      </div>
+    </div>
+  `;
+}
+
+function renderRadar(){
+  const counts = {all: trends.length};
+  Object.keys(STATUS).forEach(s => counts[s] = trends.filter(t=>t.status===s).length);
+  const chips = [['all','All'], ...Object.entries(STATUS).map(([k,v])=>[k,v.label])];
+  return `
+    <div class="section-block">
+      ${metaRow(['16 trends tracked','5 momentum stages','Filter by status below'])}
+      <div class="filter-row">
+        ${chips.map(([key,label])=>`<button class="filter-chip ${key==='all'?'active':''}" data-filter="${key}">${label} <span>${counts[key]||0}</span></button>`).join('')}
+      </div>
+      <div class="radar-list" id="radar-list">
+        ${trends.map(t=>`
+          <div class="radar-row" data-status="${t.status}">
+            <div class="radar-photo" style="background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
+            <div class="radar-mid">
+              <div class="radar-name">${t.name}</div>
+              <div class="radar-desc">${t.desc}</div>
+            </div>
+            <div class="radar-cat">${t.category}</div>
+            <div class="radar-status">${tag(t.status)}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderStories(){
+  return `
+    ${metaRow(['6 features this month','Consumer + retail data','Click a card for key items'])}
+    <div class="grid cols-3 section-block">
+      ${stories.map(s=>`
+        <div class="trend-card story-clickable" style="border-top:3px solid ${HEX[s.status]}" onclick="openStoryModal('${s.id}')">
+          <div class="photo" style="background:${HEX[s.status]}17;color:${HEX[s.status]}">
+            ${markIcon(s.mark)}
+          </div>
+          <div class="body">
+            <div class="name">${s.name}</div>
+            <div style="margin:6px 0 10px">${tag(s.status)}</div>
+            <div class="desc">${s.hook}</div>
+            ${s.facts.map(([k,v])=>`<div style="display:flex;justify-content:space-between;font-size:11.8px;padding:6px 0;border-top:1px solid var(--line)"><span style="color:var(--ink-faint)">${k}</span><span style="font-weight:600">${v}</span></div>`).join('')}
+            <div class="tap-hint">View key items <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="insight-box">
+      <span class="kicker">Why this matters</span>
+      Each story pairs a consumer mindset with concrete product direction — use these as a shorthand for buy and merchandising conversations.
+    </div>
+  `;
+}
+
+function renderOpportunity(){
+  return `
+    ${metaRow(['5 trends × 4 categories','5 signals on watch list','Refreshed monthly'])}
+    <div class="grid cols-2 section-block">
+      <div class="card">
+        <h3>Category opportunity matrix</h3>
+        <table>
+          <thead><tr><th>Trend</th>${opportunityCols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
+          <tbody>
+            ${opportunityRows.map(r=>`
+              <tr>
+                <td class="row-title"><span class="row-photo" style="background:${HEX[r.status]}17;color:${HEX[r.status]}">${markIcon(r.mark)}</span>${r.name}</td>
+                ${r.cells.map(c=>{const s=oppStyle[c];return `<td><span class="opp-cell" style="background:${s.bg};color:${s.color}">${s.label}</span></td>`}).join('')}
+              </tr>`).join('')}
+          </tbody>
+        </table>
+        ${source('Opportunity = consumer demand vs. current category penetration, by retailer SKU count.')}
+      </div>
+      <div class="card">
+        <h3>Top white space</h3>
+        <div class="list-rank">
+          ${whiteSpace.map((w,i)=>`
+            <div class="item" style="align-items:flex-start;flex-direction:column;gap:4px">
+              <div style="display:flex;justify-content:space-between;width:100%">
+                <span class="name"><span class="idx">${i+1}</span>${w.name}</span>
+                <b style="color:var(--accent)">${w.score}/100</b>
+              </div>
+              <span style="font-size:11.5px;color:var(--ink-soft);padding-left:24px">${w.note}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card section-block">
+      <h3>Watch list \u2014 not yet commercially proven</h3>
+      <div class="list-rank">
+        ${watchList.map((w,i)=>`
+          <div class="item" style="align-items:flex-start;flex-direction:column;gap:4px">
+            <span class="name"><span class="idx">${i+1}</span>${w.name}</span>
+            <span style="font-size:11.5px;color:var(--ink-soft);padding-left:24px">Needs: ${w.need}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderHeat(){
+  return `
+    ${metaRow(['5 trends tracked','6-month trendline','Momentum vs. last month'])}
+    <div class="grid cols-2 section-block">
+      <div class="card">
+        <h3>Momentum tracker</h3>
+        <table>
+          <thead><tr><th>Trend</th><th>Momentum</th><th>vs. last month</th><th>Interest</th><th>Stage</th></tr></thead>
+          <tbody>
+            ${heatRows.map(r=>`
+              <tr>
+                <td class="row-title"><span class="row-photo" style="background:${HEX[r.status]}17;color:${HEX[r.status]}">${markIcon(r.mark)}</span>${r.name}</td>
+                <td>${tag(r.status)}</td>
+                <td class="pct ${r.change[0]==='+'?'up':'down'}">${r.change}</td>
+                <td>${dotScale(r.interest)}</td>
+                <td style="color:var(--ink-soft)">${r.stage}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+        ${source('Interest = search volume, social mentions and engagement, scored 1–5.')}
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:18px">
+        <div>
+          <h3>Rising fast</h3>
+          <div class="list-rank">${rising.map((r,i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${r.name}</span><span class="pct up">${r.change}</span></div>`).join('')}</div>
+        </div>
+        <div>
+          <h3>Cooling down</h3>
+          <div class="list-rank">${cooling.map((r,i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${r.name}</span><span class="pct down">${r.change}</span></div>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderTiming(){
+  const cols = [['now',HEX.peaking,'grain-none'],['next',HEX.growing,'grain-mid'],['future',HEX.steady,'grain-far']];
+  return `
+    ${metaRow(['15 trends mapped','Now → 24-month horizon','Confidence fades with distance'])}
+    <div class="timing-cols">
+      ${cols.map(([key,color,grain])=>{
+        const c = timing[key];
+        return `
+        <div class="timing-col">
+          <div class="head"><span class="dot" style="background:${color}"></span><h4>${key.charAt(0).toUpperCase()+key.slice(1)}</h4></div>
+          <div class="window">${c.window}</div>
+          <div class="confidence">${c.confidence}</div>
+          ${c.items.map(([n,d,mark])=>`
+            <div class="timing-item">
+              <div class="t-photo ${grain}" style="background:${color}17;color:${color}">${markIcon(mark)}</div>
+              <div>
+                <div class="t-name">${n}</div>
+                <div class="t-desc">${d}</div>
+              </div>
+            </div>`).join('')}
+          <div class="why">${c.why}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderColor(){
+  return `
+    ${heroBanner('Palette forecast', 'Color Direction 2027', 'A balance of nostalgia and newness — uplifting brights energize the season while sun-faded pastels ground it.')}
+    ${metaRow(['10 core colors','Scroll for Fall & Holiday','Updated each season'])}
+    <div class="section-block">
+      <div class="block-head"><h3>Summer 2027 core palette</h3></div>
+      <div class="swatch-strip">
+        ${palette.map(p=>`
+          <div class="chip">
+            <div class="block" style="background:${p.hex}"></div>
+            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Color momentum</h3>
+        <div class="donut-wrap">
+          ${donut(colorDonut)}
+          <div class="legend">${colorDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+        </div>
+        ${source('Momentum scored from search interest, runway coverage and retail color-adoption.')}
+      </div>
+      <div class="card">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${colorTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:30px">
+      <div class="block-head"><h3>Fall 2027 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="swatch-strip">
+        ${fallPalette.map(p=>`
+          <div class="chip">
+            <div class="block" style="background:${p.hex}"></div>
+            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
+          </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${fallTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:30px">
+      <div class="block-head"><h3>Holiday 2027 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="swatch-strip">
+        ${holidayPalette.map(p=>`
+          <div class="chip">
+            <div class="block" style="background:${p.hex}"></div>
+            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
+          </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${holidayTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `;
+}
+
+function renderMaterials(){
+  return `
+    ${metaRow(['8 materials tracked','Scroll for Fall & Holiday','Refreshed each season'])}
+    <div class="section-block">
+      <div class="block-head"><h3>Summer 2027 materials to watch</h3></div>
+      <div class="mat-grid">
+        ${materials.map(m=>`
+          <div class="mat-chip">
+            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+            <div class="txt">
+              <div class="name">${m.name}</div>
+              ${tag(m.status)}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Material momentum</h3>
+        <div class="donut-wrap">
+          ${donut(materialDonut)}
+          <div class="legend">${materialDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+        </div>
+        ${source('Momentum scored from supplier RFQs, runway coverage and retail SKU growth.')}
+      </div>
+      <div class="card">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${materialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:30px">
+      <div class="block-head"><h3>Fall 2027 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="mat-grid">
+        ${fallMaterials.map(m=>`
+          <div class="mat-chip">
+            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+            <div class="txt">
+              <div class="name">${m.name}</div>
+              ${tag(m.status)}
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${fallMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+
+    <div class="section-block" style="margin-top:30px">
+      <div class="block-head"><h3>Holiday 2027 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="mat-grid">
+        ${holidayMaterials.map(m=>`
+          <div class="mat-chip">
+            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+            <div class="txt">
+              <div class="name">${m.name}</div>
+              ${tag(m.status)}
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Key takeaways</h3>
+        <ul class="bullets">${holidayMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `;
+}
+
+function renderRetail(){
+  return `
+    ${heroBanner('In stores now', 'Retail Watch', 'What\u2019s selling, what\u2019s trending in-store, and how shoppers are responding this season.')}
+    ${metaRow(['24 retailers monitored','1,240+ SKUs tracked','Refreshed weekly'])}
+    <div class="grid cols-3 section-block">
+      <div class="card">
+        <h3>Market pulse</h3>
+        <div class="num" style="font-family:'Spectral',serif;font-size:34px;font-weight:600">${retail.pulse}<span style="font-size:16px;color:var(--ink-faint);font-weight:500">/100</span></div>
+        <div class="delta" style="margin-bottom:10px">${retail.pulseDelta}</div>
+        ${sparkline(retail.pulseSpark,260,70)}
+        ${source('Composite of sell-through, shelf share and new-door distribution.')}
+      </div>
+      <div class="card">
+        <h3>Top growing categories</h3>
+        <div class="list-rank">${retail.growingCats.map(([n,v],i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${n}</span><span class="pct up">${v}</span></div>`).join('')}</div>
+      </div>
+      <div class="card">
+        <h3>Price point performance</h3>
+        <div class="list-rank">${retail.pricePoints.map(([n,v])=>`<div class="item"><span class="name">${n}</span><span class="pct up">${v}</span></div>`).join('')}</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Consumer sentiment</h3>
+      <div class="sentiment-bar">
+        <div style="width:${retail.sentiment.positive}%;background:${HEX.emerging}"></div>
+        <div style="width:${retail.sentiment.neutral}%;background:${HEX.declining}"></div>
+        <div style="width:${retail.sentiment.negative}%;background:${HEX.peaking}"></div>
+      </div>
+      <div class="sentiment-legend">
+        <span><span class="dot" style="background:${HEX.emerging}"></span>Positive ${retail.sentiment.positive}%</span>
+        <span><span class="dot" style="background:${HEX.declining}"></span>Neutral ${retail.sentiment.neutral}%</span>
+        <span><span class="dot" style="background:${HEX.peaking}"></span>Negative ${retail.sentiment.negative}%</span>
+      </div>
+    </div>
+    <div class="card section-block" style="margin-top:18px">
+      <h3>Brand & retailer moves this week</h3>
+      <div class="resource-list">
+        ${retailSignals.map(r=>`
+          <div class="resource-row" style="align-items:flex-start">
+            <div class="resource-mid">
+              <div class="resource-name">${r.name}</div>
+              <div class="resource-meta" style="white-space:normal;line-height:1.5;margin-top:3px">${r.desc}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      ${source('Qualitative signals from brand assortment and merchandising activity, not proprietary sales data.')}
+    </div>
+  `;
+}
+
+function renderInspo(){
+  return `
+    ${metaRow(['6 curated themes','Refreshed each season'])}
+    <div class="trend-grid">
+      ${inspoThemes.map(t=>`
+        <div class="trend-card">
+          <div class="photo" style="background:${t.color}17;color:${t.color}">${markIcon(t.mark)}</div>
+          <div class="body">
+            <div class="name">${t.name}</div>
+            <div class="desc">${t.desc}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+function renderMicroDrops(){
+  return `
+    ${metaRow(['12 new signals','Refreshed weekly','Not yet full trend profiles'])}
+    <div class="insight-box section-block">
+      <span class="kicker">New this month</span>
+      Smaller, faster-moving signals — worth watching before they're big enough to earn a full trend profile.
+    </div>
+    <div class="micro-grid">
+      ${microTrends.map(m=>`
+        <div class="micro-chip">
+          <div class="micro-photo" style="background:${m.color}17;color:${m.color}">${markIcon(m.mark)}<span class="micro-badge">New</span></div>
+          <div class="micro-txt">
+            <div class="micro-name">${m.name}</div>
+            <div class="micro-desc">${m.desc}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+function renderMerchandising(){
+  return `
+    ${heroBanner('How to sell it', 'Merchandising', 'Ideas for translating this season\u2019s trends into displays, bundles and stories that move product on the floor.')}
+    ${metaRow(['6 field-tested ideas','Sourced from retailer walkthroughs'])}
+    <div class="grid cols-3">
+      ${merchandisingIdeas.map(m=>`
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <div class="name" style="font-family:'Spectral',serif;font-size:15.5px;font-weight:600">${m.title}</div>
+          </div>
+          <span class="pill" style="background:var(--accent-soft);color:var(--accent);margin-bottom:10px"><span class="dot" style="background:var(--accent)"></span>${m.tag}</span>
+          <div class="desc" style="font-size:12.6px;color:var(--ink-soft);line-height:1.55">${m.desc}</div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+function renderPackaging(){
+  return `
+    ${metaRow(['4 packaging directions','Tied to this season\u2019s sustainability signal'])}
+    <div class="trend-grid">
+      ${packagingIdeas.map(p=>`
+        <div class="trend-card">
+          <div class="photo" style="background:${p.color}17;color:${p.color}">${markIcon(p.mark)}</div>
+          <div class="body">
+            <div class="name">${p.name}</div>
+            <div class="desc">${p.desc}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+function renderResources(){
+  return `
+    ${metaRow(['5 downloadable reports','Regenerated with every refresh'])}
+    <div class="card">
+      <h3>Reports & data</h3>
+      <div class="resource-list">
+        ${resources.map(r=>`
+          <div class="resource-row">
+            <div class="resource-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7Z"/><path d="M14 3v4h4"/><path d="M9.5 12.5h5M9.5 15.5h5"/></svg>
+            </div>
+            <div class="resource-mid">
+              <div class="resource-name">${r.name}</div>
+              <div class="resource-meta">${r.type} · ${r.size}</div>
+            </div>
+            <button class="btn resource-btn">Download</button>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   Router
+========================================================= */
+const SECTIONS = [
+  {id:'overview', label:'Dashboard', icon:'overview', title:'Dashboard', sub:'Real-time tracking of what\u2019s emerging, growing and peaking this season.', render:renderOverview},
+  {id:'radar', label:'Trend Radar', icon:'radar', title:'Trend Radar', sub:'What\u2019s new \u2014 every tracked trend, filterable by momentum.', render:renderRadar},
+  {id:'stories', label:'Trend Stories', icon:'stories', title:'Trend Stories', sub:'Consumer narratives behind the season\u2019s biggest movements.', render:renderStories},
+  {id:'micro', label:'Micro Trend Drops', icon:'micro', title:'Micro Trend Drops', sub:'New this month \u2014 small signals worth watching early.', render:renderMicroDrops},
+  {id:'opportunity', label:'Opportunity Map', icon:'opp', title:'Opportunity Map', sub:'Where the gaps are, and where the assortment can win.', render:renderOpportunity},
+  {id:'heat', label:'Trend Heat Map', icon:'heat', title:'Trend Heat Map', sub:'Momentum at a glance \u2014 what\u2019s heating up, holding, or cooling down.', render:renderHeat},
+  {id:'timing', label:'Now / Next / Future', icon:'timing', title:'Now / Next / Future', sub:'Smart timing for stronger assortments, out to a 24-month horizon.', render:renderTiming},
+  {id:'color', label:'Color Direction', icon:'color', title:'Color Direction', sub:'Forward-looking palettes for Summer 2027.', render:renderColor},
+  {id:'materials', label:'Materials & Finishes', icon:'materials', title:'Materials & Finishes', sub:'Textures and finishes shaping the season.', render:renderMaterials},
+  {id:'retail', label:'Retail Watch', icon:'retail', title:'Retail Watch', sub:'What\u2019s happening in stores right now.', render:renderRetail},
+  {id:'inspo', label:'Product Inspiration', icon:'inspo', title:'Product Inspiration', sub:'Curated direction to spark the next assortment.', render:renderInspo},
+  {id:'merch', label:'Merchandising', icon:'merch', title:'Merchandising', sub:'How to sell it \u2014 display and storytelling ideas.', render:renderMerchandising},
+  {id:'packaging', label:'Packaging Inspiration', icon:'packaging', title:'Packaging Inspiration', sub:'Elevate the experience, from box to unboxing.', render:renderPackaging},
+  {id:'resources', label:'Resources', icon:'resources', title:'Resources', sub:'Reports and data behind every section.', render:renderResources},
+];
+
+const navEl = document.getElementById('nav');
+const viewsEl = document.getElementById('views');
+SECTIONS.forEach(s=>{
+  const b = document.createElement('button');
+  b.className = 'nav-item';
+  b.dataset.tab = s.id;
+  b.innerHTML = navIcon(s.icon) + s.label;
+  b.onclick = () => go(s.id);
+  navEl.appendChild(b);
+
+  const sec = document.createElement('section');
+  sec.className = 'view';
+  sec.id = 'view-'+s.id;
+  viewsEl.appendChild(sec);
+});
+
+function fmtDate(d){
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' \u00b7 ' +
+    d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+}
+
+let lastUpdated = new Date();
+
+function go(id){
+  const s = SECTIONS.find(x=>x.id===id);
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.tab===id));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const target = document.getElementById('view-'+id);
+  if(!target.dataset.built){
+    target.innerHTML = s.render();
+    target.dataset.built = '1';
+    target.querySelectorAll('[data-tab]').forEach(el=>{
+      if(el.classList.contains('link')) el.addEventListener('click', ()=>go(el.dataset.tab));
+    });
+    target.querySelectorAll('.filter-chip').forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        target.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+        chip.classList.add('active');
+        const f = chip.dataset.filter;
+        target.querySelectorAll('.radar-row').forEach(row=>{
+          row.style.display = (f==='all' || row.dataset.status===f) ? '' : 'none';
+        });
+      });
+    });
+    target.querySelectorAll('.resource-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>showToast('This is a demo \u2014 connect a real file to enable downloads'));
+    });
+  }
+  target.classList.add('active');
+  document.getElementById('view-title').textContent = s.title;
+  document.getElementById('view-sub').textContent = s.sub;
+  window.scrollTo({top:0});
+}
+
+document.getElementById('updated-label').textContent = 'Updated ' + fmtDate(lastUpdated);
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function openStoryModal(id){
+  const s = stories.find(x=>x.id===id);
+  if(!s) return;
+  const modal = document.getElementById('story-modal');
+  modal.innerHTML = `
+    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
+    <div class="m-photo" style="background:${HEX[s.status]}17;color:${HEX[s.status]}">${markIcon(s.mark)}</div>
+    <h3 class="m-title">${s.name}</h3>
+    <div style="margin-bottom:12px">${tag(s.status)}</div>
+    <div class="m-hook">${s.hook}</div>
+    <div class="m-facts">
+      ${s.facts.map(([k,v])=>`<div class="m-fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
+    </div>
+    <div class="m-key-head">Key items</div>
+    <div class="key-items-grid">
+      ${(s.keyItems||[]).map(k=>`
+        <div class="key-item-card">
+          <div class="ki-photo" style="background:${HEX[s.status]}17;color:${HEX[s.status]}">${markIcon(k.mark)}</div>
+          <div class="ki-title">${k.name}</div>
+        </div>`).join('')}
+    </div>
+  `;
+  document.getElementById('story-modal-overlay').classList.add('show');
+}
+
+function closeStoryModal(){
+  document.getElementById('story-modal-overlay').classList.remove('show');
+}
+
+document.getElementById('story-modal-overlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'story-modal-overlay') closeStoryModal();
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') closeStoryModal();
+});
+
+document.getElementById('refresh-btn').addEventListener('click', ()=>{
+  lastUpdated = new Date();
+  document.getElementById('updated-label').textContent = 'Updated ' + fmtDate(lastUpdated);
+  showToast('Trend data refreshed');
+});
+document.getElementById('share-btn').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(window.location.href);
+    showToast('Live link copied to clipboard');
+  }catch(e){
+    showToast('Copy this page\u2019s URL from your browser to share');
+  }
+});
+document.getElementById('download-btn').addEventListener('click', ()=>window.print());
+
+go('overview');
+</script>
+</body>
+</html>
