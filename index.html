@@ -3,43 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas — Trend Intelligence</title>
+<title>FAF — Trend Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F5EEE3;
-    --surface:#FFFCF6;
-    --ink:#241C15;
-    --ink-soft:#786D5F;
-    --ink-faint:#AA9C88;
-    --line:#E6D9C4;
-    --accent:#A8462D;
-    --accent-soft:#F3E2D3;
-    --c-emerging:#5F7A4E;
-    --c-growing:#C08A2E;
+    --bg:#F3F4F6;
+    --surface:#FFFFFF;
+    --ink:#263444;
+    --ink-soft:#5A6472;
+    --ink-faint:#8B93A0;
+    --line:#E4E6E9;
+    --accent:#253B55;
+    --accent-soft:#E4E8EE;
+    --gold:#C5A16F;
+    --c-emerging:#59643C;
+    --c-growing:#C5A16F;
     --c-peaking:#A8462D;
-    --c-steady:#7A6A52;
-    --c-declining:#AA9C88;
+    --c-steady:#59616B;
+    --c-declining:#9AA0A6;
     --radius:14px;
     --radius-sm:8px;
-    --shadow:0 1px 2px rgba(60,40,20,.05), 0 12px 30px rgba(60,40,20,.07);
-    --shadow-sm:0 1px 2px rgba(60,40,20,.06);
+    --shadow:0 1px 2px rgba(37,59,85,.05), 0 12px 30px rgba(37,59,85,.08);
+    --shadow-sm:0 1px 2px rgba(37,59,85,.06);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#1C1712; --surface:#26201A; --ink:#F1E9DD; --ink-soft:#B8AA97; --ink-faint:#8A7C69;
-      --line:#3A3128; --accent:#E08A62; --accent-soft:#3A2A22;
-      --c-emerging:#8FAE7A; --c-growing:#E0B255; --c-peaking:#E08A62; --c-steady:#A99A85; --c-declining:#75695A;
+      --bg:#161C24; --surface:#1F2731; --ink:#EDEFF2; --ink-soft:#AEB6C0; --ink-faint:#77808C;
+      --line:#2C3540; --accent:#7C93B0; --accent-soft:#25313F;
+      --c-emerging:#8CA26A; --c-growing:#D4B784; --c-peaking:#D07A56; --c-steady:#8B96A3; --c-declining:#6C7580;
       --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px rgba(0,0,0,.35);
       --shadow-sm:0 1px 2px rgba(0,0,0,.25);
     }
   }
   :root[data-theme="dark"]{
-    --bg:#1C1712; --surface:#26201A; --ink:#F1E9DD; --ink-soft:#B8AA97; --ink-faint:#8A7C69;
-    --line:#3A3128; --accent:#E08A62; --accent-soft:#3A2A22;
-    --c-emerging:#8FAE7A; --c-growing:#E0B255; --c-peaking:#E08A62; --c-steady:#A99A85; --c-declining:#75695A;
+    --bg:#161C24; --surface:#1F2731; --ink:#EDEFF2; --ink-soft:#AEB6C0; --ink-faint:#77808C;
+    --line:#2C3540; --accent:#7C93B0; --accent-soft:#25313F;
+    --c-emerging:#8CA26A; --c-growing:#D4B784; --c-peaking:#D07A56; --c-steady:#8B96A3; --c-declining:#6C7580;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 30px rgba(0,0,0,.35);
     --shadow-sm:0 1px 2px rgba(0,0,0,.25);
   }
@@ -48,11 +49,11 @@
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family:'Inter',sans-serif;
+    font-family:'Montserrat',sans-serif;
     font-size:14px;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,.serif{font-family:'Spectral',serif;}
+  h1,h2,h3,.serif{font-family:'Playfair Display',serif;}
   a{color:inherit;}
   button{font-family:inherit;}
   ::selection{background:var(--accent-soft);}
@@ -66,15 +67,18 @@
     padding:28px 18px;position:sticky;top:0;height:100vh;
   }
   .brand{margin-bottom:30px;padding:0 8px;}
-  .brand .mark{
-    width:34px;height:34px;border-radius:50%;
-    background:linear-gradient(155deg,#A8462D,#C97A4A);
-    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
-    box-shadow:0 4px 10px rgba(168,70,45,.28);
-  }
-  .brand .mark span{font-family:'Spectral',serif;font-size:16px;font-weight:600;color:#fff;}
   .brand h1{font-size:19px;margin:0 0 2px;font-weight:600;letter-spacing:.1px;}
   .brand p{margin:0;font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em;}
+  .faf-logo{display:flex;align-items:center;gap:9px;}
+  .faf-mark{
+    font-family:'Montserrat',sans-serif;font-weight:300;font-size:21px;
+    letter-spacing:.32em;color:var(--ink);line-height:1;margin-right:-.32em;
+  }
+  .faf-divider{width:1px;height:28px;background:var(--line);flex:none;}
+  .faf-tagline{
+    font-family:'Montserrat',sans-serif;font-weight:500;font-size:7.3px;
+    letter-spacing:.19em;color:var(--ink-soft);line-height:1.85;white-space:nowrap;
+  }
 
   nav{flex:1;display:flex;flex-direction:column;gap:2px;}
   .nav-item{
@@ -116,7 +120,7 @@
   .btn:hover{border-color:#C7C4BA;}
   .btn:active{transform:scale(.98);}
   .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
-  .btn.primary:hover{background:#8A3A24;}
+  .btn.primary:hover{background:#1B2A3D;}
   .btn svg{width:13px;height:13px;}
 
   section.view{display:none;animation:fade .4s ease;}
@@ -134,17 +138,17 @@
     padding:20px 22px;box-shadow:var(--shadow-sm);
   }
   .card h3{
-    font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-soft);
+    font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-soft);
     margin:0 0 14px;letter-spacing:.01em;
   }
-  .kpi .num{font-family:'Spectral',serif;font-size:31px;font-weight:600;line-height:1;}
+  .kpi .num{font-family:'Playfair Display',serif;font-size:31px;font-weight:600;line-height:1;}
   .kpi .label{font-size:12px;color:var(--ink-soft);margin-top:6px;}
   .kpi .delta{font-size:11.5px;margin-top:8px;color:var(--c-emerging);font-weight:600;}
   .kpi .delta.down{color:var(--c-peaking);}
 
   .section-block{margin-bottom:26px;}
   .section-block > .block-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
-  .section-block > .block-head h3{font-family:'Spectral',serif;font-size:18px;font-weight:600;color:var(--ink);margin:0;}
+  .section-block > .block-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);margin:0;}
   .section-block > .block-head .link{font-size:12px;color:var(--accent);cursor:pointer;font-weight:600;}
 
   .pill{
@@ -162,14 +166,35 @@
   .hero{
     position:relative;border-radius:20px;overflow:hidden;margin-bottom:26px;
     min-height:190px;display:flex;align-items:flex-end;box-shadow:var(--shadow);
-    background:linear-gradient(135deg,#2A2118 0%,#3E2E20 48%,#6B3E27 100%);
+    background:linear-gradient(135deg,#1B2635 0%,#253B55 52%,#8A7147 100%);
   }
   .hero-pattern{position:absolute;inset:0;width:100%;height:100%;}
-  .hero-pattern circle{fill:none;stroke:#F5EEE3;stroke-width:1;opacity:.16;}
+  .hero-pattern circle{fill:none;stroke:#F3F4F6;stroke-width:1;opacity:.16;}
   .hero-content{position:relative;z-index:1;padding:28px 32px;color:#fff;}
-  .hero-content .eyebrow{font-size:11.5px;letter-spacing:.04em;opacity:.85;margin-bottom:6px;}
-  .hero-content h2{font-family:'Spectral',serif;font-size:26px;font-weight:600;margin:0 0 6px;color:#fff;}
+  .hero-content .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85;margin-bottom:8px;}
+  .hero-content h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;margin:0 0 6px;color:#fff;}
   .hero-content p{font-size:13.2px;max-width:480px;line-height:1.5;opacity:.92;margin:0;}
+
+  .hero-carousel{touch-action:pan-y;}
+  .hero-slide{
+    position:absolute;inset:0;display:flex;align-items:flex-end;
+    opacity:0;pointer-events:none;transition:opacity .5s ease;
+  }
+  .hero-slide.active{opacity:1;pointer-events:auto;z-index:1;}
+  .hero-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;z-index:2;transition:background .2s ease;
+  }
+  .hero-arrow:hover{background:rgba(255,255,255,.32);}
+  .hero-arrow.prev{left:14px;}
+  .hero-arrow.next{right:14px;}
+  .hero-arrow svg{width:16px;height:16px;}
+  .hero-dots{position:absolute;bottom:14px;right:20px;z-index:2;display:flex;gap:6px;}
+  .hero-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .2s ease;}
+  .hero-dot.active{background:#fff;width:18px;border-radius:4px;}
 
   /* Trend chip cards */
   .trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -189,7 +214,7 @@
   }
   .trend-card .photo .status-pill .dot{width:6px;height:6px;border-radius:50%;}
   .trend-card .body{padding:15px 17px 18px;}
-  .trend-card .name{font-family:'Spectral',serif;font-size:16.5px;font-weight:600;margin-bottom:5px;}
+  .trend-card .name{font-family:'Playfair Display',serif;font-size:16.5px;font-weight:600;margin-bottom:5px;}
   .trend-card .desc{font-size:12.3px;color:var(--ink-soft);line-height:1.5;margin-bottom:11px;min-height:36px;}
   .swatches{display:flex;gap:5px;}
   .swatches span{width:15px;height:15px;border-radius:50%;border:1px solid rgba(0,0,0,.08);}
@@ -235,7 +260,7 @@
     background:var(--accent-soft);border-radius:var(--radius);padding:19px 22px;
     font-size:13px;line-height:1.6;color:var(--ink);
   }
-  .insight-box .kicker{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;display:block;}
+  .insight-box .kicker{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:.14em;}
 
   .bullets{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
   .bullets li{font-size:12.8px;line-height:1.5;padding-left:16px;position:relative;color:var(--ink);}
@@ -263,7 +288,7 @@
   .timing-col{border:1px solid var(--line);border-radius:var(--radius);padding:19px;background:var(--surface);box-shadow:var(--shadow-sm);}
   .timing-col .head{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
   .timing-col .head .dot{width:8px;height:8px;border-radius:50%;}
-  .timing-col .head h4{font-family:'Spectral',serif;font-size:16.5px;margin:0;font-weight:600;}
+  .timing-col .head h4{font-family:'Playfair Display',serif;font-size:16.5px;margin:0;font-weight:600;}
   .timing-col .window{font-size:11px;color:var(--ink-faint);margin-bottom:4px;}
   .timing-col .confidence{font-size:11px;color:var(--accent);font-weight:600;margin-bottom:14px;}
   .timing-item{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;}
@@ -316,13 +341,13 @@
   .story-modal .close-btn:hover{color:var(--ink);}
   .story-modal .m-photo{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
   .story-modal .m-photo svg{width:28px;height:28px;}
-  .story-modal h3.m-title{font-family:'Spectral',serif;font-size:23px;font-weight:600;margin:0 0 8px;padding-right:30px;}
+  .story-modal h3.m-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:600;margin:0 0 8px;padding-right:30px;}
   .story-modal .m-hook{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:18px;}
   .story-modal .m-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
   .story-modal .m-fact{background:var(--bg);border-radius:10px;padding:10px 12px;}
   .story-modal .m-fact .k{font-size:10.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
   .story-modal .m-fact .v{font-size:12.5px;font-weight:600;}
-  .story-modal .m-key-head{font-family:'Spectral',serif;font-size:15px;font-weight:600;margin:0 0 12px;}
+  .story-modal .m-key-head{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin:0 0 12px;}
   .key-items-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
   .key-item-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);}
   .key-item-card .ki-photo{
@@ -396,13 +421,12 @@
 <div class="app">
   <aside class="sidebar">
     <div class="brand">
-      <div class="mark"><span>A</span></div>
-      <h1>Atlas</h1>
+      <h1>FAF Inc.</h1>
       <p>Trend intelligence</p>
     </div>
     <nav id="nav"></nav>
     <div class="sidebar-foot">
-      <div class="season-pill"><span>Season</span><b>Summer 2027</b></div>
+      <div class="season-pill"><span>Season</span><b>Holiday 2027</b></div>
     </div>
   </aside>
 
@@ -436,7 +460,7 @@
 /* =========================================================
    Tokens & helpers
 ========================================================= */
-const HEX = {emerging:'#5F7A4E', growing:'#C08A2E', peaking:'#A8462D', steady:'#7A6A52', declining:'#AA9C88', accent:'#A8462D'};
+const HEX = {emerging:'#59643C', growing:'#C5A16F', peaking:'#A8462D', steady:'#59616B', declining:'#9AA0A6', accent:'#253B55'};
 const STATUS = {
   emerging:  {label:'Emerging',  color:HEX.emerging,  bg:'#E7EEE0', fg:'#41562F'},
   growing:   {label:'Growing',   color:HEX.growing,   bg:'#FAEFD9', fg:'#8A5A12'},
@@ -548,6 +572,32 @@ function heroBanner(eyebrow, title, sub){
         <div class="eyebrow">${eyebrow}</div>
         <h2>${title}</h2>
         <p>${sub}</p>
+      </div>
+    </div>`;
+}
+
+function heroCarousel(slides){
+  return `
+    <div class="hero hero-carousel">
+      <svg class="hero-pattern" viewBox="0 0 400 190" preserveAspectRatio="xMaxYMid slice">
+        <circle cx="330" cy="70" r="26"/><circle cx="330" cy="70" r="50"/><circle cx="330" cy="70" r="74"/><circle cx="330" cy="70" r="98"/><circle cx="330" cy="70" r="122"/>
+      </svg>
+      ${slides.map((s,i)=>`
+        <div class="hero-slide ${i===0?'active':''}">
+          <div class="hero-content">
+            <div class="eyebrow">${s.eyebrow}</div>
+            <h2>${s.title}</h2>
+            <p>${s.sub}</p>
+          </div>
+        </div>`).join('')}
+      <button class="hero-arrow prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="hero-arrow next" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="hero-dots">
+        ${slides.map((_,i)=>`<span class="hero-dot ${i===0?'active':''}"></span>`).join('')}
       </div>
     </div>`;
 }
@@ -729,45 +779,6 @@ const timing = {
 };
 
 const palette = [
-  {name:'Cherry Red', hex:'#B4472A', status:'peaking'},
-  {name:'Apricot Zest', hex:'#D9793A', status:'growing'},
-  {name:'Butter Yellow', hex:'#D9B24C', status:'growing'},
-  {name:'Sea Glass', hex:'#7FA79A', status:'steady'},
-  {name:'Pure Blue', hex:'#7C93B0', status:'steady'},
-  {name:'Lavender Haze', hex:'#A79BC2', status:'emerging'},
-  {name:'Olive Leaf', hex:'#71773F', status:'steady'},
-  {name:'Sand Dune', hex:'#C7B393', status:'steady'},
-  {name:'Ivory', hex:'#EFEAE0', status:'steady'},
-  {name:'Night Sky', hex:'#1B2130', status:'steady'},
-];
-const colorDonut = [
-  {label:'Rising fast', value:8, color:HEX.peaking},
-  {label:'Growing', value:10, color:HEX.growing},
-  {label:'Steady', value:7, color:HEX.steady},
-  {label:'Emerging', value:6, color:HEX.emerging},
-  {label:'Cooling', value:3, color:HEX.declining},
-];
-const colorTakeaways = [
-  'Bright accents continue to drive excitement in social engagement.',
-  'Oceanic and sea-glass tones show strong retail adoption across categories.',
-  'Warm neutrals and soft pastels remain the core of everyday styling.',
-];
-
-const fallPalette = [
-  {name:'Antique Gold', hex:'#C08A2E', status:'growing'},
-  {name:'Chestnut', hex:'#7A4B2E', status:'growing'},
-  {name:'Burgundy', hex:'#6B2A2C', status:'emerging'},
-  {name:'Forest Green', hex:'#3E4F35', status:'emerging'},
-  {name:'Dove Gray', hex:'#8C8577', status:'steady'},
-  {name:'Charcoal', hex:'#2A2622', status:'steady'},
-];
-const fallTakeaways = [
-  'Warm metallics (antique gold, aged brass) carry over from summer into richer, deeper settings.',
-  'Jewel tones — burgundy, forest green — pair naturally with the season\u2019s sculptural and heirloom pieces.',
-  'Directional forecast: builds on current signals, not yet confirmed by Fall 2027 runway or retail data.',
-];
-
-const holidayPalette = [
   {name:'Deep Emerald', hex:'#2E4A3A', status:'emerging'},
   {name:'Cranberry', hex:'#8C2F3A', status:'emerging'},
   {name:'Champagne Gold', hex:'#D4B26A', status:'growing'},
@@ -775,57 +786,57 @@ const holidayPalette = [
   {name:'Midnight Navy', hex:'#1B2130', status:'steady'},
   {name:'Warm Silver', hex:'#AA9C88', status:'growing'},
 ];
-const holidayTakeaways = [
+const colorDonut = [
+  {label:'Growing', value:2, color:HEX.growing},
+  {label:'Emerging', value:2, color:HEX.emerging},
+  {label:'Steady', value:2, color:HEX.steady},
+];
+const colorTakeaways = [
   'Gift-forward metallics (champagne gold, warm silver) lean into the season\u2019s personalization and gifting story.',
-  'Jewel tones stay rich rather than bright, pairing with lace/pearl detailing for occasion dressing.',
+  'Jewel tones stay rich rather than bright, pairing with lace and pearl detailing for occasion dressing.',
   'Directional forecast: extends current signals toward holiday gifting; confirm against Q4 retail assortments.',
 ];
 
+const springPalette = [
+  {name:'Blush Quartz', hex:'#E8C9C2', status:'emerging'},
+  {name:'Soft Sage', hex:'#A9B79E', status:'growing'},
+  {name:'Pale Gold', hex:'#DCC08A', status:'growing'},
+  {name:'Powder Blue', hex:'#A9C0D1', status:'emerging'},
+  {name:'Ivory', hex:'#F3EFE6', status:'steady'},
+  {name:'Dove Gray', hex:'#A9A79E', status:'steady'},
+];
+const springTakeaways = [
+  'A palette reset after holiday\u2019s richness \u2014 soft pastels and pale metallics signal a lighter, fresher mood for spring.',
+  'Powder blue extends Pinterest\u2019s cool-toned, glacier-inspired search signal into a confirmed seasonal direction.',
+  'Directional forecast: builds on current signals, not yet confirmed by Spring 2028 runway or retail data.',
+];
+
 const materials = [
-  {name:'Freshwater Pearl', status:'growing', icon:'droplet'},
-  {name:'Natural Stone', status:'growing', icon:'leaf'},
-  {name:'Resin & Acrylic', status:'peaking', icon:'resin'},
-  {name:'Enamel', status:'steady', icon:'hex'},
-  {name:'Mixed Metals', status:'peaking', icon:'layers'},
-  {name:'Gold Plated', status:'steady', icon:'ring'},
-  {name:'Recycled Metals', status:'emerging', icon:'hex'},
-  {name:'Fabric & Cord', status:'emerging', icon:'weave'},
-];
-const materialDonut = [
-  {label:'Rising fast', value:9, color:HEX.peaking},
-  {label:'Growing', value:12, color:HEX.growing},
-  {label:'Steady', value:7, color:HEX.steady},
-  {label:'Emerging', value:5, color:HEX.emerging},
-  {label:'Cooling', value:2, color:HEX.declining},
-];
-const materialTakeaways = [
-  'Mixed metals and two-tone finishes continue gaining traction.',
-  'Natural stone, pearl and organic textures feel authentic and timeless.',
-  'Recycled and low-impact materials increasingly influence purchase decisions.',
-];
-
-const fallMaterials = [
-  {name:'Hammered / Brushed Metal', status:'growing', icon:'hex'},
-  {name:'Antiqued Metal', status:'emerging', icon:'ring'},
-  {name:'Suede & Leather Cord', status:'emerging', icon:'weave'},
-  {name:'Enamel', status:'growing', icon:'hex'},
-  {name:'Velvet Ribbon', status:'emerging', icon:'ribbon'},
-];
-const fallMaterialTakeaways = [
-  'Texture deepens for fall — brushed and antiqued metal finishes replace summer\u2019s high-shine plating.',
-  'Suede cord and velvet ribbon bring a tactile, cozy-luxe note to charms and hair pieces.',
-];
-
-const holidayMaterials = [
   {name:'Champagne Gold Plating', status:'growing', icon:'ring'},
   {name:'Freshwater Pearl', status:'growing', icon:'droplet'},
   {name:'Cubic Zirconia Pav\u00e9', status:'emerging', icon:'star'},
   {name:'Lace Appliqu\u00e9', status:'emerging', icon:'weave'},
   {name:'Gift-Ready Velvet Pouch', status:'emerging', icon:'box'},
 ];
-const holidayMaterialTakeaways = [
-  'Sparkle returns for the gifting season — pav\u00e9 and pearl detailing lift everyday charm pieces into occasion territory.',
+const materialDonut = [
+  {label:'Growing', value:2, color:HEX.growing},
+  {label:'Emerging', value:3, color:HEX.emerging},
+];
+const materialTakeaways = [
+  'Sparkle returns for the gifting season \u2014 pav\u00e9 and pearl detailing lift everyday charm pieces into occasion territory.',
   'Packaging-adjacent materials (velvet pouches, ribbon) matter as much as the piece itself for holiday sell-through.',
+];
+
+const springMaterials = [
+  {name:'Pastel Enamel', status:'emerging', icon:'hex'},
+  {name:'Woven Raffia & Straw', status:'emerging', icon:'weave'},
+  {name:'Soft Leather Cord', status:'emerging', icon:'rope'},
+  {name:'Seed Pearl', status:'growing', icon:'droplet'},
+  {name:'Recycled Glass Beads', status:'emerging', icon:'leaf'},
+];
+const springMaterialTakeaways = [
+  'Texture lightens for spring \u2014 pastel enamel and woven natural fibers replace holiday\u2019s metallics and velvet.',
+  'Seed pearls and recycled glass beads offer an accessible, elevated alternative to freshwater pearl detailing.',
 ];
 
 
@@ -888,7 +899,7 @@ const packagingIdeas = [
 ];
 
 const resources = [
-  {name:'Summer 2027 Trend Radar', type:'PDF', size:'2.1 MB'},
+  {name:'Holiday 2027 Trend Radar', type:'PDF', size:'2.1 MB'},
   {name:'Trend Data & Drivers', type:'Excel', size:'640 KB'},
   {name:'Color Direction Report', type:'PDF', size:'3.4 MB'},
   {name:'Retailer Trend Scan', type:'PDF', size:'1.8 MB'},
@@ -900,7 +911,12 @@ const resources = [
 ========================================================= */
 function renderOverview(){
   return `
-    ${heroBanner('Summer 2027 · Updated continuously', 'What\u2019s moving this season', 'A live read on emerging, growing and peaking trends across every accessory category.')}
+    ${heroCarousel([
+      {eyebrow:'Holiday 2027 \u00b7 Updated continuously', title:'What\u2019s moving this season', sub:'A live read on emerging, growing and peaking trends across every accessory category.'},
+      {eyebrow:'New this week', title:'Charm storytelling leads the pack', sub:'Maximalist, personalized charm necklaces are this week\u2019s fastest-moving jewelry story \u2014 see the full breakdown in Trend Stories.'},
+      {eyebrow:'Now live', title:'Holiday & Spring \u201928 palettes are up', sub:'Holiday 2027 core colors and directional Spring 2028 color and material forecasts are now available under Color Direction and Materials & Finishes.'},
+      {eyebrow:'Retail watch', title:'Personalization goes permanent', sub:'Anthropologie\u2019s shop-in-shop charm bar and Kendra Scott\u2019s category expansion signal where the market is heading \u2014 full read in Retail Watch.'},
+    ])}
     ${metaRow(['74 trends tracked','26 retailers monitored','Refreshed daily'])}
 
     <div class="grid cols-4 section-block">
@@ -927,7 +943,7 @@ function renderOverview(){
           ${[['Jewelry & charms','25'],['Earrings','14'],['Necklaces','12'],['Hair accessories','8'],['Bags & accessories','6']]
             .map(([n,v])=>`<div class="item"><span class="name">${n}</span><b>${v}</b></div>`).join('')}
         </div>
-        ${source('Trend count by category, Summer 2027 tracking period.')}
+        ${source('Trend count by category, Holiday 2027 tracking period.')}
       </div>
     </div>
 
@@ -963,7 +979,7 @@ function renderOverview(){
       </div>
       <div class="insight-box">
         <span class="kicker">Trend insight</span>
-        Summer 2027 rewards contrast: heirloom sentimentality paired with playful, saturated color. Shoppers want pieces that feel personal, yet easy to wear every day.
+        Holiday 2027 rewards personalization: sentimental, story-driven pieces paired with rich, gift-ready metallics. Shoppers want pieces that feel personal, yet give-able.
       </div>
     </div>
   `;
@@ -1129,10 +1145,10 @@ function renderTiming(){
 
 function renderColor(){
   return `
-    ${heroBanner('Palette forecast', 'Color Direction 2027', 'A balance of nostalgia and newness — uplifting brights energize the season while sun-faded pastels ground it.')}
-    ${metaRow(['10 core colors','Scroll for Fall & Holiday','Updated each season'])}
+    ${heroBanner('Palette forecast', 'Color Direction: Holiday \u201927 \u2192 Spring \u201928', 'Rich, gift-ready jewel tones carry the season into Holiday, giving way to a softer, pastel reset for Spring.')}
+    ${metaRow(['6 core colors','Scroll for Spring 2028','Updated each season'])}
     <div class="section-block">
-      <div class="block-head"><h3>Summer 2027 core palette</h3></div>
+      <div class="block-head"><h3>Holiday 2027 core palette</h3></div>
       <div class="swatch-strip">
         ${palette.map(p=>`
           <div class="chip">
@@ -1157,9 +1173,9 @@ function renderColor(){
     </div>
 
     <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Fall 2027 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="block-head"><h3>Spring 2028 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
       <div class="swatch-strip">
-        ${fallPalette.map(p=>`
+        ${springPalette.map(p=>`
           <div class="chip">
             <div class="block" style="background:${p.hex}"></div>
             <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
@@ -1167,22 +1183,7 @@ function renderColor(){
       </div>
       <div class="card" style="margin-top:14px">
         <h3>Key takeaways</h3>
-        <ul class="bullets">${fallTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
-      </div>
-    </div>
-
-    <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Holiday 2027 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
-      <div class="swatch-strip">
-        ${holidayPalette.map(p=>`
-          <div class="chip">
-            <div class="block" style="background:${p.hex}"></div>
-            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
-          </div>`).join('')}
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${holidayTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        <ul class="bullets">${springTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
       </div>
     </div>
   `;
@@ -1190,9 +1191,9 @@ function renderColor(){
 
 function renderMaterials(){
   return `
-    ${metaRow(['8 materials tracked','Scroll for Fall & Holiday','Refreshed each season'])}
+    ${metaRow(['5 materials tracked','Scroll for Spring 2028','Refreshed each season'])}
     <div class="section-block">
-      <div class="block-head"><h3>Summer 2027 materials to watch</h3></div>
+      <div class="block-head"><h3>Holiday 2027 materials to watch</h3></div>
       <div class="mat-grid">
         ${materials.map(m=>`
           <div class="mat-chip">
@@ -1220,9 +1221,9 @@ function renderMaterials(){
     </div>
 
     <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Fall 2027 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="block-head"><h3>Spring 2028 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
       <div class="mat-grid">
-        ${fallMaterials.map(m=>`
+        ${springMaterials.map(m=>`
           <div class="mat-chip">
             <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
             <div class="txt">
@@ -1233,25 +1234,7 @@ function renderMaterials(){
       </div>
       <div class="card" style="margin-top:14px">
         <h3>Key takeaways</h3>
-        <ul class="bullets">${fallMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
-      </div>
-    </div>
-
-    <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Holiday 2027 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
-      <div class="mat-grid">
-        ${holidayMaterials.map(m=>`
-          <div class="mat-chip">
-            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
-            <div class="txt">
-              <div class="name">${m.name}</div>
-              ${tag(m.status)}
-            </div>
-          </div>`).join('')}
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${holidayMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        <ul class="bullets">${springMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
       </div>
     </div>
   `;
@@ -1264,7 +1247,7 @@ function renderRetail(){
     <div class="grid cols-3 section-block">
       <div class="card">
         <h3>Market pulse</h3>
-        <div class="num" style="font-family:'Spectral',serif;font-size:34px;font-weight:600">${retail.pulse}<span style="font-size:16px;color:var(--ink-faint);font-weight:500">/100</span></div>
+        <div class="num" style="font-family:'Playfair Display',serif;font-size:34px;font-weight:600">${retail.pulse}<span style="font-size:16px;color:var(--ink-faint);font-weight:500">/100</span></div>
         <div class="delta" style="margin-bottom:10px">${retail.pulseDelta}</div>
         ${sparkline(retail.pulseSpark,260,70)}
         ${source('Composite of sell-through, shelf share and new-door distribution.')}
@@ -1351,7 +1334,7 @@ function renderMerchandising(){
       ${merchandisingIdeas.map(m=>`
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-            <div class="name" style="font-family:'Spectral',serif;font-size:15.5px;font-weight:600">${m.title}</div>
+            <div class="name" style="font-family:'Playfair Display',serif;font-size:15.5px;font-weight:600">${m.title}</div>
           </div>
           <span class="pill" style="background:var(--accent-soft);color:var(--accent);margin-bottom:10px"><span class="dot" style="background:var(--accent)"></span>${m.tag}</span>
           <div class="desc" style="font-size:12.6px;color:var(--ink-soft);line-height:1.55">${m.desc}</div>
@@ -1409,7 +1392,7 @@ const SECTIONS = [
   {id:'opportunity', label:'Opportunity Map', icon:'opp', title:'Opportunity Map', sub:'Where the gaps are, and where the assortment can win.', render:renderOpportunity},
   {id:'heat', label:'Trend Heat Map', icon:'heat', title:'Trend Heat Map', sub:'Momentum at a glance \u2014 what\u2019s heating up, holding, or cooling down.', render:renderHeat},
   {id:'timing', label:'Now / Next / Future', icon:'timing', title:'Now / Next / Future', sub:'Smart timing for stronger assortments, out to a 24-month horizon.', render:renderTiming},
-  {id:'color', label:'Color Direction', icon:'color', title:'Color Direction', sub:'Forward-looking palettes for Summer 2027.', render:renderColor},
+  {id:'color', label:'Color Direction', icon:'color', title:'Color Direction', sub:'Palettes for Holiday 2027 and Spring 2028.', render:renderColor},
   {id:'materials', label:'Materials & Finishes', icon:'materials', title:'Materials & Finishes', sub:'Textures and finishes shaping the season.', render:renderMaterials},
   {id:'retail', label:'Retail Watch', icon:'retail', title:'Retail Watch', sub:'What\u2019s happening in stores right now.', render:renderRetail},
   {id:'inspo', label:'Product Inspiration', icon:'inspo', title:'Product Inspiration', sub:'Curated direction to spark the next assortment.', render:renderInspo},
@@ -1449,6 +1432,8 @@ function go(id){
   if(!target.dataset.built){
     target.innerHTML = s.render();
     target.dataset.built = '1';
+    const heroCarouselEl = target.querySelector('.hero-carousel');
+    if(heroCarouselEl) initHeroCarousel(heroCarouselEl);
     target.querySelectorAll('[data-tab]').forEach(el=>{
       if(el.classList.contains('link')) el.addEventListener('click', ()=>go(el.dataset.tab));
     });
@@ -1473,6 +1458,35 @@ function go(id){
 }
 
 document.getElementById('updated-label').textContent = 'Updated ' + fmtDate(lastUpdated);
+
+function initHeroCarousel(root){
+  const slides = Array.from(root.querySelectorAll('.hero-slide'));
+  const dots = Array.from(root.querySelectorAll('.hero-dot'));
+  if(!slides.length) return;
+  let idx = 0, timer = null;
+  function show(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=>s.classList.toggle('active', n===idx));
+    dots.forEach((d,n)=>d.classList.toggle('active', n===idx));
+  }
+  function next(){ show(idx+1); }
+  function prev(){ show(idx-1); }
+  function restart(){ clearInterval(timer); timer = setInterval(next, 6000); }
+  root.querySelector('.hero-arrow.prev')?.addEventListener('click', ()=>{ prev(); restart(); });
+  root.querySelector('.hero-arrow.next')?.addEventListener('click', ()=>{ next(); restart(); });
+  dots.forEach((d,n)=> d.addEventListener('click', ()=>{ show(n); restart(); }));
+  let touchStartX = null;
+  root.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; }, {passive:true});
+  root.addEventListener('touchend', e=>{
+    if(touchStartX===null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 40){ dx < 0 ? next() : prev(); restart(); }
+    touchStartX = null;
+  }, {passive:true});
+  root.addEventListener('mouseenter', ()=>clearInterval(timer));
+  root.addEventListener('mouseleave', restart);
+  restart();
+}
 
 function showToast(msg){
   const t = document.getElementById('toast');
