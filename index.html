@@ -426,7 +426,7 @@
     </div>
     <nav id="nav"></nav>
     <div class="sidebar-foot">
-      <div class="season-pill"><span>Season</span><b>Holiday 2027</b></div>
+      <div class="season-pill"><span>Season</span><b>Holiday \u201927 \u2192 Spring \u201928</b></div>
     </div>
   </aside>
 
@@ -605,306 +605,383 @@ function heroCarousel(slides){
 /* =========================================================
    Data
 ========================================================= */
+/* =========================================================
+   Data
+========================================================= */
 const trends = [
-  {id:'cherry', name:'Cherry Code', status:'peaking', category:'Jewelry', mark:'cherry',
-    desc:'Playful, nostalgic motifs — cherries turn up on everything from studs to charm bracelets.',
-    colors:['#B4472A','#EFEFE9','#5B7A5B','#D9C9A3'], change:'+320%'},
-  {id:'coastal', name:'Coastal Romance', status:'growing', category:'Jewelry, Hair', mark:'coast',
-    desc:'Ocean-worn textures and soft, sun-faded tones carry a quiet romance through the line.',
-    colors:['#EFEFE9','#8FA7B3','#D9C9A3','#33436F']},
-  {id:'heirloom', name:'Modern Heirloom', status:'growing', category:'Jewelry', mark:'locket',
-    desc:'Vintage keepsakes and family-crest details — pieces meant to be collected, not bought all at once.',
-    colors:['#C08A2E','#17181C','#8C6A3F','#5B7A5B']},
-  {id:'resin', name:'Color Pop Resin', status:'peaking', category:'Bags, Jewelry', mark:'resin',
-    desc:'Bold, saturated resin pieces bring a mood-boosting hit of color to summer assortments.',
-    colors:['#B4472A','#33436F','#5B7A5B','#C08A2E']},
-  {id:'rope', name:'Rope & Texture', status:'peaking', category:'Jewelry', mark:'rope',
-    desc:'Tactile woven and braided finishes in gold and mixed metal add dimension to layered looks.',
-    colors:['#D9C9A3','#8C6A3F','#17181C','#EFEFE9']},
-  {id:'sport', name:'Sporty Prep', status:'emerging', category:'Jewelry, Bags', mark:'sport',
-    desc:'Tennis-core meets nautical detailing — elevated classics with a competitive edge.',
-    colors:['#33436F','#B4472A','#EFEFE9','#17181C']},
-  {id:'bubble', name:'Bubble Letters', status:'declining', category:'Jewelry', mark:'bow',
-    desc:'Playful initial charms are losing shelf space as personalization shifts toward subtler cues.',
-    colors:['#AA9C88','#EFEFE9','#7A6A52','#241C15']},
-  {id:'charmstory', name:'Charm Storytelling', status:'growing', category:'Jewelry, Bags', mark:'locket',
-    desc:'Maximalist, memory-laden charm necklaces and bracelets are replacing simple pendants as jewelry becomes a wearable personal archive.',
-    colors:['#C08A2E','#B4472A','#8C6A3F','#EFEFE9']},
-  {id:'personalcharm', name:'Personalized Charm Necklaces', status:'steady', category:'Jewelry', mark:'locket',
-    desc:'Charm necklaces have graduated from trend to core assortment, with specialty retailers now running permanent personalization shops.',
-    colors:['#C08A2E','#17181C','#8C6A3F','#5B7A5B']},
-  {id:'sculptural', name:'Sculptural Jewelry', status:'growing', category:'Jewelry', mark:'hex',
-    desc:'Oversized cuffs and hammered bangles are treated as wearable art \u2014 pieces built to anchor an outfit, not quietly finish it.',
-    colors:['#C08A2E','#8C6A3F','#17181C','#AA9C88']},
-  {id:'mixedmetal', name:'Mixed Metal Layering', status:'growing', category:'Jewelry', mark:'layers',
-    desc:'Gold and silver worn together is now the default, not the exception, as consumers move past the one-metal styling rule.',
-    colors:['#C08A2E','#AA9C88','#7A6A52','#241C15']},
-  {id:'colorpunc', name:'Color-as-Punctuation', status:'emerging', category:'Bags, Jewelry', mark:'star',
-    desc:'A single saturated accessory carries the color story against an otherwise neutral, tailored outfit \u2014 first seen at Spring 2027 New York shows.',
-    colors:['#B4472A','#17181C','#EFEFE9','#5B7A5B']},
-  {id:'brooch', name:'Brooch Revival', status:'emerging', category:'Jewelry', mark:'ring',
-    desc:'A Millennial and Gen-X heirloom-brooch moment is expanding into menswear \u2014 worn on lapels, ties, socks and bag straps.',
-    colors:['#8C6A3F','#C08A2E','#17181C','#EFEFE9']},
-  {id:'gummy', name:'Dimensional & Tactile Finishes', status:'emerging', category:'Jewelry, Bags', mark:'resin',
-    desc:'Bendy, glossy, 3D-effect textures \u2014 rubberized or high-gloss resin \u2014 are emerging as a tactile complement to color-driven pieces.',
-    colors:['#B4472A','#D9793A','#EFEFE9','#33436F']},
-  {id:'lace', name:'Lace & Romantic Detailing', status:'emerging', category:'Hair, Jewelry', mark:'droplet',
-    desc:'Lace, pearls and Victorian-era motifs are moving from runway hair pieces into pendant and clip detailing.',
-    colors:['#EFEFE9','#C08A2E','#8FA7B3','#241C15']},
-  {id:'bagcharmfatigue', name:'Bag Charm Fatigue', status:'declining', category:'Bags', mark:'bow',
-    desc:'Generic clip-on bag charms remain high-volume on social, but the community itself is questioning the format \u2014 an early signal to move upmarket in materials.',
-    colors:['#AA9C88','#EFEFE9','#7A6A52','#241C15']},
+  {id:'personalstorysystems', name:'Personal Story Systems', status:'growing', category:'Jewelry, Bag Charms, Small Accessories', mark:'ring',
+    desc:'Modularity turns one purchase into repeat purchases and makes gifting feel specific without requiring fully custom manufacturing.',
+    colors:['#C8B273','#C2BEB6','#E6DAC4','#9B1B30']},
+  {id:'modernheirloom', name:'Modern Heirloom', status:'growing', category:'Jewelry, Hair, Gifting', mark:'locket',
+    desc:'Consumers want emotional permanence and wardrobe-transforming pieces without full fine-jewelry cost.',
+    colors:['#C8B273','#E6DAC4','#1B1B1B','#9B1B30']},
+  {id:'midnightalchemy', name:'Midnight Alchemy', status:'emerging', category:'Jewelry, Hair, Packaging', mark:'star',
+    desc:'Mystery, ritual, and symbolic protection update celestial product away from juvenile iconography.',
+    colors:['#1B1B1B','#0F4C81','#604E7A','#B57EDC']},
+  {id:'velvetribbonrevival', name:'Velvet Ribbon Revival', status:'steady', category:'Hair, Jewelry, Pet, Packaging', mark:'bow',
+    desc:'Ribbon delivers celebration, softness, and high perceived value at low material cost.',
+    colors:['#1B1B1B','#64242E','#3E4F35','#EEC4C7']},
+  {id:'pearlsinmotion', name:'Pearls in Motion', status:'growing', category:'Jewelry, Hair, Bag Charms', mark:'droplet',
+    desc:'Pearls bridge giftability, familiarity, and novelty when mixed with cord, color, or movement.',
+    colors:['#C8B273','#E6DAC4','#1B1B1B','#EDCDC2']},
+  {id:'confectionerycelebration', name:'Confectionery Celebration', status:'growing', category:'Jewelry, Hair, Gifting, Kids', mark:'cherry',
+    desc:'Small celebratory objects provide dopamine, photograph well, and work for impulse gifting.',
+    colors:['#C2BEB6','#EDCDC2','#9B1B30','#F0C05A']},
+  {id:'frostedlight', name:'Frosted Light', status:'emerging', category:'Jewelry, Hair, Packaging', mark:'resin',
+    desc:'The look feels festive without relying on red and green, extending through winter and New Year.',
+    colors:['#C2BEB6','#B57EDC','#3850A0','#F1E8DF']},
+  {id:'craftedfolkfestive', name:'Crafted Folk Festive', status:'growing', category:'Hair, Pet, Small Accessories, Packaging', mark:'weave',
+    desc:'Visible handwork counters digital sameness and makes value-priced product feel authored.',
+    colors:['#E6DAC4','#314F40','#EDCDC2','#EB3C27']},
+  {id:'usefulpartyobjects', name:'Useful Party Objects', status:'emerging', category:'Jewelry, Bag Charms, Small Accessories', mark:'box',
+    desc:'Utility gives novelty a reason to remain in use after the viral moment.',
+    colors:['#C8B273','#1B1B1B','#0F4C81','#9B1B30']},
+  {id:'familyandpetcelebration', name:'Family and Pet Celebration', status:'growing', category:'Pet, Kids, Gifting', mark:'bow',
+    desc:'Pets are treated as family; coordinated gifting creates basket-building across human, kids, and pet categories.',
+    colors:['#9B1B30','#AA9C88','#AA9C88','#AA9C88']},
+  {id:'gardenatelier', name:'Garden Atelier', status:'growing', category:'Jewelry, Hair, Pet, Packaging', mark:'leaf',
+    desc:'Nature offers emotional restoration and seasonal optimism; crafted botanical details feel more original than generic floral print.',
+    colors:['#E6DAC4','#3E4F35','#EDCDC2','#F0C05A']},
+  {id:'joyfulcolorlab', name:'Joyful Color Lab', status:'growing', category:'All Categories', mark:'hex',
+    desc:'Color acts as accessible emotional lift and creates strong digital thumbnails at low cost.',
+    colors:['#0F4C81','#3E4F35','#EB3C27','#F0C05A']},
+  {id:'newfolkgraphics', name:'New Folk Graphics', status:'emerging', category:'Hair, Scarves, Pet, Packaging', mark:'weave',
+    desc:'Original marks make scalable print feel human and provide a defensible visual identity.',
+    colors:['#E6DAC4','#EDCDC2','#AA9C88','#AA9C88']},
+  {id:'sportromance', name:'Sport Romance', status:'growing', category:'Jewelry, Hair, Small Accessories', mark:'sport',
+    desc:'The contrast feels current and enables adjustable, gender-flexible, cost-efficient product.',
+    colors:['#E6DAC4','#EEC4C7','#9B1B30','#3850A0']},
+  {id:'coastalcraft', name:'Coastal Craft', status:'steady', category:'Jewelry, Hair, Bags', mark:'coast',
+    desc:'Coastal cues are familiar but gain freshness through craft and sculptural scale rather than literal resort icons.',
+    colors:['#81D7D3','#3850A0','#E6DAC4','#1B2130']},
+  {id:'sculptednature', name:'Sculpted Nature', status:'emerging', category:'Jewelry, Hair', mark:'hex',
+    desc:'This is a longer-life alternative to flat novelty and supports both modern and talisman stories.',
+    colors:['#C2BEB6','#3C7D90','#F1E8DF','#3850A0']},
+  {id:'wearablemovement', name:'Wearable Movement', status:'growing', category:'Jewelry, Hair, Scarves', mark:'ribbon',
+    desc:'Movement performs well in video and gives low-weight materials dramatic presence.',
+    colors:['#E6DAC4','#1B1B1B','#0F4C81','#9B1B30']},
+  {id:'waistandscarfplay', name:'Waist and Scarf Play', status:'growing', category:'Scarves, Small Accessories', mark:'ribbon',
+    desc:'One item can be worn at neck, hair, bag, or waist, improving perceived value and content potential.',
+    colors:['#E6DAC4','#0F4C81','#9B1B30','#AA9C88']},
+  {id:'softtransparency', name:'Soft Transparency', status:'growing', category:'Hair, Jewelry, Bags', mark:'resin',
+    desc:'Transparency feels fresh, tactile, and seasonally light while allowing color without visual heaviness.',
+    colors:['#EEC4C7','#81D7D3','#A9A79E','#AA9C88']},
+  {id:'microcollectionsnotoneoffs', name:'Micro Collections, Not One-Offs', status:'steady', category:'Merchandising, Gifting', mark:'layers',
+    desc:'A small coherent story improves display impact, attach rate, content efficiency, and customer collecting.',
+    colors:['#AA9C88','#AA9C88','#AA9C88','#AA9C88']},
+  {id:'valuethroughsets', name:'Value Through Sets', status:'steady', category:'All Categories, Gifting', mark:'box',
+    desc:'Sets make price points feel generous and let customers split, stack, or gift products.',
+    colors:['#AA9C88','#AA9C88','#AA9C88','#AA9C88']},
+  {id:'tactilevalue', name:'Tactile Value', status:'growing', category:'All Categories, Packaging', mark:'weave',
+    desc:'Texture signals craft and value even when base materials are cost engineered.',
+    colors:['#AA9C88','#AA9C88','#AA9C88','#AA9C88']},
+  {id:'proofbasedsustainability', name:'Proof-Based Sustainability', status:'growing', category:'Materials, Packaging', mark:'leaf',
+    desc:'Consumers and regulators increasingly expect specific proof, while overpackaging conflicts with value positioning.',
+    colors:['#E6DAC4','#3E4F35','#3850A0','#AA9C88']},
+  {id:'phygitalgiftguidance', name:'Phygital Gift Guidance', status:'emerging', category:'Packaging, Merchandising', mark:'card',
+    desc:'A small digital layer can add styling, care, gifting, and collection-building value without increasing product complexity.',
+    colors:['#AA9C88','#AA9C88','#AA9C88','#AA9C88']},
 ];
+
 
 const overviewDonut = [
-  {label:'Emerging', value:18, color:HEX.emerging},
-  {label:'Growing',  value:24, color:HEX.growing},
-  {label:'Peaking',  value:11, color:HEX.peaking},
-  {label:'Steady',   value:16, color:HEX.steady},
-  {label:'Declining',value:5,  color:HEX.declining},
+  {label:'Growing', value:14, color:HEX.growing},
+  {label:'Emerging', value:6, color:HEX.emerging},
+  {label:'Steady', value:4, color:HEX.steady},
 ];
 
-const fastestGrowing = [
-  {name:'Cherry Code', change:'+320%'},
-  {name:'Coastal Romance', change:'+210%'},
-  {name:'Modern Heirloom', change:'+180%'},
-  {name:'Sporty Prep', change:'+150%'},
-  {name:'Rope & Texture', change:'+130%'},
-];
 
 const stories = [
-  {id:'heirloom', name:'Modern Heirloom', mark:'locket', status:'growing',
-   hook:'Timeless pieces with a personal story — consumers are collecting, not just buying.',
-   facts:[['Consumer','Sentimental maximalist'],['Price point','$32–$68'],['Key materials','Antique metals, pearl, enamel']],
-   keyItems:[
-     {name:'Vintage Locket Pendant', mark:'locket'},
-     {name:'Antique Signet Ring', mark:'ring'},
-     {name:'Charm Bracelet', mark:'layers'}]},
-  {id:'coastal', name:'Coastal Romance', mark:'coast', status:'growing',
-   hook:'Sea-worn textures and soft palettes bring an elevated, unfussy romance to the season.',
-   facts:[['Consumer','Relaxed & elevated'],['Price point','$18–$46'],['Key materials','Pearl, shell, sea glass']],
-   keyItems:[
-     {name:'Sea Glass Stud Earrings', mark:'droplet'},
-     {name:'Shell Pendant Necklace', mark:'coast'},
-     {name:'Pearl Anklet', mark:'droplet'}]},
-  {id:'resin', name:'Color Pop Resin', mark:'resin', status:'peaking',
-   hook:'Saturated, playful resin shapes are peaking fast — big visual impact at an accessible price.',
-   facts:[['Consumer','Gen Z & playful dresser'],['Price point','$12–$32'],['Key materials','Acrylic, resin']],
-   keyItems:[
-     {name:'Resin Hoop Earrings', mark:'resin'},
-     {name:'Acrylic Bangle Stack', mark:'layers'},
-     {name:'Color-Block Bag Charm', mark:'ribbon'}]},
-  {id:'charmstory', name:'Charm Storytelling', mark:'locket', status:'growing',
-   hook:'Jewelry as a personal archive — charms and pendants that carry meaning are outpacing simple, single-pendant necklaces.',
-   facts:[['Consumer','Sentimental self-expressor'],['Price point','$18–$65'],['Key materials','Enamel, resin, freshwater pearl']],
-   keyItems:[
-     {name:'Build-Your-Story Necklace', mark:'locket'},
-     {name:'Enamel Initial Charm', mark:'hex'},
-     {name:'Freshwater Pearl Charm', mark:'droplet'}]},
-  {id:'brooch', name:'Brooch Revival', mark:'ring', status:'emerging',
-   hook:'A heirloom-coded pin is crossing into menswear lapels and straps, opening a genuine cross-gender gifting opportunity.',
-   facts:[['Consumer','Cross-gender, gifting-driven'],['Price point','$35–$95'],['Key materials','Antiqued metal, enamel, cubic zirconia']],
-   keyItems:[
-     {name:'Antique Floral Brooch', mark:'ring'},
-     {name:'Lapel Pin Trio', mark:'star'},
-     {name:'Bag-Strap Pin', mark:'ribbon'}]},
-  {id:'sculptural', name:'Sculptural & Mixed-Metal Jewelry', mark:'hex', status:'growing',
-   hook:'Jewelry is being treated as wearable sculpture — oversized, hammered, and deliberately mixed in metal tone.',
-   facts:[['Consumer','Maximalist dresser'],['Price point','$40–$110'],['Key materials','Hammered metal, mixed gold/silver plating']],
-   keyItems:[
-     {name:'Bold Embellished Cuffs', mark:'hex'},
-     {name:'Hammered Statement Bangle', mark:'layers'},
-     {name:'Two-Tone Stacking Ring Set', mark:'ring'}]},
+  {id:'modernheirloom', name:'Modern Heirloom', mark:'locket', status:'growing',
+   hook:'Consumers want pieces that feel collected over time and emotionally durable. The strongest accessible translation is a gift-ready pin or pendant set with original, non-branded symbolism.',
+   facts:[['Consumer','Sentimental maximalist; multi-generational gift buyer'],['Price point','$10 mass hero; higher tier with genuine stone'],['Key materials','Antique plating, faux pearl, enamel, glass']],
+   keyItems:[{name:'Brooches', mark:'locket'},{name:'Lockets', mark:'locket'},{name:'Signets', mark:'locket'}]},
+  {id:'personalstorysystems', name:'Personal Story Systems', mark:'ring', status:'growing',
+   hook:'Make the base simple and repeatable. Build seasonal add-ons around one tested attachment standard so customers can collect without needing a fully custom process.',
+   facts:[['Consumer','Self-expressor; collector; milestone gifter'],['Price point','$5 add-on; $10 starter'],['Key materials','Plated metal, epoxy, glass, cord']],
+   keyItems:[{name:'Starter chains', mark:'ring'},{name:'Bracelet bases', mark:'ring'},{name:'Sliding charms', mark:'ring'}]},
+  {id:'midnightalchemy', name:'Midnight Alchemy', mark:'star', status:'emerging',
+   hook:'Refresh celestial through texture, scale, asymmetry, and protective symbolism rather than a generic moon-and-star set.',
+   facts:[['Consumer','Symbol-led dresser; occasion buyer'],['Price point','$10 focal piece'],['Key materials','Blackened silver, hammered gold, translucent enamel']],
+   keyItems:[{name:'Large talisman pendant', mark:'star'},{name:'Starburst cuff', mark:'star'},{name:'Moon pin', mark:'star'}]},
+  {id:'craftedfolkfestive', name:'Crafted Folk Festive', mark:'weave', status:'growing',
+   hook:'Hand-drawn pattern and visible stitch detail add authorship and value without relying on heavy metal or dense embellishment.',
+   facts:[['Consumer','Craft-conscious gift buyer; family shopper'],['Price point','$5 textile; $10 coordinated set'],['Key materials','Cotton, embroidery, woven tape, velvet']],
+   keyItems:[{name:'Textile brooches', mark:'weave'},{name:'Embroidered bows', mark:'weave'},{name:'Pet bandanas', mark:'weave'}]},
+  {id:'gardenatelier', name:'Garden Atelier', mark:'leaf', status:'growing',
+   hook:'Use identifiable botanicals, garden tools, pollinators, and hand-drawn variation. Avoid undifferentiated daisies and generic allover floral prints.',
+   facts:[['Consumer','Nature-seeking optimistic dresser'],['Price point','$5 single; $10 set'],['Key materials','Embroidery, translucent enamel, resin, raffia']],
+   keyItems:[{name:'Botanical brooches', mark:'leaf'},{name:'Garden charm sets', mark:'leaf'},{name:'Embroidered claws', mark:'leaf'}]},
+  {id:'sportromance', name:'Sport Romance', mark:'sport', status:'growing',
+   hook:'The contrast of technical cord with refined details is adjustable, gender-flexible, and cost efficient while still reading fashion-forward.',
+   facts:[['Consumer','Active romantic; younger self-gifter'],['Price point','$5 single; $10 duo'],['Key materials','Paracord, rubber cord, plated sliders, faux pearl']],
+   keyItems:[{name:'Cord sliders', mark:'sport'},{name:'Braided bracelets', mark:'sport'},{name:'Technical loops with pearls or flowers', mark:'sport'}]},
+  {id:'sculptednature', name:'Sculpted Nature', mark:'hex', status:'emerging',
+   hook:'The opportunity is surface and form, not literal nature motifs. Protect finish quality so intentional irregularity does not look damaged.',
+   facts:[['Consumer','Artful minimalist; better-tier buyer'],['Price point','$10 simplified casting; higher tier genuine stone'],['Key materials','Textured casting, recycled metal, resin stone']],
+   keyItems:[{name:'Pebble studs', mark:'hex'},{name:'Fossil pendants', mark:'hex'},{name:'Seed-pod cuffs', mark:'hex'}]},
+  {id:'usefulcelebration', name:'Useful Celebration', mark:'box', status:'emerging',
+   hook:'Utility gives novelty a reason to remain in use after the viral moment. Scale only after hinge, mirror, closure, and safety testing.',
+   facts:[['Consumer','Practical novelty buyer; party gifter'],['Price point','$10 key value'],['Key materials','Metal, mirror, molded resin, coated textile']],
+   keyItems:[{name:'Mirror charms', mark:'box'},{name:'Tiny pouches', mark:'box'},{name:'Compact lockets', mark:'box'}]},
 ];
 
+
+const opportunityCols = ['Jewelry','Hair','Bags/Access.','Pet','Kids','Pkg/Gift'];
 const opportunityRows = [
-  {name:'Cherry Code', mark:'cherry', status:'peaking', cells:['high','med','high','med']},
-  {name:'Coastal Romance', mark:'coast', status:'growing', cells:['high','med','low','med']},
-  {name:'Modern Heirloom', mark:'locket', status:'growing', cells:['high','low','med','low']},
-  {name:'Sporty Prep', mark:'sport', status:'emerging', cells:['med','high','med','high']},
-  {name:'Rope & Texture', mark:'rope', status:'peaking', cells:['med','med','low','med']},
+  {name:'Modern Heirloom', mark:'locket', status:'growing', cells:['high','med','med','low','low','med']},
+  {name:'Personal Story Systems', mark:'ring', status:'growing', cells:['high','med','high','med','med','high']},
+  {name:'Midnight Alchemy', mark:'star', status:'emerging', cells:['high','med','med','low','low','med']},
+  {name:'Crafted Folk Festive', mark:'weave', status:'growing', cells:['med','high','high','high','high','high']},
+  {name:'Garden Atelier', mark:'leaf', status:'growing', cells:['high','high','med','high','high','high']},
+  {name:'Sport Romance', mark:'sport', status:'growing', cells:['high','high','med','med','med','med']},
+  {name:'Sculpted Nature', mark:'hex', status:'emerging', cells:['high','med','med','low','low','low']},
+  {name:'Useful Celebration', mark:'box', status:'emerging', cells:['med','low','high','low','low','high']},
 ];
-const opportunityCols = ['Jewelry','Hair Access.','Bags & Access.','Sunglasses'];
+
+
 const oppStyle = {
   high:{bg:'#EBF0EA',color:'#3F5940',label:'High'},
   med:{bg:'#FBF3E3',color:'#8A6417',label:'Medium'},
   low:{bg:'#F7E9E4',color:'#8C3D26',label:'Low'},
 };
+
 const whiteSpace = [
-  {name:'Cherry charms & pendants', note:'High search volume, low mass-market saturation', score:92},
-  {name:'Coastal pearl hair accessories', note:'Under-indexed, strong Pinterest growth', score:88},
-  {name:'Vintage-inspired lockets', note:'Strong sentiment, room to grow in mid-tier', score:85},
+  {name:'Personal Story Systems as a shared platform', note:'Strongest cross-category platform \u2014 shared attachments support add-ons and repeat purchase across jewelry, hair, bags, pet and kids.', level:'high'},
+  {name:'Garden Atelier across the widest Spring assortment', note:'High or Medium-High opportunity in every category tracked \u2014 the clearest path from directional fashion to accessible product.', level:'high'},
+  {name:'Modern Heirloom in hair and gifting', note:'Currently strongest in jewelry; pin or pearl detail that is removable would extend it credibly into hair.', level:'med'},
 ];
+
 
 const watchList = [
-  {name:'Dimensional & tactile "gummy" jewelry', need:'Visible product at specialty or mass retailers, not just nail art, before committing production budget.'},
-  {name:'Menswear brooch adoption', need:'A named retailer building a men\u2019s pin assortment, or repeated street-style sightings on male public figures.'},
-  {name:'Color-as-punctuation styling', need:'Confirmation from London, Milan and Paris Spring 2027 shows before treating it as an established seasonal direction.'},
-  {name:'Exotic and faux-skin small accessories', need:'Evidence the material moves beyond bags into jewelry, hair accessories or bag charms \u2014 also flag sourcing and cultural-sensitivity considerations.'},
-  {name:'Next-generation bag charm format', need:'A specific alternative mechanic (modular systems, collectible drops) showing repeated traction across two or more sources.'},
+  {name:'Wearable beauty accessories', need:'More brands offering refillable formats; repeat use after novelty; safety standards'},
+  {name:'Jewelry-to-home crossover', need:'More accessory brands launching home gift objects at accessible prices'},
+  {name:'Bio-based translucent materials', need:'Commercially scalable color clarity, durability, certifications, and cost'},
+  {name:'Predictive personalization', need:'Clear lift without privacy backlash and workable merchandising control'},
+  {name:'Waist jewelry', need:'Specialty adoption beyond runway plus inclusive sizing solutions'},
+  {name:'Revived 2010s craft nostalgia', need:'Cross-platform repetition and more polished retail execution'},
 ];
 
+
 const heatRows = [
-  {name:'Cherry Code', mark:'cherry', status:'peaking', change:'+320%', interest:5, stage:'Emerging'},
-  {name:'Coastal Romance', mark:'coast', status:'growing', change:'+210%', interest:5, stage:'Growing'},
-  {name:'Modern Heirloom', mark:'locket', status:'growing', change:'+180%', interest:4, stage:'Growing'},
-  {name:'Color Pop Resin', mark:'resin', status:'steady', change:'+35%', interest:3, stage:'Core'},
-  {name:'Rope & Texture', mark:'rope', status:'steady', change:'+15%', interest:3, stage:'Core'},
+  {name:'Personal Story Systems', mark:'ring', status:'growing', confidence:'High', dots:3, stage:'Core development'},
+  {name:'Modern Heirloom', mark:'locket', status:'growing', confidence:'High', dots:3, stage:'Core Holiday 2027'},
+  {name:'Garden Atelier', mark:'leaf', status:'growing', confidence:'High', dots:3, stage:'Core Spring 2028'},
+  {name:'Sport Romance', mark:'sport', status:'growing', confidence:'Medium-High', dots:2, stage:'Core Spring 2028'},
+  {name:'Pearls in Motion', mark:'droplet', status:'growing', confidence:'High', dots:3, stage:'Core Holiday 2027'},
+  {name:'Crafted Folk Festive', mark:'weave', status:'growing', confidence:'Medium-High', dots:2, stage:'Core Holiday 2027'},
+  {name:'Useful Celebration', mark:'box', status:'emerging', confidence:'Medium', dots:2, stage:'Pilot'},
+  {name:'Midnight Alchemy', mark:'star', status:'emerging', confidence:'Medium', dots:2, stage:'Capsule'},
+  {name:'Sculpted Nature', mark:'hex', status:'emerging', confidence:'Medium', dots:2, stage:'Seed'},
+  {name:'Generic plush bag charms', mark:'hex', status:'declining', confidence:'High', dots:3, stage:'Reduce'},
+  {name:'Basic coquette bows', mark:'hex', status:'peaking', confidence:'High', dots:3, stage:'Refresh'},
+  {name:'Ultra-dainty single pendants', mark:'hex', status:'declining', confidence:'Medium', dots:2, stage:'Rebalance'},
 ];
-const rising = [{name:'Cherry Code',change:'+320%'},{name:'Coastal Romance',change:'+210%'},{name:'Color Pop Resin',change:'+180%'}];
-const cooling = [{name:'Bubble Letters',change:'-35%'},{name:'Neon Resin',change:'-28%'},{name:'Tie Dye',change:'-23%'}];
+
+
+const rising = [{name:'Personal Story Systems', change:'Growing · High evidence'},{name:'Modern Heirloom', change:'Growing · High evidence'},{name:'Garden Atelier', change:'Growing · High evidence'}];
+const cooling = [{name:'Generic oversized plush bag charms', change:'Reduce — Peaking'},{name:'Unmodified coquette bows', change:'Refresh — Peaking'},{name:'Ultra-dainty chains as the entire story', change:'Rebalance — Declining'}];
+
 
 const timing = {
   now:{window:'Trending now — act today', confidence:'High confidence — proven in market', items:[
-      ['Cherry Code','High demand and retail visibility — stock and sell now.', 'cherry'],
-      ['Modern Heirloom','Timeless pieces with personal meaning.', 'locket'],
-      ['Coastal Romance','Soft, ocean-inspired and elevated.', 'coast'],
-      ['Charm Storytelling','Maximalist, personal charms are driving repeat purchases — stock and sell now.', 'locket'],
-      ['Personalized Charm Necklaces','Core, replenishable business — innovate on drop mechanics, not the base concept.', 'locket']],
-    why:'These trends have proven demand — prioritize for immediate reorders.'},
-  next:{window:'6–12 months — build the pipeline', confidence:'Directional — early signals strengthening', items:[
-      ['Charm Personalization','Curated charms for self-expression.', 'ring'],
-      ['Italian Riviera','Mediterranean mood meets everyday luxury.', 'coast'],
-      ['Enamel Blooms','Fresh florals with a modern twist.', 'leaf'],
-      ['Brooch Revival','Cross-gender heirloom pins moving from search signal toward pilot capsules.', 'ring'],
-      ['Lace & Romantic Detailing','Victorian-inspired hair pieces and pendants for occasion and bridal gifting.', 'droplet']],
-    why:'Early signals are strong enough to start development now.'},
-  future:{window:'12–24 months — inspire innovation', confidence:'Early signal — a bet, not a certainty', items:[
-      ['Sculptural Shapes','Artistic forms make a quiet statement.', 'hex'],
-      ['Sustainable Materials','Conscious choices reshape sourcing.', 'leaf'],
-      ['Cosmic Symbols','Mystical motifs capture curiosity.', 'star'],
-      ['Cross-Gender Heirloom Category','Brooches and pins expand into a broader unisex accessories category.', 'ring'],
-      ['Modular Attachment Systems','Charms, clips and pins converge into shared hardware across bags, hair and jewelry.', 'layers']],
-    why:'Long-range signals worth tracking as differentiation stories.'}
+      ['Velvet Ribbon Revival','Holiday 2027 with controlled carryover','bow'],['Pearls in Motion','Holiday 2027 core; Spring 2028 light refresh','droplet'],['Value Through Sets','Immediate and ongoing','box']],
+    why:'These trends have the strongest, most repeated evidence — prioritize for immediate development and chase.'},
+  next:{window:'6–18 months — build the pipeline', confidence:'Directional — gaining momentum across sources', items:[
+      ['Personal Story Systems','Prototype universal attachment standards in Holiday 2026; scale for Holiday 2027 and Spring 2028','ring'],['Modern Heirloom','Core Holiday 2027','locket'],['Confectionery Celebration','Holiday party and New Year 2027','cherry'],['Frosted Light','Holiday 2027 and winter carryover','resin'],['Crafted Folk Festive','Holiday 2027','weave'],['Family and Pet Celebration','Holiday 2027','bow'],['Garden Atelier','Spring 2028 core','leaf'],['Joyful Color Lab','Spring 2028 core','hex'],['Sport Romance','Spring 2028 core','sport'],['Coastal Craft','Spring and Summer 2028','coast'],['Wearable Movement','Spring 2028','ribbon'],['Waist and Scarf Play','Spring 2028','ribbon'],['Micro Collections, Not One-Offs','Both seasons','layers'],['Tactile Value','Both seasons','weave']],
+    why:'Multi-source evidence supports moving these into design, sourcing and assortment planning now.'},
+  future:{window:'18–36 months — inspire innovation', confidence:'Early signal — monitor before scaling', items:[
+      ['Midnight Alchemy','Holiday 2027 statement capsules','star'],['Useful Party Objects','Test Holiday 2027 gifting','box'],['New Folk Graphics','Spring 2028','weave'],['Sculpted Nature','Seed in Spring 2028, build later','hex'],['Soft Transparency','Spring 2028','resin'],['Proof-Based Sustainability','Develop standards before 2027 line reviews','leaf'],['Phygital Gift Guidance','Pilot 2027, scale 2028','card']],
+    why:'Longer-range signals worth tracking for material strategy and category expansion.'}
 };
 
+
 const palette = [
-  {name:'Deep Emerald', hex:'#2E4A3A', status:'emerging'},
-  {name:'Cranberry', hex:'#8C2F3A', status:'emerging'},
-  {name:'Champagne Gold', hex:'#D4B26A', status:'growing'},
-  {name:'Ivory Lace', hex:'#EFEAE0', status:'steady'},
-  {name:'Midnight Navy', hex:'#1B2130', status:'steady'},
-  {name:'Warm Silver', hex:'#AA9C88', status:'growing'},
+  {name:'Oxblood Velvet', hex:'#64242E', status:'growing'},
+  {name:'Garnet Red', hex:'#9B1B30', status:'growing'},
+  {name:'Royal Aubergine', hex:'#604E7A', status:'emerging'},
+  {name:'Midnight Cobalt', hex:'#0F4C81', status:'growing'},
+  {name:'Forest Ink', hex:'#314F40', status:'growing'},
+  {name:'Fondant Pink', hex:'#EDCDC2', status:'steady'},
+  {name:'Antique Gold', hex:'#C8B273', status:'growing'},
+  {name:'Frosted Silver', hex:'#C2BEB6', status:'steady'},
+  {name:'Pearl Cream', hex:'#E6DAC4', status:'growing'},
+  {name:'Chocolate Ribbon', hex:'#543B35', status:'steady'},
 ];
-const colorDonut = [
-  {label:'Growing', value:2, color:HEX.growing},
-  {label:'Emerging', value:2, color:HEX.emerging},
-  {label:'Steady', value:2, color:HEX.steady},
-];
+
+
 const colorTakeaways = [
-  'Gift-forward metallics (champagne gold, warm silver) lean into the season\u2019s personalization and gifting story.',
-  'Jewel tones stay rich rather than bright, pairing with lace and pearl detailing for occasion dressing.',
-  'Directional forecast: extends current signals toward holiday gifting; confirm against Q4 retail assortments.',
+  'Oxblood Velvet and Garnet Red lead as Holiday\u2019s dark and bright anchors, both scored High confidence and built for heirloom romance and celebration.',
+  'Antique Gold and Frosted Silver are metallic plating references, not garment colors \u2014 use them to guide finish and hardware, not fabric or enamel color.',
+  'Royal Aubergine ties directly to the brooch revival and evening-mystery story; treat it as a fashion accent layered against the season\u2019s neutrals.',
 ];
+
 
 const springPalette = [
-  {name:'Blush Quartz', hex:'#E8C9C2', status:'emerging'},
-  {name:'Soft Sage', hex:'#A9B79E', status:'growing'},
-  {name:'Pale Gold', hex:'#DCC08A', status:'growing'},
-  {name:'Powder Blue', hex:'#A9C0D1', status:'emerging'},
-  {name:'Ivory', hex:'#F3EFE6', status:'steady'},
-  {name:'Dove Gray', hex:'#A9A79E', status:'steady'},
+  {name:'Electric Cobalt', hex:'#3850A0', status:'growing'},
+  {name:'Tomato Red', hex:'#EB3C27', status:'growing'},
+  {name:'Mimosa Yellow', hex:'#F0C05A', status:'growing'},
+  {name:'Leaf Green', hex:'#88B04B', status:'growing'},
+  {name:'Petal Pink', hex:'#EEC4C7', status:'steady'},
+  {name:'Soft Lilac', hex:'#B57EDC', status:'emerging'},
+  {name:'Sea Glass', hex:'#81D7D3', status:'steady'},
+  {name:'Mineral Blue', hex:'#3C7D90', status:'emerging'},
+  {name:'Chalk Cream', hex:'#F1E8DF', status:'growing'},
+  {name:'Soft Gold', hex:'#BD9865', status:'steady'},
 ];
+
+
 const springTakeaways = [
-  'A palette reset after holiday\u2019s richness \u2014 soft pastels and pale metallics signal a lighter, fresher mood for spring.',
-  'Powder blue extends Pinterest\u2019s cool-toned, glacier-inspired search signal into a confirmed seasonal direction.',
-  'Directional forecast: builds on current signals, not yet confirmed by Spring 2028 runway or retail data.',
+  'Electric Cobalt and Tomato Red carry the strongest confidence, continuing the red and blue momentum already confirmed on the Spring 2027 runway.',
+  'Mimosa Yellow and Leaf Green anchor the Garden Atelier story; both are High confidence and central to the botanical narrative.',
+  'Soft Gold reads as a plating cue, not a core color \u2014 reserve it for hardware and finish decisions rather than fabric or enamel.',
 ];
+
 
 const materials = [
-  {name:'Champagne Gold Plating', status:'growing', icon:'ring'},
-  {name:'Freshwater Pearl', status:'growing', icon:'droplet'},
-  {name:'Cubic Zirconia Pav\u00e9', status:'emerging', icon:'star'},
-  {name:'Lace Appliqu\u00e9', status:'emerging', icon:'weave'},
-  {name:'Gift-Ready Velvet Pouch', status:'emerging', icon:'box'},
+  {name:'Antique and hammered plating', status:'growing', icon:'ring'},
+  {name:'Velvet ribbon', status:'growing', icon:'ribbon'},
+  {name:'Mixed faux pearl', status:'growing', icon:'droplet'},
+  {name:'Translucent enamel', status:'emerging', icon:'hex'},
+  {name:'Mirror and functional hardware', status:'emerging', icon:'box'},
+  {name:'Recycled-content metal or plastic', status:'growing', icon:'hex'},
+  {name:'Mono-material paper packaging', status:'growing', icon:'card'},
 ];
-const materialDonut = [
-  {label:'Growing', value:2, color:HEX.growing},
-  {label:'Emerging', value:3, color:HEX.emerging},
-];
+
+
 const materialTakeaways = [
-  'Sparkle returns for the gifting season \u2014 pav\u00e9 and pearl detailing lift everyday charm pieces into occasion territory.',
-  'Packaging-adjacent materials (velvet pouches, ribbon) matter as much as the piece itself for holiday sell-through.',
+  'Antique and hammered plating creates heirloom depth without added stone cost \u2014 the season\u2019s highest-leverage finish.',
+  'Velvet ribbon and mixed faux pearl deliver high perceived value at low material weight, the core of the $5\u2013$10 value architecture.',
+  'Recycled-content metal and mono-material paper packaging apply across both seasons \u2014 document certification before making any claim.',
 ];
+
 
 const springMaterials = [
-  {name:'Pastel Enamel', status:'emerging', icon:'hex'},
-  {name:'Woven Raffia & Straw', status:'emerging', icon:'weave'},
-  {name:'Soft Leather Cord', status:'emerging', icon:'rope'},
-  {name:'Seed Pearl', status:'growing', icon:'droplet'},
-  {name:'Recycled Glass Beads', status:'emerging', icon:'leaf'},
+  {name:'Paracord and rubber cord', status:'growing', icon:'rope'},
+  {name:'Pressed-look resin', status:'growing', icon:'resin'},
+  {name:'Glass and stone-look beads', status:'growing', icon:'droplet'},
+  {name:'Embroidery and woven tape', status:'growing', icon:'weave'},
+  {name:'Raffia and paper fiber', status:'emerging', icon:'leaf'},
+  {name:'Recycled-content metal or plastic', status:'growing', icon:'hex'},
+  {name:'Mono-material paper packaging', status:'growing', icon:'card'},
 ];
+
+
 const springMaterialTakeaways = [
-  'Texture lightens for spring \u2014 pastel enamel and woven natural fibers replace holiday\u2019s metallics and velvet.',
-  'Seed pearls and recycled glass beads offer an accessible, elevated alternative to freshwater pearl detailing.',
+  'Paracord and rubber cord protect $10 economics against metal cost pressure while adding adjustable fit.',
+  'Pressed-look resin and embroidery carry the Garden Atelier and folk-craft stories at accessible price points.',
+  'Raffia and paper fiber add seasonal texture with low visual weight \u2014 watch humidity and shedding in development.',
 ];
-
-
 
 const retail = {
-  pulse: 68, pulseDelta:'+12 vs. last season', pulseSpark:[52,55,58,61,64,68],
-  growingCats:[
-    ['Jewelry — charms & pendants','+28%'],['Beaded necklaces','+22%'],
-    ['Mixed metal jewelry','+18%'],['Resin & acrylic accents','+17%'],['Nautical & coastal pieces','+15%']],
-  pricePoints:[['$15–$25','+24%'],['$25–$40','+19%'],['$40–$60','+12%'],['$60+','+8%']],
-  sentiment:{positive:72, neutral:18, negative:10}
+  categoryMomentum:[
+    ['Personal Story Systems (charm platforms)','growing'],
+    ['Modern Heirloom (brooches, lockets)','growing'],
+    ['Garden Atelier (Spring botanicals)','growing'],
+    ['Sport Romance (cord jewelry)','growing'],
+    ['Generic plush bag charms','declining'],
+  ]
 };
 
 const retailSignals = [
-  {name:'Anthropologie', desc:'Now runs a permanent, shop-in-shop personalized charm-necklace assortment with built-in styling guidance \u2014 a signal the category has matured from trend to core, replenishable business.'},
-  {name:'Kendra Scott', desc:'Continues extending its signature customizable, center-stone design language into new categories (watches, men\u2019s bracelets, now engagement rings) rather than launching unrelated lines \u2014 validates personalization as a durable growth lever.'},
-  {name:'Gorjana & Mejuri', desc:'Continue to anchor the everyday-layering, mixed-metal jewelry conversation that dominates TikTok \u201cjewelry tour\u201d content, reinforcing mixed metals as mainstream rather than a rule-break.'},
+  {name:'Premium jewelry brand', desc:'Launched sliding birthstone/pearl charms with base-first shopping and bundle savings. Moves personalization from engraving to repeatable collecting.'},
+  {name:'Fashion jewelry brand', desc:'Frames charm shopping as collect-and-connect with mixed metals and proportions. Turns merchandising instructions into customer confidence.'},
+  {name:'Color-led jewelry brand', desc:'Continues in-store/custom charm and stone selection plus holiday countdown box. Combines experience, gifting, and repeat purchase.'},
+  {name:'Accessible statement brand', desc:'Coordinates bag charms, jewelry charms, personalization, and ornaments. Extends one playful language across categories.'},
+  {name:'Emerging art-jewelry studio', desc:'Shows wax process, raw-set stones, recycled metals, and home-object expansion. Makes process itself part of value storytelling.'},
+  {name:'Luxury runway market', desc:'Brooches, scarves, charm necklaces, pearls, gloves, and tactile hats repeat across houses. Multiple accessory categories support self-styling.'},
+  {name:'Spring 2027 runway market', desc:'Joy, saturated blue, bows, fringe, waist details, garden themes, and 1960s print language. Signals movement away from restrained minimalism.'},
+  {name:'Jewelry trade market', desc:'Cords, bead strands, oversized pendants, shoulder dusters, whimsy, and functional objects. Cost pressure is producing material innovation and larger visual impact.'},
+  {name:'Holiday consumer market', desc:'Clothing and accessories led gift categories during a record shopper weekend. Confirms accessory gift relevance under value pressure.'},
+  {name:'Packaging sector', desc:'Focus shifted toward substantiated sustainability, recovery, and design innovation. Vague claims are losing credibility.'},
 ];
+
 
 const inspoThemes = [
-  {name:'Coastal Romance', mark:'coast', color:HEX.growing, desc:'Oceanic textures, pearls and soft romance.'},
-  {name:'Modern Heirloom', mark:'locket', color:HEX.steady, desc:'Timeless keepsakes with a personal story.'},
-  {name:'Color Pop Resin', mark:'resin', color:HEX.peaking, desc:'Playful, bold shapes and joyful energy.'},
-  {name:'Nautical Escape', mark:'sport', color:HEX.emerging, desc:'Sailor stripes, shells and seaside details.'},
-  {name:'Golden Hour', mark:'ring', color:HEX.growing, desc:'Warm metals and rich, sun-soaked tones.'},
-  {name:'Natural Elements', mark:'leaf', color:HEX.emerging, desc:'Organic forms inspired by nature.'},
+  {name:'Removable Brooch Velvet Bow', mark:'ring', color:HEX.growing, desc:'Two uses and visible gift value; separates saturated bow styling from a fixed bow. Risk: Pin security and child safety.'},
+  {name:'Modern Heirloom Pin Trio', mark:'ring', color:HEX.growing, desc:'Collectible set supports coats, scarves, bags, and holiday gifting. Risk: Avoid copying vintage signatures.'},
+  {name:'Midnight Talisman Pendant', mark:'locket', color:HEX.growing, desc:'Large scale and symbolism create high visual impact with limited metal weight. Risk: Cord and plating durability.'},
+  {name:'Pearl Motion Earring Pair', mark:'droplet', color:HEX.growing, desc:'Movement reads premium in video and dress-up styling. Risk: Weight and tangling.'},
+  {name:'Mirror Celebration Bag Charm', mark:'box', color:HEX.growing, desc:'Useful novelty outlasts the holiday moment. Risk: Hinge and mirror safety.'},
+  {name:'Coordinated Human + Pet Bow Set', mark:'bow', color:HEX.growing, desc:'Basket-building and photo-driven emotional purchase. Risk: Fit, chew, and wash testing.'},
+  {name:'Garden Charm Starter Necklace', mark:'locket', color:HEX.growing, desc:'Personal but pre-curated; add-on charms can extend the system. Risk: Attachment consistency.'},
+  {name:'Sport Romance Bracelet Duo', mark:'rope', color:HEX.growing, desc:'Adjustable, giftable, mixed-material, and cost efficient. Risk: Cord finishing.'},
+  {name:'Pressed Garden Claw Trio', mark:'leaf', color:HEX.growing, desc:'Clear spring story and strong shelf blocking. Risk: Yellowing and weak springs.'},
+  {name:'New Folk Reversible Scarf', mark:'ribbon', color:HEX.growing, desc:'Multiple styling uses increase value and content options. Risk: Original artwork rights and colorfastness.'},
+  {name:'Sculpted Pebble Earring', mark:'droplet', color:HEX.growing, desc:'Modern nature without literal motifs; easy everyday wear. Risk: Surface consistency.'},
+  {name:'Coastal Cord + Pearl Necklace', mark:'locket', color:HEX.growing, desc:'Freshens nautical through craft and texture. Risk: Avoid generic anchor/sail icon overload.'},
 ];
+
 
 const microTrends = [
-  {name:'Sea-Glass Studs', mark:'droplet', color:HEX.growing, desc:'Cloudy, sea-worn glass tones on delicate posts.'},
-  {name:'Charm Stacking 2.0', mark:'locket', color:HEX.steady, desc:'Denser charm clusters replace single pendants.'},
-  {name:'Woven Huggies', mark:'rope', color:HEX.peaking, desc:'Small hoops finished with a woven thread wrap.'},
-  {name:'Mini Chain Anklets', mark:'coast', color:HEX.growing, desc:'Delicate ankle chains move from beachwear to daily wear.'},
-  {name:'Painted Resin Hoops', mark:'resin', color:HEX.peaking, desc:'Hand-painted resin adds an artisanal note to hoops.'},
-  {name:'Vintage Coin Pendants', mark:'ring', color:HEX.steady, desc:'Found-coin pendants echo the heirloom mood.'},
-  {name:'Pearl Huggies', mark:'droplet', color:HEX.growing, desc:'Tiny hoops finished with a single freshwater pearl.'},
-  {name:'Two-Tone Signets', mark:'layers', color:HEX.emerging, desc:'Mixed gold-and-silver signet rings, worn stacked.'},
-  {name:'Elevated Bag Charms', mark:'ribbon', color:HEX.growing, desc:'Ribbon, shell-inspired resin and enamel replace generic clip-on dangles.'},
-  {name:'Dimensional Resin Finishes', mark:'resin', color:HEX.emerging, desc:'Glossy, bendy-look resin and enamel add tactile, 3D depth to small pieces.'},
-  {name:'Lace-Trimmed Hair Clips', mark:'droplet', color:HEX.emerging, desc:'Delicate lace appliqu\u00e9 brings a romantic, Victorian note to everyday hair pieces.'},
-  {name:'Menswear Lapel Pins', mark:'ring', color:HEX.emerging, desc:'Heirloom-style brooches move onto men\u2019s lapels, ties and bag straps.'},
+  {name:'Charm Spacers', mark:'ring', color:HEX.growing, desc:'Small pearl, enamel, or textured spacers that change the rhythm of a charm stack'},
+  {name:'Textile Brooch Bows', mark:'bow', color:HEX.emerging, desc:'Velvet bow with a detachable sculptural pin'},
+  {name:'Dark Pearl Clusters', mark:'droplet', color:HEX.emerging, desc:'Smoke and cream pearls clustered on pins, hoops, and bag charms'},
+  {name:'Mini Mirror Pendants', mark:'box', color:HEX.emerging, desc:'Compact mirror carried as pendant or bag charm'},
+  {name:'Lace-Edge Barrettes', mark:'weave', color:HEX.emerging, desc:'Slim barrette with controlled lace or embroidered edge'},
+  {name:'Constellation Pins', mark:'star', color:HEX.emerging, desc:'Small starburst pins sold as an asymmetrical trio'},
+  {name:'Pressed-Look Resin', mark:'resin', color:HEX.growing, desc:'Translucent resin with botanical depth rather than flat print'},
+  {name:'Cord + Pearl Sliders', mark:'rope', color:HEX.growing, desc:'Adjustable braided bracelet with one pearl or organic slider'},
+  {name:'Scarf Rings', mark:'ribbon', color:HEX.emerging, desc:'Small sculpted ring that converts a skinny scarf across neck, hair, bag, or waist'},
+  {name:'Botanical Claw Minis', mark:'leaf', color:HEX.growing, desc:'Three small claws, each based on a specific flower or leaf shape'},
+  {name:'Mixed Bead Strands', mark:'droplet', color:HEX.growing, desc:'Polished glass, pearl, and stone-look beads in controlled color blocks'},
+  {name:'Pet + Person Motif Pair', mark:'bow', color:HEX.emerging, desc:'One shared motif translated as a human charm and a safe pet accessory'},
 ];
+
 
 const merchandisingIdeas = [
-  {title:'Layered storytelling tables', tag:'Display', desc:'Group Now, Next and Future pieces together so buyers see the full arc of where a trend is headed, not just where it is today.'},
-  {title:'Build-your-own charm bar', tag:'Engagement', desc:'Let shoppers combine chains and charms in-store — Modern Heirloom and Cherry Code both reward personalization.'},
-  {title:'Color-blocked tables', tag:'Merchandising', desc:'Group by palette rather than category to spotlight Butter Yellow and Sea Glass as a seasonal statement.'},
-  {title:'Vintage-inspired props', tag:'Styling', desc:'Style heirloom pieces alongside found objects — books, frames, keepsake boxes — to reinforce a collected-over-time feel.'},
-  {title:'Meaning cards at shelf', tag:'Conversion', desc:'A short card on the story behind a piece consistently outsells a bare price tag on sentimental categories.'},
-  {title:'Eye-level try-on mirrors', tag:'Conversion', desc:'Small fixture changes near statement pieces reduce friction on the highest price points.'},
-  {title:'Key-item timed drops', tag:'Merchandising', desc:'Time a single flagship charm, pendant or hair piece to a cultural or seasonal moment and let it sell out fast, rather than releasing a diffuse assortment all at once.'},
-  {title:'Mixed-metal styled stacks', tag:'Merchandising', desc:'Merchandise cuffs and bangles as pre-styled gold-and-silver sets rather than separating by metal tone \u2014 mirrors how shoppers are already buying.'},
+  {title:'Story-first capsules', tag:'Display', desc:'Group one hero and three to five supporting items by narrative, not only category. Clarifies the collection and supports cross-category attachment.'},
+  {title:'Starter base + add-on ladder', tag:'Conversion', desc:'Place a $10 base beside $5 charms, spacers, or clips. Makes the price architecture immediately understandable and encourages repeat purchase.'},
+  {title:'Pantone-led color blocks', tag:'Display', desc:'Merchandise coordinated colors across jewelry, hair, pet, and gifting. Creates strong shelf blocking and helps buyers read the seasonal palette quickly.'},
+  {title:'Meaning cards', tag:'Storytelling', desc:'Use one sentence explaining a symbol, botanical, or material story. Supports sentimental gifting without requiring expensive packaging.'},
+  {title:'Try-on and movement content', tag:'Digital + Store', desc:'Show fringe, drops, cords, and convertible pieces in motion. Demonstrates value that a static product image cannot communicate.'},
+  {title:'Build-your-own display', tag:'Engagement', desc:'Limit the choice set to compatible bases and a curated add-on tray. Captures personalization while avoiding an unmanageable SKU wall.'},
+  {title:'Human + pet gifting table', tag:'Gifting', desc:'Pair coordinated items with clear safety and sizing information. Builds emotional baskets without making the products identical.'},
+  {title:'Key-item timed drops', tag:'Cadence', desc:'Launch one hero silhouette with small add-on refreshes. Concentrates storytelling and preserves chase flexibility.'},
 ];
+
 
 const packagingIdeas = [
-  {name:'Gift-ready by default', mark:'box', color:HEX.steady, desc:'Every order leaves the register looking like a gift — no separate wrapping counter needed.'},
-  {name:'Unboxing as a story beat', mark:'ribbon', color:HEX.peaking, desc:'A small reveal moment (a ribbon pull, a tuck-fold lid) gives customers something worth filming.'},
-  {name:'Personalized note cards', mark:'card', color:HEX.growing, desc:'A handwritten line on a printed card reinforces the collected, not mass-bought, feeling.'},
-  {name:'Reusable, low-impact pouches', mark:'leaf', color:HEX.emerging, desc:'Fabric pouches over single-use plastic align packaging with the season\u2019s sustainability signal.'},
+  {name:'Gift-ready paper card', mark:'card', color:HEX.growing, desc:'Gift-ready without a separate box; efficient for peg and digital photography'},
+  {name:'Reusable ribbon only when functional', mark:'ribbon', color:HEX.growing, desc:'Turns trim into part of the product rather than disposable decoration'},
+  {name:'Keepsake drawer box', mark:'box', color:HEX.growing, desc:'Strong unboxing and storage value'},
+  {name:'Botanical tuck sleeve', mark:'ribbon', color:HEX.growing, desc:'Supports Garden Atelier and original visual identity'},
+  {name:'Modular system guide', mark:'card', color:HEX.growing, desc:'Reduces purchase confusion and supports collecting'},
+  {name:'QR care and styling', mark:'card', color:HEX.growing, desc:'Adds information without larger packaging'},
+  {name:'Mono-material mailer insert', mark:'box', color:HEX.growing, desc:'Improves omnichannel consistency and recovery'},
+  {name:'Pet safety callout', mark:'box', color:HEX.growing, desc:'Makes safety visible without separate loose inserts'},
 ];
 
+
 const resources = [
-  {name:'Holiday 2027 Trend Radar', type:'PDF', size:'2.1 MB'},
-  {name:'Trend Data & Drivers', type:'Excel', size:'640 KB'},
-  {name:'Color Direction Report', type:'PDF', size:'3.4 MB'},
-  {name:'Retailer Trend Scan', type:'PDF', size:'1.8 MB'},
-  {name:'Social Trend Report', type:'PDF', size:'2.6 MB'},
+  {id:'S01', name:'The State of Fashion 2026', type:'McKinsey & Company', size:'2025-11-17', url:'https://www.mckinsey.com/industries/retail/our-insights/state-of-fashion'},
+  {id:'S02', name:'Fall 2026 Accessory Trends', type:'Vogue', size:'2026-09', url:'https://www.vogue.com/article/fall-2026-accessory-trends'},
+  {id:'S03', name:'The Ouze Spring 2027', type:'Vogue', size:'2026-09-22', url:'https://www.vogue.com/article/the-ouze-jewelry-homeware-spring-2027'},
+  {id:'S04', name:'Puzzle Sliding Charm', type:'Mejuri', size:'2026-08 to 09', url:'https://mejuri.com/us/en/products/puzzle-sliding-charm'},
+  {id:'S05', name:'Charms and Pendants', type:'Mejuri', size:'2026-09', url:'https://mejuri.com/us/en/collections/charms-and-pendants'},
+  {id:'S06', name:'Bag Charms and Charm Jewelry', type:'BaubleBar', size:'2026-09', url:'https://www.baublebar.com/collections/bag-charms'},
+  {id:'S07', name:'Design Your Own Charm Bar', type:'Kendra Scott', size:'2026-09', url:'https://www.kendrascott.com/customize/design-your-own-charm-bar/charm-colorbar.html'},
+  {id:'S08', name:'Spring 2027 NYFW Beauty Trend Report', type:'Vogue', size:'2026-09-18', url:'https://www.vogue.com/article/beauty-spring-2027-nyfw-trend-report'},
+  {id:'S09', name:'Fall 2026 Couture Beauty Trend Report', type:'Vogue', size:'2026-07', url:'https://www.vogue.com/article/fall-2026-haute-couture-beauty-trend-report'},
+  {id:'S10', name:'Textured Accessories Trend', type:'Vogue', size:'2025-11', url:'https://www.vogue.com/article/textured-accessories-trend'},
+  {id:'S11', name:'Spring 2027 New York Fashion Week', type:'Associated Press', size:'2026-09-17', url:'https://apnews.com/article/7d5276bf994e682e691ea34b242b943e'},
+  {id:'S12', name:'Summer 2027 Burberry Show', type:'Reuters', size:'2026-09-21', url:'https://www.reuters.com/lifestyle/burberry-shows-embroidered-trench-coats-flowery-skirt-suits-summer-2027-2026-09-21/'},
+  {id:'S13', name:'2026 Couture Jewelry Show Trends', type:'Elle', size:'2026-06', url:'https://www.elle.com/fashion/jewelry/a71459858/couture-jewelry-show-las-vegas-trends-2026/'},
+  {id:'S14', name:'Pinterest Predicts 2026', type:'Pinterest Business', size:'2025-12', url:'https://business.pinterest.com/pinterest-predicts/'},
+  {id:'S15', name:'Color Is Back', type:'Vogue', size:'2026-07-21', url:'https://www.vogue.com/article/goodbye-90s-minimalism-color-is-so-back'},
+  {id:'S16', name:'Burberry Spring/Summer 2027', type:'Harper\'s Bazaar', size:'2026-09-22', url:'https://www.harpersbazaar.com/fashion/fashion-week/a73826673/daniel-lee-burberry-show-spring-summer-2027/'},
+  {id:'S17', name:'Spring 2027 Emerging Jewelry', type:'Vogue', size:'2026-09-22', url:'https://www.vogue.com/article/the-ouze-jewelry-homeware-spring-2027'},
+  {id:'S18', name:'Beauty Bag Charms', type:'Cosmopolitan', size:'2026-07', url:'https://www.cosmopolitan.com/style-beauty/beauty/a73171858/beauty-bag-charms-trend/'},
+  {id:'S19', name:'Dogs at NYFW', type:'Page Six', size:'2026-09-16', url:'https://pagesix.com/2026/09/16/style/posh-dogs-take-over-the-runway-at-nyfw/'},
+  {id:'S20', name:'Thanksgiving Weekend 2025', type:'National Retail Federation', size:'2025-12-02', url:'https://nrf.com/media-center/press-releases/thanksgiving-holiday-weekend-draws-a-record-203-million-shoppers'},
+  {id:'S21', name:'Spring 2027 Red Street Style', type:'Marie Claire', size:'2026-09', url:'https://www.marieclaire.com/fashion/new-york-fashion-week-street-style-trend-spring-summer-2027-red-color/'},
+  {id:'S22', name:'2026 Sustainable Packaging Trends', type:'Sustainable Packaging Coalition', size:'2026-06-10', url:'https://sustainablepackaging.org/2026-sustainable-packaging-trends-report/'},
+  {id:'S23', name:'2026 Personalization Trends', type:'Attentive', size:'2026-09-11', url:'https://www.attentive.com/blog/2026-personalization-trends'},
+  {id:'S24', name:'2026 Ecommerce Personalization Trends', type:'BlueConic', size:'2026', url:'https://www.blueconic.com/resources/ecommerce-personalization-trends'},
+  {id:'S25', name:'What to Expect in Fashion 2026', type:'McKinsey & Company', size:'2026-02-11', url:'https://www.mckinsey.com/industries/retail/our-insights/what-to-expect-in-the-global-fashion-industry-in-2026'},
+  {id:'S26', name:'Fashion, Home + Interiors Color Finder', type:'Pantone', size:'Accessed 2026-09-22', url:'https://www.pantone.com/na/en-us/color-finder'},
 ];
+
 
 /* =========================================================
    Render functions
@@ -912,18 +989,18 @@ const resources = [
 function renderOverview(){
   return `
     ${heroCarousel([
-      {eyebrow:'Holiday 2027 \u00b7 Updated continuously', title:'What\u2019s moving this season', sub:'A live read on emerging, growing and peaking trends across every accessory category.'},
-      {eyebrow:'New this week', title:'Charm storytelling leads the pack', sub:'Maximalist, personalized charm necklaces are this week\u2019s fastest-moving jewelry story \u2014 see the full breakdown in Trend Stories.'},
-      {eyebrow:'Now live', title:'Holiday & Spring \u201928 palettes are up', sub:'Holiday 2027 core colors and directional Spring 2028 color and material forecasts are now available under Color Direction and Materials & Finishes.'},
-      {eyebrow:'Retail watch', title:'Personalization goes permanent', sub:'Anthropologie\u2019s shop-in-shop charm bar and Kendra Scott\u2019s category expansion signal where the market is heading \u2014 full read in Retail Watch.'},
+      {eyebrow:'Holiday 2027 & Spring 2028 \u00b7 Research as of Sep 22, 2026', title:'What\u2019s moving across both seasons', sub:'The market is shifting from generic novelty toward accessories that feel personal, tactile, collectible, and giftable.'},
+      {eyebrow:'New this week', title:'Personal Story Systems leads the platform play', sub:'Modular charm bases with add-on economics are the strongest cross-category opportunity we\u2019re tracking \u2014 see the full breakdown in Trend Stories.'},
+      {eyebrow:'Now live', title:'20 Pantone-referenced colors are up', sub:'Holiday 2027 and Spring 2028 palettes with real Pantone FHI Cotton TCX references are now available under Color Direction.'},
+      {eyebrow:'Retail watch', title:'Modular charm systems go mainstream', sub:'Multiple jewelry brands now organize merchandising around a base-plus-charm model \u2014 full read in Retail Watch.'},
     ])}
-    ${metaRow(['74 trends tracked','26 retailers monitored','Refreshed daily'])}
+    ${metaRow(['24 trends tracked','19 forecast records','Refreshed as evidence changes'])}
 
     <div class="grid cols-4 section-block">
-      <div class="card kpi"><div class="num">74</div><div class="label">Total trends tracked</div><div class="delta">+8 new signals this week</div></div>
-      <div class="card kpi"><div class="num">14</div><div class="label">Accelerating fast</div><div class="delta">Across 4 categories</div></div>
-      <div class="card kpi"><div class="num">6</div><div class="label">Categories monitored</div><div class="delta" style="color:var(--ink-faint)">Jewelry to footwear</div></div>
-      <div class="card kpi"><div class="num">26</div><div class="label">Retailers tracked</div><div class="delta" style="color:var(--ink-faint)">Zara to Anthropologie</div></div>
+      <div class="card kpi"><div class="num">24</div><div class="label">Total trends tracked</div><div class="delta">Trend Radar, both seasons</div></div>
+      <div class="card kpi"><div class="num">9</div><div class="label">High-confidence records</div><div class="delta">4 Holiday \u00b7 5 Spring</div></div>
+      <div class="card kpi"><div class="num">12</div><div class="label">Actionable products</div><div class="delta" style="color:var(--ink-faint)">6 Holiday \u00b7 6 Spring</div></div>
+      <div class="card kpi"><div class="num">15</div><div class="label">$5 opportunities</div><div class="delta" style="color:var(--ink-faint)">6 Holiday \u00b7 9 Spring</div></div>
     </div>
 
     <div class="grid cols-2 section-block">
@@ -935,15 +1012,15 @@ function renderOverview(){
             ${overviewDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}
           </div>
         </div>
-        ${source('Based on 38,400 social mentions and 1,240 retailer SKUs across 24 retailers.')}
+        ${source('Status distribution across all 24 Trend Radar records.')}
       </div>
       <div class="card">
         <h3>Top categories</h3>
         <div class="list-rank">
-          ${[['Jewelry & charms','25'],['Earrings','14'],['Necklaces','12'],['Hair accessories','8'],['Bags & accessories','6']]
+          ${[['Jewelry','14'],['Hair','14'],['Packaging','9'],['Small Accessories','5'],['Gifting','5'],['Pet','5']]
             .map(([n,v])=>`<div class="item"><span class="name">${n}</span><b>${v}</b></div>`).join('')}
         </div>
-        ${source('Trend count by category, Holiday 2027 tracking period.')}
+        ${source('Trend count by category, exploded across all Trend Radar records.')}
       </div>
     </div>
 
@@ -965,21 +1042,22 @@ function renderOverview(){
       </div>
     </div>
 
-    <div class="grid cols-3 section-block">
+    <div class="grid cols-2 section-block">
       <div class="card">
-        <h3>Momentum, last 6 months</h3>
-        ${sparkline([42,48,55,63,68,74])}
-        ${source('Composite index of search, social and retail-adoption signals.')}
-      </div>
-      <div class="card">
-        <h3>Fastest growing</h3>
+        <h3>Priority decisions</h3>
         <div class="list-rank">
-          ${fastestGrowing.map((f,i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${f.name}</span><span class="pct up">${f.change}</span></div>`).join('')}
+          ${[
+            ['Approve a shared charm attachment system','Enables repeatable $5 add-ons around $10 bases across seasons and categories.'],
+            ['Fund Modern Heirloom and Garden Atelier as lead stories','Both have strong multi-source evidence and clear cross-category range potential.'],
+            ['Use sets and mixed materials to protect value','Visible quantity and texture support the strongest customer response points.'],
+            ['Test useful novelty before scaling','Mirror and beauty-holder charms need durability, safety, and repeat-use validation.'],
+            ['Replace generic novelty with original artwork and tactile detail','Reduces imitation risk and increases perceived authorship without heavy material cost.'],
+          ].map(([t,d],i)=>`<div class="item" style="align-items:flex-start;flex-direction:column;gap:4px"><span class="name"><span class="idx">${i+1}</span>${t}</span><span style="font-size:11.5px;color:var(--ink-soft);padding-left:24px">${d}</span></div>`).join('')}
         </div>
       </div>
       <div class="insight-box">
         <span class="kicker">Trend insight</span>
-        Holiday 2027 rewards personalization: sentimental, story-driven pieces paired with rich, gift-ready metallics. Shoppers want pieces that feel personal, yet give-able.
+        Jewelry is gaining strategic importance because consumers use it for self-expression, self-gifting, and perceived longevity even as value pressure remains high. For Holiday 2027, the strongest opportunities combine heirloom cues with celebration; for Spring 2028, garden craft, coastal materials, and customizable systems offer the clearest path from directional fashion to accessible product.
       </div>
     </div>
   `;
@@ -1038,7 +1116,7 @@ function renderStories(){
 
 function renderOpportunity(){
   return `
-    ${metaRow(['5 trends × 4 categories','5 signals on watch list','Refreshed monthly'])}
+    ${metaRow(['8 trends × 6 categories','6 signals on watch list','Refreshed monthly'])}
     <div class="grid cols-2 section-block">
       <div class="card">
         <h3>Category opportunity matrix</h3>
@@ -1083,24 +1161,24 @@ function renderOpportunity(){
 
 function renderHeat(){
   return `
-    ${metaRow(['5 trends tracked','6-month trendline','Momentum vs. last month'])}
+    ${metaRow(['12 trends tracked','Momentum without invented percentages','Confidence = evidence breadth'])}
     <div class="grid cols-2 section-block">
       <div class="card">
         <h3>Momentum tracker</h3>
         <table>
-          <thead><tr><th>Trend</th><th>Momentum</th><th>vs. last month</th><th>Interest</th><th>Stage</th></tr></thead>
+          <thead><tr><th>Trend</th><th>Momentum</th><th>Confidence</th><th>Evidence</th><th>Stage</th></tr></thead>
           <tbody>
             ${heatRows.map(r=>`
               <tr>
                 <td class="row-title"><span class="row-photo" style="background:${HEX[r.status]}17;color:${HEX[r.status]}">${markIcon(r.mark)}</span>${r.name}</td>
                 <td>${tag(r.status)}</td>
-                <td class="pct ${r.change[0]==='+'?'up':'down'}">${r.change}</td>
-                <td>${dotScale(r.interest)}</td>
+                <td style="color:var(--ink-soft);font-size:11.8px">${r.confidence}</td>
+                <td>${dotScale(r.dots)}</td>
                 <td style="color:var(--ink-soft)">${r.stage}</td>
               </tr>`).join('')}
           </tbody>
         </table>
-        ${source('Interest = search volume, social mentions and engagement, scored 1–5.')}
+        ${source('Momentum and evidence breadth are qualitative judgments, not invented percentages \u2014 see Sources & Method.')}
       </div>
       <div class="card" style="display:flex;flex-direction:column;gap:18px">
         <div>
@@ -1119,7 +1197,7 @@ function renderHeat(){
 function renderTiming(){
   const cols = [['now',HEX.peaking,'grain-none'],['next',HEX.growing,'grain-mid'],['future',HEX.steady,'grain-far']];
   return `
-    ${metaRow(['15 trends mapped','Now → 24-month horizon','Confidence fades with distance'])}
+    ${metaRow(['24 trends mapped','NOW 3 \u00b7 NEXT 14 \u00b7 FUTURE 7','Confidence fades with distance'])}
     <div class="timing-cols">
       ${cols.map(([key,color,grain])=>{
         const c = timing[key];
@@ -1144,9 +1222,12 @@ function renderTiming(){
 }
 
 function renderColor(){
+  const paletteDonut = ['growing','emerging','steady','peaking','declining']
+    .map(s=>({label:STATUS[s].label, value:palette.filter(p=>p.status===s).length, color:HEX[s]}))
+    .filter(d=>d.value>0);
   return `
     ${heroBanner('Palette forecast', 'Color Direction: Holiday \u201927 \u2192 Spring \u201928', 'Rich, gift-ready jewel tones carry the season into Holiday, giving way to a softer, pastel reset for Spring.')}
-    ${metaRow(['6 core colors','Scroll for Spring 2028','Updated each season'])}
+    ${metaRow(['10 core colors, real Pantone TCX refs','Scroll for Spring 2028','Updated each season'])}
     <div class="section-block">
       <div class="block-head"><h3>Holiday 2027 core palette</h3></div>
       <div class="swatch-strip">
@@ -1159,12 +1240,12 @@ function renderColor(){
     </div>
     <div class="grid cols-2">
       <div class="card">
-        <h3>Color momentum</h3>
+        <h3>Color confidence</h3>
         <div class="donut-wrap">
-          ${donut(colorDonut)}
-          <div class="legend">${colorDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+          ${donut(paletteDonut)}
+          <div class="legend">${paletteDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
         </div>
-        ${source('Momentum scored from search interest, runway coverage and retail color-adoption.')}
+        ${source('Pantone FHI Cotton TCX references; digital swatches are approximations \u2014 confirm against physical standards before production.')}
       </div>
       <div class="card">
         <h3>Key takeaways</h3>
@@ -1173,7 +1254,7 @@ function renderColor(){
     </div>
 
     <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Spring 2028 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+      <div class="block-head"><h3>Spring 2028 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Real Pantone TCX references</span></div>
       <div class="swatch-strip">
         ${springPalette.map(p=>`
           <div class="chip">
@@ -1190,8 +1271,11 @@ function renderColor(){
 }
 
 function renderMaterials(){
+  const materialsDonut = ['growing','emerging','steady','peaking','declining']
+    .map(s=>({label:STATUS[s].label, value:materials.filter(m=>m.status===s).length, color:HEX[s]}))
+    .filter(d=>d.value>0);
   return `
-    ${metaRow(['5 materials tracked','Scroll for Spring 2028','Refreshed each season'])}
+    ${metaRow(['7 materials tracked','Scroll for Spring 2028','Refreshed each season'])}
     <div class="section-block">
       <div class="block-head"><h3>Holiday 2027 materials to watch</h3></div>
       <div class="mat-grid">
@@ -1209,10 +1293,10 @@ function renderMaterials(){
       <div class="card">
         <h3>Material momentum</h3>
         <div class="donut-wrap">
-          ${donut(materialDonut)}
-          <div class="legend">${materialDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+          ${donut(materialsDonut)}
+          <div class="legend">${materialsDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
         </div>
-        ${source('Momentum scored from supplier RFQs, runway coverage and retail SKU growth.')}
+        ${source('Momentum and price fit per Materials & Finishes register; development checks required before sourcing.')}
       </div>
       <div class="card">
         <h3>Key takeaways</h3>
@@ -1242,40 +1326,17 @@ function renderMaterials(){
 
 function renderRetail(){
   return `
-    ${heroBanner('In stores now', 'Retail Watch', 'What\u2019s selling, what\u2019s trending in-store, and how shoppers are responding this season.')}
-    ${metaRow(['24 retailers monitored','1,240+ SKUs tracked','Refreshed weekly'])}
-    <div class="grid cols-3 section-block">
-      <div class="card">
-        <h3>Market pulse</h3>
-        <div class="num" style="font-family:'Playfair Display',serif;font-size:34px;font-weight:600">${retail.pulse}<span style="font-size:16px;color:var(--ink-faint);font-weight:500">/100</span></div>
-        <div class="delta" style="margin-bottom:10px">${retail.pulseDelta}</div>
-        ${sparkline(retail.pulseSpark,260,70)}
-        ${source('Composite of sell-through, shelf share and new-door distribution.')}
+    ${heroBanner('In stores now', 'Retail Watch', 'Public market examples, identified by neutral channel or brand type \u2014 confidential account names are excluded.')}
+    ${metaRow(['10 market examples','Neutral channel labels','Refreshed weekly'])}
+    <div class="card section-block">
+      <h3>Category momentum</h3>
+      <div class="list-rank">
+        ${retail.categoryMomentum.map(([n,s])=>`<div class="item"><span class="name">${n}</span>${tag(s)}</div>`).join('')}
       </div>
-      <div class="card">
-        <h3>Top growing categories</h3>
-        <div class="list-rank">${retail.growingCats.map(([n,v],i)=>`<div class="item"><span class="name"><span class="idx">${i+1}</span>${n}</span><span class="pct up">${v}</span></div>`).join('')}</div>
-      </div>
-      <div class="card">
-        <h3>Price point performance</h3>
-        <div class="list-rank">${retail.pricePoints.map(([n,v])=>`<div class="item"><span class="name">${n}</span><span class="pct up">${v}</span></div>`).join('')}</div>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Consumer sentiment</h3>
-      <div class="sentiment-bar">
-        <div style="width:${retail.sentiment.positive}%;background:${HEX.emerging}"></div>
-        <div style="width:${retail.sentiment.neutral}%;background:${HEX.declining}"></div>
-        <div style="width:${retail.sentiment.negative}%;background:${HEX.peaking}"></div>
-      </div>
-      <div class="sentiment-legend">
-        <span><span class="dot" style="background:${HEX.emerging}"></span>Positive ${retail.sentiment.positive}%</span>
-        <span><span class="dot" style="background:${HEX.declining}"></span>Neutral ${retail.sentiment.neutral}%</span>
-        <span><span class="dot" style="background:${HEX.peaking}"></span>Negative ${retail.sentiment.negative}%</span>
-      </div>
+      ${source('Adoption-stage assessment based on repetition across independent source types \u2014 a forecast judgment, not reported sales data.')}
     </div>
     <div class="card section-block" style="margin-top:18px">
-      <h3>Brand & retailer moves this week</h3>
+      <h3>Brand & retailer moves</h3>
       <div class="resource-list">
         ${retailSignals.map(r=>`
           <div class="resource-row" style="align-items:flex-start">
@@ -1285,7 +1346,7 @@ function renderRetail(){
             </div>
           </div>`).join('')}
       </div>
-      ${source('Qualitative signals from brand assortment and merchandising activity, not proprietary sales data.')}
+      ${source('Public market examples only \u2014 confidential account names and internal assortment plans are excluded.')}
     </div>
   `;
 }
@@ -1361,9 +1422,13 @@ function renderPackaging(){
 
 function renderResources(){
   return `
-    ${metaRow(['5 downloadable reports','Regenerated with every refresh'])}
+    ${metaRow(['26 cited sources','Research as of Sep 22, 2026','Link to original source'])}
+    <div class="insight-box section-block">
+      <span class="kicker">Method</span>
+      A trend is treated as established or gaining momentum only when repeated across at least two independent source types. No sell-through, search-growth, engagement, or sales figures were invented \u2014 quantitative claims are used only when a cited source reported them.
+    </div>
     <div class="card">
-      <h3>Reports & data</h3>
+      <h3>Sources & method</h3>
       <div class="resource-list">
         ${resources.map(r=>`
           <div class="resource-row">
@@ -1372,9 +1437,9 @@ function renderResources(){
             </div>
             <div class="resource-mid">
               <div class="resource-name">${r.name}</div>
-              <div class="resource-meta">${r.type} · ${r.size}</div>
+              <div class="resource-meta">${r.type} \u00b7 ${r.size}</div>
             </div>
-            <button class="btn resource-btn">Download</button>
+            <a class="btn resource-btn" href="${r.url}" target="_blank" rel="noopener">View source</a>
           </div>`).join('')}
       </div>
     </div>
@@ -1398,7 +1463,7 @@ const SECTIONS = [
   {id:'inspo', label:'Product Inspiration', icon:'inspo', title:'Product Inspiration', sub:'Curated direction to spark the next assortment.', render:renderInspo},
   {id:'merch', label:'Merchandising', icon:'merch', title:'Merchandising', sub:'How to sell it \u2014 display and storytelling ideas.', render:renderMerchandising},
   {id:'packaging', label:'Packaging Inspiration', icon:'packaging', title:'Packaging Inspiration', sub:'Elevate the experience, from box to unboxing.', render:renderPackaging},
-  {id:'resources', label:'Resources', icon:'resources', title:'Resources', sub:'Reports and data behind every section.', render:renderResources},
+  {id:'resources', label:'Resources', icon:'resources', title:'Resources', sub:'Cited sources and methodology behind every section.', render:renderResources},
 ];
 
 const navEl = document.getElementById('nav');
@@ -1446,9 +1511,6 @@ function go(id){
           row.style.display = (f==='all' || row.dataset.status===f) ? '' : 'none';
         });
       });
-    });
-    target.querySelectorAll('.resource-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>showToast('This is a demo \u2014 connect a real file to enable downloads'));
     });
   }
   target.classList.add('active');
