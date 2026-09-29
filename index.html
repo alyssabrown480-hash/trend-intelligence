@@ -359,9 +359,28 @@
   }
   .key-item-card .ki-photo svg{width:34%;height:34%;}
   .key-item-card .ki-title{font-size:11.8px;font-weight:600;padding:9px 10px;line-height:1.35;}
+  .m-tabs{display:flex;gap:18px;margin-bottom:18px;border-bottom:1px solid var(--line);}
+  .m-tab{padding:8px 2px 10px;font-size:12.8px;font-weight:600;color:var(--ink-faint);cursor:pointer;
+    border-bottom:2px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none;
+    font-family:'Montserrat',sans-serif;}
+  .m-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .m-tab-panel{display:none;}
+  .m-tab-panel.active{display:block;}
+  .gallery-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;margin:0 -4px;padding-left:4px;padding-right:4px;}
+  .gallery-item{position:relative;flex:none;width:200px;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:var(--bg);}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
+  .gallery-caption{
+    position:absolute;left:0;right:0;bottom:0;padding:14px 12px 10px;
+    background:linear-gradient(0deg, rgba(0,0,0,.75), rgba(0,0,0,0));
+    color:#fff;font-size:11.3px;font-weight:500;line-height:1.4;
+    opacity:0;transition:opacity .2s ease;pointer-events:none;
+  }
+  .gallery-item:hover .gallery-caption{opacity:1;}
+  .gallery-empty{padding:44px 20px;text-align:center;color:var(--ink-faint);font-size:12.5px;background:var(--bg);border-radius:12px;}
   @media (max-width:560px){
     .story-modal .m-facts{grid-template-columns:1fr;}
     .key-items-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery-item{width:150px;}
   }
 
   /* Trend Radar filters + rows */
@@ -390,6 +409,7 @@
   .radar-row{display:flex;align-items:center;gap:14px;padding:13px 18px;border-bottom:1px solid var(--line);}
   .radar-row:last-child{border-bottom:none;}
   .radar-photo{width:46px;height:46px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;}
+  .radar-photo-img{width:46px;height:46px;border-radius:10px;flex:none;object-fit:cover;}
   .radar-photo svg{width:52%;height:52%;}
   .radar-mid{flex:1;min-width:0;}
   .radar-name{font-weight:600;font-size:13.5px;margin-bottom:2px;}
@@ -720,7 +740,7 @@ const overviewDonut = [
 
 
 const stories = [
-  {id:'dressedinkeepsakes', img:IMG_KEEPSAKE, focal:'50% 30%', name:'Dressed in Keepsakes', mark:'locket', status:'growing',
+  {id:'dressedinkeepsakes', img:IMG_KEEPSAKE, focal:'50% 30%', gallery:[{img:IMG_KEEPSAKE, focal:'50% 30%', caption:'Layered necklace styling'}], name:'Dressed in Keepsakes', mark:'locket', status:'growing',
    hook:'Wear your history',
    narrative:'Brooches, lockets, signets and pearl clusters turn memory into a styling system. The winning expression feels collected over time, with mixed finishes and imperfect pairings that invite the wearer to create a personal arrangement.',
    consumer:'Nostalgia becomes personal when an accessory looks discovered rather than newly manufactured.',
@@ -730,7 +750,7 @@ const stories = [
    merch:'Pin bar with mix and match cards',
    facts:[['Price architecture','$5 mini pin or locket charm. $10 three piece pin set or velvet bow with removable brooch.'],['Color direction','Oxidized silver, antique gold, oxblood, cream, smoky blue'],['Key materials','Velvet, pearl effect, engraved metal, glass stone'],['Team decision','Build the pin system']],
    keyItems:[{name:'Mini brooches', mark:'locket'},{name:'Lockets', mark:'locket'},{name:'Signets', mark:'locket'}]},
-  {id:'thecharmeconomy', img:IMG_STORY, focal:'50% 30%', name:'The Charm Economy', mark:'ring', status:'growing',
+  {id:'thecharmeconomy', img:IMG_STORY, focal:'50% 30%', gallery:[{img:IMG_STORY, focal:'50% 30%', caption:'Birthstone and initial charm assortment'}], name:'The Charm Economy', mark:'ring', status:'growing',
    hook:'One base, endless remixes',
    narrative:'The opportunity is not a single charm. It is a repeat purchase engine built around a base, a connector and a stream of collectible add ons. Design every component to work across at least two product families.',
    consumer:'Customization is moving from one novelty charm to an expandable system across bags, jewelry, phones and hair.',
@@ -740,7 +760,7 @@ const stories = [
    merch:'Build your own charm counter',
    facts:[['Price architecture','$5 add on charm or spacer. $10 starter necklace, bracelet or bag base.'],['Color direction','Cherry red, cobalt, butter yellow, silver, candy brights'],['Key materials','Enamel, resin, plated metal, cord, carabiners'],['Team decision','Fund the system first']],
    keyItems:[{name:'Starter chains', mark:'ring'},{name:'Bag bases', mark:'ring'},{name:'Clip charms', mark:'ring'}]},
-  {id:'afterdarkamulets', img:IMG_AMULET, focal:'50% 30%', name:'After Dark Amulets', mark:'star', status:'growing',
+  {id:'afterdarkamulets', img:IMG_AMULET, focal:'50% 30%', gallery:[{img:IMG_AMULET, focal:'50% 30%', caption:'Celestial charm bracelet stack'}], name:'After Dark Amulets', mark:'star', status:'growing',
    hook:'Objects with a little mystery',
    narrative:'Move beyond generic moons and stars into protection symbols, coded marks and modern ritual objects. The strongest pieces pair one ancient looking detail with a clean contemporary silhouette.',
    consumer:'Mystery and ritual give celestial product a more grown up reason to exist.',
@@ -750,7 +770,7 @@ const stories = [
    merch:'Talisman wall with meaning cards',
    facts:[['Price architecture','$5 mini talisman on cord. $10 oversized medallion or constellation pin trio.'],['Color direction','Ink, plum, hematite, moonstone, deep teal'],['Key materials','Dark metal, raw stone effect, glass, cord, etched resin'],['Team decision','Own the talisman language']],
    keyItems:[{name:'Talisman cords', mark:'star'},{name:'Oversized medallions', mark:'star'},{name:'Raw stone rings', mark:'star'}]},
-  {id:'handmadeholiday', img:'images/trend-stories/handmade-holiday-burberry-craft.jpg', focal:'50% 48%', name:'Handmade Holiday', mark:'weave', status:'growing',
+  {id:'handmadeholiday', img:'images/trend-stories/handmade-holiday-burberry-craft.jpg', focal:'50% 48%', gallery:[{img:'images/trend-stories/handmade-holiday-burberry-craft.jpg', focal:'50% 48%', caption:'Reference image'}], name:'Handmade Holiday', mark:'weave', status:'growing',
    hook:'Made to be kept',
    narrative:'Stitching, patchwork and woven details replace glossy holiday novelty with something warmer and more human. Let the construction remain visible so every item carries evidence of the hand.',
    consumer:'Visible handwork gives festive accessories emotional value and makes small items feel worth keeping.',
@@ -760,7 +780,7 @@ const stories = [
    merch:'Stitch sampler gift wall',
    facts:[['Price architecture','$5 embroidered bow or textile pin. $10 coordinated clip set or reversible scarf.'],['Color direction','Berry, forest, cream, indigo, warm gold'],['Key materials','Embroidery thread, felt, woven tape, quilted textile, wood'],['Team decision','Scale textile craft']],
    keyItems:[{name:'Embroidered bows', mark:'weave'},{name:'Textile brooches', mark:'weave'},{name:'Stitched clips', mark:'weave'}]},
-  {id:'thecollectorsgarden', img:'images/trend-stories/collectors-garden-simone-rocha-rose.jpg', focal:'50% 34%', name:'The Collector’s Garden', mark:'leaf', status:'growing',
+  {id:'thecollectorsgarden', img:'images/trend-stories/collectors-garden-simone-rocha-rose.jpg', focal:'50% 34%', gallery:[{img:'images/trend-stories/collectors-garden-simone-rocha-rose.jpg', focal:'50% 34%', caption:'Reference image'}], name:'The Collector’s Garden', mark:'leaf', status:'growing',
    hook:'A garden worth cataloguing',
    narrative:'This is a field notebook rather than a generic floral story. Use identifiable leaves, seed heads, pollinators and garden tools so products reward close looking and encourage collecting by species.',
    consumer:'Nature interest is becoming more specific, observational and collectible.',
@@ -770,7 +790,7 @@ const stories = [
    merch:'Specimen drawer display',
    facts:[['Price architecture','$5 botanical mini claw or single charm. $10 claw trio, scarf or starter necklace.'],['Color direction','Fern, lichen, iris, pollen yellow, parchment'],['Key materials','Pressed flower effect resin, etched metal, translucent acetate, cotton'],['Team decision','Build the botanical library']],
    keyItems:[{name:'Botanical mini claws', mark:'leaf'},{name:'Pressed flower charms', mark:'leaf'},{name:'Pollinator pins', mark:'leaf'}]},
-  {id:'lacedinlove', img:'images/trend-stories/laced-in-love-cord-choker.jpg', focal:'50% 50%', name:'Laced in Love', mark:'sport', status:'growing',
+  {id:'lacedinlove', img:'images/trend-stories/laced-in-love-cord-choker.jpg', focal:'50% 50%', gallery:[{img:'images/trend-stories/laced-in-love-cord-choker.jpg', focal:'50% 50%', caption:'Reference image'}], name:'Laced in Love', mark:'sport', status:'growing',
    hook:'Romance with a pulse',
    narrative:'The tension is the story. Borrow closures and cords from sport, then interrupt them with lace, bows, pearls and love tokens. The result should feel active, light and flirtatious.',
    consumer:'Sport hardware softens through satin ties, pearls and romantic color without losing utility.',
@@ -780,7 +800,7 @@ const stories = [
    merch:'Lace up customization rail',
    facts:[['Price architecture','$5 cord bracelet. $10 bracelet duo or convertible necklace.'],['Color direction','Blush, varsity red, navy, icy blue, optic white'],['Key materials','Technical cord, satin ribbon, pearl effect, rubber, metal sliders'],['Team decision','Test the cord and ribbon mix']],
    keyItems:[{name:'Cord bracelets', mark:'sport'},{name:'Ribbon laces', mark:'sport'},{name:'Pearl sliders', mark:'sport'}]},
-  {id:'earthformed', img:'images/trend-stories/earthformed-the-ouze-rings.png', focal:'50% 50%', name:'Earthformed', mark:'hex', status:'growing',
+  {id:'earthformed', img:'images/trend-stories/earthformed-the-ouze-rings.png', focal:'50% 50%', gallery:[{img:'images/trend-stories/earthformed-the-ouze-rings.png', focal:'50% 50%', caption:'Reference image'}], name:'Earthformed', mark:'hex', status:'growing',
    hook:'Shaped by nature',
    narrative:'Texture does the storytelling. Pebbles, shells, fossils and seed pods are simplified into sculptural forms that feel calm, substantial and modern while remaining lightweight and accessible.',
    consumer:'Tactile form can deliver a premium nature story without relying on literal motifs.',
@@ -790,7 +810,7 @@ const stories = [
    merch:'Texture library table',
    facts:[['Price architecture','$5 resin pebble stud or mini clip. $10 textured pendant or coordinated earring set.'],['Color direction','Clay, chalk, moss, basalt, sand, oxidized bronze'],['Key materials','Textured metal, matte resin, stone effect, ceramic effect, translucent shell'],['Team decision','Prioritize silhouette and touch']],
    keyItems:[{name:'Pebble studs', mark:'hex'},{name:'Seed pod pendants', mark:'hex'},{name:'Fossil cuffs', mark:'hex'}]},
-  {id:'partytricks', img:'images/trend-stories/party-tricks-crystal-vase-necklace.jpg', focal:'50% 44%', name:'Party Tricks', mark:'box', status:'growing',
+  {id:'partytricks', img:'images/trend-stories/party-tricks-crystal-vase-necklace.jpg', focal:'50% 44%', gallery:[{img:'images/trend-stories/party-tricks-crystal-vase-necklace.jpg', focal:'50% 44%', caption:'Reference image'}], name:'Party Tricks', mark:'box', status:'growing',
    hook:'Useful enough to carry, funny enough to show',
    narrative:'Usefulness earns the purchase and wit earns the share. Build compact accessories around real party needs, then give them a specific cultural hook through food, drink and host gift imagery.',
    consumer:'Small accessories win when they solve a problem and start a conversation at the same time.',
@@ -1034,18 +1054,138 @@ const inspoThemes = [
 
 
 const microTrends = [
-  {name:'Charm Spacers', mark:'ring', color:HEX.growing, desc:'Small pearl, enamel, or textured spacers that change the rhythm of a charm stack'},
-  {name:'Textile Brooch Bows', mark:'bow', color:HEX.emerging, desc:'Velvet bow with a detachable sculptural pin'},
-  {name:'Dark Pearl Clusters', mark:'droplet', color:HEX.emerging, desc:'Smoke and cream pearls clustered on pins, hoops, and bag charms'},
-  {name:'Mini Mirror Pendants', mark:'box', color:HEX.emerging, desc:'Compact mirror carried as pendant or bag charm'},
-  {name:'Lace-Edge Barrettes', mark:'weave', color:HEX.emerging, desc:'Slim barrette with controlled lace or embroidered edge'},
-  {name:'Constellation Pins', mark:'star', color:HEX.emerging, desc:'Small starburst pins sold as an asymmetrical trio'},
-  {name:'Pressed-Look Resin', mark:'resin', color:HEX.growing, desc:'Translucent resin with botanical depth rather than flat print'},
-  {name:'Cord + Pearl Sliders', mark:'rope', color:HEX.growing, desc:'Adjustable braided bracelet with one pearl or organic slider'},
-  {name:'Scarf Rings', mark:'ribbon', color:HEX.emerging, desc:'Small sculpted ring that converts a skinny scarf across neck, hair, bag, or waist'},
-  {name:'Botanical Claw Minis', mark:'leaf', color:HEX.growing, desc:'Three small claws, each based on a specific flower or leaf shape'},
-  {name:'Mixed Bead Strands', mark:'droplet', color:HEX.growing, desc:'Polished glass, pearl, and stone-look beads in controlled color blocks'},
-  {name:'Pet + Person Motif Pair', mark:'bow', color:HEX.emerging, desc:'One shared motif translated as a human charm and a safe pet accessory'},
+  {name:'Charm Spacers', mark:'ring', status:'growing', color:HEX.growing,
+   hook:'Change the rhythm, not the charms',
+   desc:'Small pearl, enamel, or textured spacers slot between charms to change the pacing of a stack without adding another focal piece. It’s the easiest single-SKU upsell inside an existing charm system.',
+   narrative:'Small pearl, enamel, or textured spacers slot between charms to change the pacing of a stack without adding another focal piece. It’s the easiest single-SKU upsell inside an existing charm system.',
+   consumer:'Charm collectors building out an existing base who want variety without committing to another big piece.',
+   facts:[['Price point','$4–$8'],['Key materials','Enamel, resin, freshwater pearl']],
+   keyItems:[{name:'Enamel Rondelle Spacer', mark:'ring'},{name:'Pearl Disc Spacer', mark:'ring'},{name:'Textured Metal Bead', mark:'ring'}],
+   motifs:'Small discs, rondelles, faceted beads, subtle texture over bold shape',
+   creative:'Keep scale genuinely small — spacers should recede next to the charms they separate, not compete.',
+   avoid:'Oversized spacers that read as charms themselves',
+   merch:'Bundle 3 spacers as a single add-on SKU at the charm bar checkout'},
+  {name:'Textile Brooch Bows', mark:'bow', status:'emerging', color:HEX.emerging,
+   hook:'A bow with a second life',
+   desc:'A velvet bow built around a detachable sculptural pin lets one piece function as both a soft accessory and a harder-edged brooch, doubling its styling use.',
+   narrative:'A velvet bow built around a detachable sculptural pin lets one piece function as both a soft accessory and a harder-edged brooch, doubling its styling use.',
+   consumer:'Brooch-curious shoppers who aren’t ready to commit to a full pin collection.',
+   facts:[['Price point','$14–$24'],['Key materials','Velvet ribbon, antiqued metal pin back']],
+   keyItems:[{name:'Velvet Bow with Removable Pin', mark:'bow'},{name:'Mini Bow Hair Clip', mark:'bow'},{name:'Bow Lapel Set', mark:'bow'}],
+   motifs:'Soft ribbon folds paired with a hard, sculptural pin',
+   creative:'Make the pin removable and genuinely reusable elsewhere — that’s the whole value proposition.',
+   avoid:'Fixed, non-detachable bows that only work one way',
+   merch:'Display open so the detachable mechanic is visible, not boxed shut'},
+  {name:'Dark Pearl Clusters', mark:'droplet', status:'emerging', color:HEX.emerging,
+   hook:'Pearls, but moodier',
+   desc:'Smoke and cream pearls clustered together on pins, hoops, and bag charms bring pearl’s classic status into a darker, more current palette.',
+   narrative:'Smoke and cream pearls clustered together on pins, hoops, and bag charms bring pearl’s classic status into a darker, more current palette.',
+   consumer:'Pearl-loyal shoppers looking for something less traditional.',
+   facts:[['Price point','$16–$32'],['Key materials','Smoke pearl, cream pearl, mixed metal']],
+   keyItems:[{name:'Dark Pearl Cluster Hoops', mark:'droplet'},{name:'Pearl Cluster Bag Charm', mark:'droplet'},{name:'Pearl Cluster Pin', mark:'droplet'}],
+   motifs:'Irregular clusters, mixed pearl tones, no single dominant pearl',
+   creative:'Lean into tonal contrast between smoke and cream rather than uniform coloring.',
+   avoid:'Perfectly matched, uniform pearl strands — that reads as traditional, not current',
+   merch:'Pair with After Dark Amulets displays for a shared moody-jewelry moment'},
+  {name:'Mini Mirror Pendants', mark:'box', status:'emerging', color:HEX.emerging,
+   hook:'A useful excuse to check the mirror',
+   desc:'A compact mirror carried as a pendant or bag charm gives jewelry an actual function, tapping into the same “useful accessory” instinct as Party Tricks.',
+   narrative:'A compact mirror carried as a pendant or bag charm gives jewelry an actual function, tapping into the same “useful accessory” instinct as Party Tricks.',
+   consumer:'Function-forward shoppers who want jewelry to do something.',
+   facts:[['Price point','$18–$28'],['Key materials','Metal frame, glass mirror insert']],
+   keyItems:[{name:'Compact Mirror Pendant', mark:'box'},{name:'Mirror Bag Charm', mark:'box'},{name:'Mirror Keychain', mark:'box'}],
+   motifs:'Round or scalloped frames, hinged mirror doors, antique detailing',
+   creative:'Treat the mirror door itself as a design surface — engraving, enamel, or a monogram.',
+   avoid:'Flimsy hinges or mirrors that scratch easily in a bag',
+   merch:'Cross-merchandise with Party Tricks as “useful novelty” key items'},
+  {name:'Lace-Edge Barrettes', mark:'weave', status:'emerging', color:HEX.emerging,
+   hook:'A quiet, romantic edge',
+   desc:'A slim barrette finished with a controlled lace or embroidered edge brings Laced in Love’s romantic detailing into hair accessories at a lower price point.',
+   narrative:'A slim barrette finished with a controlled lace or embroidered edge brings Laced in Love’s romantic detailing into hair accessories at a lower price point.',
+   consumer:'Romantic-minimalist dressers who want a detail, not a statement.',
+   facts:[['Price point','$8–$16'],['Key materials','Lace appliqué, embroidered tape, metal clip']],
+   keyItems:[{name:'Lace-Edge Barrette', mark:'weave'},{name:'Embroidered Snap Clip', mark:'weave'},{name:'Lace Trim Bobby Pin Set', mark:'weave'}],
+   motifs:'Delicate lace trim kept to one edge, not the whole piece',
+   creative:'Keep the lace as an accent strip, not the full surface — that keeps it wearable daily.',
+   avoid:'Full lace coverage that reads costume-y rather than everyday',
+   merch:'Shelve alongside Laced in Love as the accessible entry point into that story'},
+  {name:'Constellation Pins', mark:'star', status:'emerging', color:HEX.emerging,
+   hook:'A trio, not a single pin',
+   desc:'Small starburst pins sold as an asymmetrical trio let shoppers build a cluster look on a lapel or bag strap without matching everything perfectly.',
+   narrative:'Small starburst pins sold as an asymmetrical trio let shoppers build a cluster look on a lapel or bag strap without matching everything perfectly.',
+   consumer:'Maximalist pin collectors who like curated asymmetry.',
+   facts:[['Price point','$24–$38 for a set of 3'],['Key materials','Antiqued gold metal, cubic zirconia']],
+   keyItems:[{name:'Starburst Pin Trio', mark:'star'},{name:'Single Constellation Pin', mark:'star'},{name:'Star Cluster Bag Pin', mark:'star'}],
+   motifs:'Varied star sizes and ray counts within one set, deliberately asymmetrical',
+   creative:'Sell as a pre-styled trio, not three identical pins, so the arrangement is done for the customer.',
+   avoid:'Matched, identical pin sets that need no styling decision',
+   merch:'Display pinned to a mannequin lapel in the asymmetrical cluster arrangement, not flat'},
+  {name:'Pressed-Look Resin', mark:'resin', status:'growing', color:HEX.growing,
+   hook:'Botanicals, held in place',
+   desc:'Translucent resin with visible botanical depth, rather than a flat printed pattern, gives Garden Atelier’s pressed-flower story real dimension at a small-object price point.',
+   narrative:'Translucent resin with visible botanical depth, rather than a flat printed pattern, gives Garden Atelier’s pressed-flower story real dimension at a small-object price point.',
+   consumer:'Garden Atelier shoppers wanting a lower-priced entry item.',
+   facts:[['Price point','$10–$18'],['Key materials','Cast resin, dried botanical elements']],
+   keyItems:[{name:'Pressed Flower Stud Earrings', mark:'resin'},{name:'Botanical Resin Pendant', mark:'resin'},{name:'Resin Bag Charm', mark:'resin'}],
+   motifs:'Visible depth and layering, not a flat surface print of a flower',
+   creative:'Cast real dimension into the resin — the point is that it looks pressed, not printed.',
+   avoid:'Flat, printed floral patterns marketed as pressed botanicals',
+   merch:'Group with The Collector’s Garden as its accessible-price companion line'},
+  {name:'Cord + Pearl Sliders', mark:'rope', status:'growing', color:HEX.growing,
+   hook:'Adjustable, with one moment of shine',
+   desc:'An adjustable braided cord bracelet finished with a single pearl or organic slider pairs Laced in Love’s cord materials with a small, elevated focal point.',
+   narrative:'An adjustable braided cord bracelet finished with a single pearl or organic slider pairs Laced in Love’s cord materials with a small, elevated focal point.',
+   consumer:'Cord-jewelry wearers who want one polished detail, not an all-cord look.',
+   facts:[['Price point','$12–$22'],['Key materials','Braided cord, freshwater pearl or wood slider']],
+   keyItems:[{name:'Cord & Pearl Slider Bracelet', mark:'rope'},{name:'Cord Anklet with Stone Slider', mark:'rope'},{name:'Adjustable Cord Choker', mark:'rope'}],
+   motifs:'One clear focal slider on an otherwise plain braided cord',
+   creative:'Let the cord stay simple so the single slider genuinely reads as the moment.',
+   avoid:'Overloading the cord with multiple charms, which cancels out the adjustable, minimal appeal',
+   merch:'Merchandise as a sizing-friendly gift option, since the slider makes fit universal'},
+  {name:'Scarf Rings', mark:'ribbon', status:'emerging', color:HEX.emerging,
+   hook:'One ring, four ways to wear it',
+   desc:'A small sculpted ring converts a skinny scarf across neck, hair, bag, or waist, giving Waist and Scarf Play a genuinely multi-use hardware piece.',
+   narrative:'A small sculpted ring converts a skinny scarf across neck, hair, bag, or waist, giving Waist and Scarf Play a genuinely multi-use hardware piece.',
+   consumer:'Versatility-minded shoppers who want one item to work several ways.',
+   facts:[['Price point','$16–$26'],['Key materials','Cast metal, mixed finish plating']],
+   keyItems:[{name:'Sculpted Scarf Ring', mark:'ribbon'},{name:'Scarf & Ring Bundle', mark:'ribbon'},{name:'Mini Scarf Ring Set', mark:'ribbon'}],
+   motifs:'Bold, sculptural ring silhouettes that can be seen clearly against a scarf',
+   creative:'Design the ring to be styled on its own as jewelry, not only as scarf hardware.',
+   avoid:'Purely functional, undecorated rings that only work as hardware',
+   merch:'Sell bundled with a scarf so the four styling options are demonstrated at shelf'},
+  {name:'Botanical Claw Minis', mark:'leaf', status:'growing', color:HEX.growing,
+   hook:'Three flowers, three finishes',
+   desc:'A set of three small hair claws, each based on a specific flower or leaf shape, brings Garden Atelier’s botanical detail into a functional hair accessory.',
+   narrative:'A set of three small hair claws, each based on a specific flower or leaf shape, brings Garden Atelier’s botanical detail into a functional hair accessory.',
+   consumer:'Garden Atelier shoppers who want function alongside the aesthetic.',
+   facts:[['Price point','$14–$22 for a set of 3'],['Key materials','Molded resin or acetate, matte finish']],
+   keyItems:[{name:'Botanical Claw Trio', mark:'leaf'},{name:'Single Flower Claw Clip', mark:'leaf'},{name:'Leaf-Shape Mini Claw', mark:'leaf'}],
+   motifs:'Distinct, identifiable flower and leaf shapes rather than generic florals',
+   creative:'Base each claw on one specific, recognizable botanical form for a collectible feel.',
+   avoid:'Generic floral shapes that don’t read as a specific flower',
+   merch:'Sell as a trio to encourage mixing across the Collector’s Garden botanical set'},
+  {name:'Mixed Bead Strands', mark:'droplet', status:'growing', color:HEX.growing,
+   hook:'Controlled color, not a rainbow',
+   desc:'Polished glass, pearl, and stone-look beads combined in controlled color blocks bring bead jewelry back with more restraint than its previous, more chaotic iteration.',
+   narrative:'Polished glass, pearl, and stone-look beads combined in controlled color blocks bring bead jewelry back with more restraint than its previous, more chaotic iteration.',
+   consumer:'Bead-jewelry nostalgics who want a more elevated, adult version.',
+   facts:[['Price point','$10–$20'],['Key materials','Glass bead, freshwater pearl, resin bead']],
+   keyItems:[{name:'Mixed Bead Strand Necklace', mark:'droplet'},{name:'Beaded Stack Bracelet Set', mark:'droplet'},{name:'Mixed Bead Earrings', mark:'droplet'}],
+   motifs:'Color-blocked sections rather than fully randomized bead placement',
+   creative:'Group beads in deliberate color blocks so the strand reads as designed, not random.',
+   avoid:'Fully randomized rainbow bead mixes that skew juvenile',
+   merch:'Position as an elevated update to the earlier 2010s beaded-jewelry trend for cross-generational appeal'},
+  {name:'Pet + Person Motif Pair', mark:'bow', status:'emerging', color:HEX.emerging,
+   hook:'The same charm, sized for both of you',
+   desc:'One shared motif translated as both a human charm and a safety-appropriate pet accessory lets Family and Pet Celebration extend into a genuine matching-set product.',
+   narrative:'One shared motif translated as both a human charm and a safety-appropriate pet accessory lets Family and Pet Celebration extend into a genuine matching-set product.',
+   consumer:'Pet-owner gift shoppers who want a matching moment, not just a human accessory.',
+   facts:[['Price point','$16–$28 for the pair'],['Key materials','Enamel, lightweight metal, breakaway pet hardware']],
+   keyItems:[{name:'Matching Motif Pendant + Pet Tag', mark:'bow'},{name:'Human Bracelet + Pet Collar Charm', mark:'bow'},{name:'Mini Pin + Pet Collar Charm Set', mark:'bow'}],
+   motifs:'One simple, clearly readable motif shared across both pieces at different scales',
+   creative:'Keep the motif simple enough to read clearly at both human and pet scale.',
+   avoid:'Pet hardware that isn’t breakaway-safe, or motifs too detailed to read small',
+   merch:'Sell as a boxed pair, not two separate SKUs, to reinforce the matching-set gift story'},
 ];
 
 
@@ -1156,7 +1296,7 @@ function renderOverview(){
           const focal = t.focal || (matchStory && matchStory.focal) || '50% 50%';
           const hasImg = !!imgSrc;
           return `
-          <div class="trend-card" style="border-top:3px solid ${HEX[t.status]}">
+          <div class="trend-card story-clickable" style="border-top:3px solid ${HEX[t.status]}" onclick="openCardModal('${t.name.replace(/'/g,"\\'")}')">
             ${hasImg ? `<img class="story-thumb" src="${imgSrc}" style="object-position:${focal}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
             <div class="photo" style="${hasImg?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">
               ${markIcon(t.mark)}
@@ -1166,6 +1306,7 @@ function renderOverview(){
               <div style="margin:6px 0 10px">${tag(t.status)}</div>
               <div class="desc">${t.desc}</div>
               <div class="swatches">${t.colors.map(c=>`<span style="background:${c}"></span>`).join('')}</div>
+              <div class="tap-hint">View details <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
             </div>
           </div>`;}).join('')}
       </div>
@@ -1203,16 +1344,21 @@ function renderRadar(){
         ${chips.map(([key,label])=>`<button class="filter-chip ${key==='all'?'active':''}" data-filter="${key}">${label} <span>${counts[key]||0}</span></button>`).join('')}
       </div>
       <div class="radar-list" id="radar-list">
-        ${trends.map(t=>`
+        ${trends.map(t=>{
+          const matchStory = stories.find(s=>s.name===t.name);
+          const imgSrc = t.img || (matchStory && matchStory.img);
+          const focal = t.focal || (matchStory && matchStory.focal) || '50% 50%';
+          return `
           <div class="radar-row" data-status="${t.status}">
-            <div class="radar-photo" style="background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
+            ${imgSrc ? `<img class="radar-photo-img" src="${imgSrc}" style="object-position:${focal}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
+            <div class="radar-photo" style="${imgSrc?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
             <div class="radar-mid">
               <div class="radar-name">${t.name}</div>
               <div class="radar-desc">${t.desc}</div>
             </div>
             <div class="radar-cat">${t.category}</div>
             <div class="radar-status">${tag(t.status)}</div>
-          </div>`).join('')}
+          </div>`;}).join('')}
       </div>
     </div>
   `;
@@ -1514,8 +1660,8 @@ function renderMicroDrops(){
       Smaller, faster-moving signals that are worth watching before they're big enough to earn a full trend profile.
     </div>
     <div class="micro-grid">
-      ${microTrends.map(m=>`
-        <div class="micro-chip">
+      ${microTrends.map((m,i)=>`
+        <div class="micro-chip story-clickable" onclick="openMicroModal(${i})">
           <div class="micro-photo" style="background:${m.color}17;color:${m.color}">${markIcon(m.mark)}<span class="micro-badge">New</span></div>
           <div class="micro-txt">
             <div class="micro-name">${m.name}</div>
@@ -1754,17 +1900,42 @@ function showToast(msg){
   window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
 }
 
+function renderGallery(gallery){
+  if(!gallery || !gallery.length){
+    return `<div class="gallery-empty">No photos added yet.</div>`;
+  }
+  return `<div class="gallery-scroll">
+    ${gallery.map(g=>`
+      <div class="gallery-item">
+        <img src="${g.img}" style="object-position:${g.focal||'50% 50%'}" onerror="this.parentElement.remove()" alt="">
+        ${g.caption ? `<div class="gallery-caption">${g.caption}</div>` : ''}
+      </div>`).join('')}
+  </div>`;
+}
+
+function modalTabsHTML(overviewHTML, galleryHTML){
+  return `
+    <div class="m-tabs">
+      <button class="m-tab active" onclick="switchModalTab(this,'overview')">Overview</button>
+      <button class="m-tab" onclick="switchModalTab(this,'photos')">Photos</button>
+    </div>
+    <div class="m-tab-panel active" data-tab-panel="overview">${overviewHTML}</div>
+    <div class="m-tab-panel" data-tab-panel="photos">${galleryHTML}</div>
+  `;
+}
+
+function switchModalTab(btn, tabName){
+  const modal = btn.closest('.story-modal');
+  modal.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  modal.querySelectorAll('.m-tab-panel').forEach(p=>p.classList.toggle('active', p.dataset.tabPanel===tabName));
+}
+
 function openStoryModal(id){
   const s = stories.find(x=>x.id===id);
   if(!s) return;
   const modal = document.getElementById('story-modal');
-  modal.innerHTML = `
-    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
-    <img class="m-hero-img" src="${s.img}" style="object-position:${s.focal||'50% 50%'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${s.name}">
-    <div class="m-photo" style="display:none;background:${HEX[s.status]}17;color:${HEX[s.status]}">${markIcon(s.mark)}</div>
-    <h3 class="m-title">${s.name}</h3>
-    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:14.5px;color:var(--accent);margin:-4px 0 10px">\u201c${s.hook}\u201d</div>
-    <div style="margin-bottom:12px">${tag(s.status)}</div>
+  const overviewHTML = `
     <div class="m-hook">${s.narrative}</div>
     <div class="m-facts">
       ${s.facts.map(([k,v])=>`<div class="m-fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
@@ -1791,6 +1962,87 @@ function openStoryModal(id){
     </div>
     <div class="m-key-head" style="margin-top:20px">Merchandising moment</div>
     <div style="font-size:12.6px;color:var(--ink-soft);line-height:1.6">${s.merch}</div>
+  `;
+  modal.innerHTML = `
+    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
+    <img class="m-hero-img" src="${s.img}" style="object-position:${s.focal||'50% 50%'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${s.name}">
+    <div class="m-photo" style="display:none;background:${HEX[s.status]}17;color:${HEX[s.status]}">${markIcon(s.mark)}</div>
+    <h3 class="m-title">${s.name}</h3>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:14.5px;color:var(--accent);margin:-4px 0 10px">\u201c${s.hook}\u201d</div>
+    <div style="margin-bottom:6px">${tag(s.status)}</div>
+    ${modalTabsHTML(overviewHTML, renderGallery(s.gallery))}
+  `;
+  document.getElementById('story-modal-overlay').classList.add('show');
+}
+
+function openTrendModal(id){
+  const t = trends.find(x=>x.id===id);
+  if(!t) return;
+  const modal = document.getElementById('story-modal');
+  const overviewHTML = `
+    <div class="m-hook">${t.desc}</div>
+    <div class="m-facts" style="grid-template-columns:1fr;margin-bottom:0">
+      <div class="m-fact"><div class="k">Categories</div><div class="v">${t.category}</div></div>
+    </div>
+  `;
+  const gallery = t.img ? [{img:t.img, focal:t.focal, caption:t.name}] : [];
+  modal.innerHTML = `
+    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
+    ${t.img ? `<img class="m-hero-img" src="${t.img}" style="object-position:${t.focal||'50% 50%'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
+    <div class="m-photo" style="${t.img?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
+    <h3 class="m-title">${t.name}</h3>
+    <div style="margin-bottom:12px">${tag(t.status)}</div>
+    ${modalTabsHTML(overviewHTML, renderGallery(gallery))}
+  `;
+  document.getElementById('story-modal-overlay').classList.add('show');
+}
+
+function openCardModal(trendName){
+  const matchStory = stories.find(s=>s.name===trendName);
+  if(matchStory){ openStoryModal(matchStory.id); return; }
+  const matchTrend = trends.find(t=>t.name===trendName);
+  if(matchTrend){ openTrendModal(matchTrend.id); }
+}
+
+function openMicroModal(idx){
+  const m = microTrends[idx];
+  if(!m) return;
+  const modal = document.getElementById('story-modal');
+  const overviewHTML = `
+    <div class="m-hook">${m.narrative}</div>
+    <div class="m-facts">
+      ${m.facts.map(([k,v])=>`<div class="m-fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
+    </div>
+    <div class="m-key-head">Key items</div>
+    <div class="key-items-grid">
+      ${(m.keyItems||[]).map(k=>`
+        <div class="key-item-card">
+          <div class="ki-photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(k.mark)}</div>
+          <div class="ki-title">${k.name}</div>
+        </div>`).join('')}
+    </div>
+    <div class="m-key-head" style="margin-top:20px">Motifs & details</div>
+    <div style="font-size:12.6px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px">${m.motifs}</div>
+    <div class="m-facts" style="margin-bottom:0">
+      <div class="m-fact" style="background:var(--accent-soft)">
+        <div class="k" style="color:var(--accent)">Creative direction</div>
+        <div class="v" style="font-weight:500;line-height:1.5">${m.creative}</div>
+      </div>
+      <div class="m-fact">
+        <div class="k">Avoid</div>
+        <div class="v" style="font-weight:500;line-height:1.5">${m.avoid}</div>
+      </div>
+    </div>
+    <div class="m-key-head" style="margin-top:20px">Merchandising moment</div>
+    <div style="font-size:12.6px;color:var(--ink-soft);line-height:1.6">${m.merch}</div>
+  `;
+  modal.innerHTML = `
+    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
+    <div class="m-photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.mark)}</div>
+    <h3 class="m-title">${m.name}</h3>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:14.5px;color:var(--accent);margin:-4px 0 10px">\u201c${m.hook}\u201d</div>
+    <div style="margin-bottom:6px">${tag(m.status)}</div>
+    ${modalTabsHTML(overviewHTML, renderGallery(m.gallery))}
   `;
   document.getElementById('story-modal-overlay').classList.add('show');
 }
