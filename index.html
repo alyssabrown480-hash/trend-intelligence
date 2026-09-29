@@ -668,12 +668,42 @@ const trends = [
     colors:['#1B1B1B','#0F4C81','#604E7A','#B57EDC']},
   {id:'velvetribbonrevival', img:IMG_VELVET, focal:'50% 20%', name:'Velvet Ribbon Revival', status:'steady', category:'Hair, Jewelry, Pet, Packaging', mark:'bow',
     desc:'Ribbon delivers celebration, softness, and high perceived value at low material cost.',
+    hook:'Softness that photographs like luxury',
+    narrative:'Ribbon delivers celebration, softness, and high perceived value at low material cost. Velvet and satin ribbon work across hair, jewelry, pet, and packaging without needing a single hard-metal component, making it one of the season\u2019s most cost-efficient trend translations.',
+    consumer:'Gift-forward shoppers and self-purchasers who want a soft, celebratory texture without paying metal prices.',
+    facts:[['Price point','$8\u2013$20'],['Key materials','Velvet ribbon, satin ribbon, grosgrain']],
+    keyItems:[{name:'Velvet Ribbon Choker', mark:'bow'},{name:'Ribbon Hair Bow', mark:'bow'},{name:'Ribbon-Wrapped Bag Charm', mark:'bow'}],
+    motifs:'Bows, wrapped cords, trailing ribbon ends left deliberately loose',
+    creative:'Let the ribbon itself carry the design \u2014 avoid over-hardware that competes with the softness.',
+    avoid:'Stiff, synthetic-feeling ribbon that reads cheap rather than luxe',
+    merch:'Cross-merchandise into gift packaging as well as product, since ribbon bridges both',
+    gallery:[{img:IMG_VELVET, focal:'50% 20%', caption:'Velvet tailoring and accessories'}],
     colors:['#1B1B1B','#64242E','#3E4F35','#EEC4C7']},
   {id:'pearlsinmotion', img:IMG_PEARLS, focal:'50% 30%', name:'Pearls in Motion', status:'growing', category:'Jewelry, Hair, Bag Charms', mark:'droplet',
     desc:'Pearls bridge giftability, familiarity, and novelty when mixed with cord, color, or movement.',
+    hook:'Pearls that move instead of sitting still',
+    narrative:'Pearls bridge giftability, familiarity, and novelty when mixed with cord, color, or movement. Rather than a static strand, this treats pearls as one moving element among cord, chain, or dangling settings, refreshing a category that can otherwise feel static.',
+    consumer:'Classic-pearl shoppers ready for a slightly more playful, current take.',
+    facts:[['Price point','$14\u2013$30'],['Key materials','Freshwater pearl, cord, mixed chain']],
+    keyItems:[{name:'Pearl Drop Earrings', mark:'droplet'},{name:'Pearl & Cord Bracelet', mark:'droplet'},{name:'Pearl Dangle Charm', mark:'droplet'}],
+    motifs:'Pearls set in motion \u2014 dangling, sliding, or paired with cord rather than fixed in a rigid strand',
+    creative:'Pair pearls with an unexpected second material (cord, colored thread, mixed metal) rather than styling them alone.',
+    avoid:'Traditional uniform pearl strands with no movement or contrast',
+    merch:'Display pieces actually swinging or hanging rather than laid flat, to sell the \u201cin motion\u201d idea visually',
+    gallery:[{img:IMG_PEARLS, focal:'50% 30%', caption:'Pearl drop earring styling'}],
     colors:['#C8B273','#E6DAC4','#1B1B1B','#EDCDC2']},
   {id:'confectionerycelebration', img:IMG_CELEBRATORY, focal:'50% 40%', name:'Confectionery Celebration', status:'growing', category:'Jewelry, Hair, Gifting, Kids', mark:'cherry',
     desc:'Small celebratory objects provide dopamine, photograph well, and work for impulse gifting.',
+    hook:'Jewelry that looks like candy',
+    narrative:'Small celebratory objects provide dopamine, photograph well, and work for impulse gifting. Confectionery-inspired shapes and glossy finishes bring a playful, sugary energy that performs well as a low-cost, high-smile impulse purchase.',
+    consumer:'Gen Z gifters and impulse shoppers drawn to playful, photogenic small objects.',
+    facts:[['Price point','$6\u2013$16'],['Key materials','Glossy resin, enamel, acrylic']],
+    keyItems:[{name:'Candy-Shape Charm', mark:'cherry'},{name:'Confetti Stud Earrings', mark:'cherry'},{name:'Sugar-Glaze Bag Charm', mark:'cherry'}],
+    motifs:'Glossy, saturated candy shapes \u2014 swirls, drops, sprinkled textures',
+    creative:'Keep the finish genuinely glossy and saturated \u2014 matte or muted tones lose the confectionery effect entirely.',
+    avoid:'Muted or matte finishes that undercut the playful, sugary read',
+    merch:'Merchandise near checkout as a true impulse add-on, priced accordingly',
+    gallery:[{img:IMG_CELEBRATORY, focal:'50% 40%', caption:'Candy-charm bag styling'}],
     colors:['#C2BEB6','#EDCDC2','#9B1B30','#F0C05A']},
   {id:'frostedlight', name:'Frosted Light', status:'emerging', category:'Jewelry, Hair, Packaging', mark:'resin',
     desc:'The look feels festive without relying on red and green, extending through winter and New Year.',
@@ -1979,19 +2009,48 @@ function openTrendModal(id){
   const t = trends.find(x=>x.id===id);
   if(!t) return;
   const modal = document.getElementById('story-modal');
-  const overviewHTML = `
+  const enriched = !!t.narrative;
+  const overviewHTML = enriched ? `
+    <div class="m-hook">${t.narrative}</div>
+    <div class="m-facts">
+      ${t.facts.map(([k,v])=>`<div class="m-fact"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
+    </div>
+    <div class="m-key-head">Key items</div>
+    <div class="key-items-grid">
+      ${(t.keyItems||[]).map(k=>`
+        <div class="key-item-card">
+          <div class="ki-photo" style="background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(k.mark)}</div>
+          <div class="ki-title">${k.name}</div>
+        </div>`).join('')}
+    </div>
+    <div class="m-key-head" style="margin-top:20px">Motifs & details</div>
+    <div style="font-size:12.6px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px">${t.motifs}</div>
+    <div class="m-facts" style="margin-bottom:0">
+      <div class="m-fact" style="background:var(--accent-soft)">
+        <div class="k" style="color:var(--accent)">Creative direction</div>
+        <div class="v" style="font-weight:500;line-height:1.5">${t.creative}</div>
+      </div>
+      <div class="m-fact">
+        <div class="k">Avoid</div>
+        <div class="v" style="font-weight:500;line-height:1.5">${t.avoid}</div>
+      </div>
+    </div>
+    <div class="m-key-head" style="margin-top:20px">Merchandising moment</div>
+    <div style="font-size:12.6px;color:var(--ink-soft);line-height:1.6">${t.merch}</div>
+  ` : `
     <div class="m-hook">${t.desc}</div>
     <div class="m-facts" style="grid-template-columns:1fr;margin-bottom:0">
       <div class="m-fact"><div class="k">Categories</div><div class="v">${t.category}</div></div>
     </div>
   `;
-  const gallery = t.img ? [{img:t.img, focal:t.focal, caption:t.name}] : [];
+  const gallery = t.gallery || (t.img ? [{img:t.img, focal:t.focal, caption:t.name}] : []);
   modal.innerHTML = `
     <button class="close-btn" onclick="closeStoryModal()">&times;</button>
     ${t.img ? `<img class="m-hero-img" src="${t.img}" style="object-position:${t.focal||'50% 50%'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
     <div class="m-photo" style="${t.img?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
     <h3 class="m-title">${t.name}</h3>
-    <div style="margin-bottom:12px">${tag(t.status)}</div>
+    ${enriched ? `<div style="font-family:'Playfair Display',serif;font-style:italic;font-size:14.5px;color:var(--accent);margin:-4px 0 10px">\u201c${t.hook}\u201d</div>` : ''}
+    <div style="margin-bottom:${enriched?'6':'12'}px">${tag(t.status)}</div>
     ${modalTabsHTML(overviewHTML, renderGallery(gallery))}
   `;
   document.getElementById('story-modal-overlay').classList.add('show');
