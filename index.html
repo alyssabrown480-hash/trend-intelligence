@@ -656,6 +656,76 @@ function heroCarousel(slides){
 /* =========================================================
    Data
 ========================================================= */
+const TREND_SEASON = {
+  'Velvet Ribbon Revival':'holiday',
+  'Pearls in Motion':'both',
+  'Value Through Sets':'both',
+  'The Charm Economy':'both',
+  'Dressed in Keepsakes':'holiday',
+  'Confectionery Celebration':'holiday',
+  'Frosted Light':'holiday',
+  'Handmade Holiday':'holiday',
+  'Family and Pet Celebration':'holiday',
+  'The Collector\u2019s Garden':'spring',
+  'Joyful Color Lab':'spring',
+  'Laced in Love':'spring',
+  'Coastal Craft':'spring',
+  'Wearable Movement':'spring',
+  'Waist and Scarf Play':'spring',
+  'Micro Collections, Not One-Offs':'both',
+  'Tactile Value':'both',
+  'After Dark Amulets':'holiday',
+  'Party Tricks':'holiday',
+  'New Folk Graphics':'spring',
+  'Earthformed':'spring',
+  'Soft Transparency':'spring',
+  'Proof-Based Sustainability':'both',
+  'Phygital Gift Guidance':'both',
+};
+function seasonOf(name){ return TREND_SEASON[name] || 'both'; }
+
+const MERCH_SEASON = { 'Human + pet gifting table':'holiday' };
+const PACKAGING_SEASON = { 'Botanical tuck sleeve':'spring' };
+
+const PRODUCT_SEASON = {
+  'Removable Brooch Velvet Bow':'holiday',
+  'Dressed in Keepsakes Pin Trio':'holiday',
+  'Midnight Talisman Pendant':'holiday',
+  'Pearl Motion Earring Pair':'both',
+  'Mirror Celebration Bag Charm':'holiday',
+  'Coordinated Human + Pet Bow Set':'holiday',
+  'Garden Charm Starter Necklace':'spring',
+  'Laced in Love Bracelet Duo':'spring',
+  'Pressed Garden Claw Trio':'spring',
+  'New Folk Reversible Scarf':'spring',
+  'Sculpted Pebble Earring':'spring',
+  'Coastal Cord + Pearl Necklace':'spring',
+};
+
+const MICRO_SEASON = {
+  'Charm Spacers':'both',
+  'Textile Brooch Bows':'holiday',
+  'Dark Pearl Clusters':'holiday',
+  'Mini Mirror Pendants':'holiday',
+  'Lace-Edge Barrettes':'spring',
+  'Constellation Pins':'holiday',
+  'Pressed-Look Resin':'spring',
+  'Cord + Pearl Sliders':'spring',
+  'Scarf Rings':'spring',
+  'Botanical Claw Minis':'spring',
+  'Mixed Bead Strands':'both',
+  'Pet + Person Motif Pair':'holiday',
+};
+
+function seasonFilterBar(){
+  return `
+  <div class="filter-row season-filter">
+    <button class="filter-chip active" data-season-filter="all">All</button>
+    <button class="filter-chip" data-season-filter="holiday">Holiday 2027</button>
+    <button class="filter-chip" data-season-filter="spring">Spring 2028</button>
+  </div>`;
+}
+
 const trends = [
   {id:'personalstorysystems', name:'The Charm Economy', status:'growing', category:'Jewelry, Bag Charms, Small Accessories', mark:'ring',
     desc:'Modularity turns one purchase into repeat purchases and makes gifting feel specific without requiring fully custom manufacturing.',
@@ -1319,6 +1389,7 @@ function renderOverview(){
 
     <div class="section-block">
       <div class="block-head"><h3>What's moving</h3><span class="link" data-tab="stories">View trend stories</span></div>
+      ${seasonFilterBar()}
       <div class="trend-grid">
         ${trends.slice(0,6).map(t=>{
           const matchStory = stories.find(s=>s.name===t.name);
@@ -1326,7 +1397,7 @@ function renderOverview(){
           const focal = t.focal || (matchStory && matchStory.focal) || '50% 50%';
           const hasImg = !!imgSrc;
           return `
-          <div class="trend-card story-clickable" style="border-top:3px solid ${HEX[t.status]}" onclick="openCardModal('${t.name.replace(/'/g,"\\'")}')">
+          <div class="trend-card story-clickable" data-season="${seasonOf(t.name)}" style="border-top:3px solid ${HEX[t.status]}" onclick="openCardModal('${t.name.replace(/'/g,"\\'")}')">
             ${hasImg ? `<img class="story-thumb" src="${imgSrc}" style="object-position:${focal}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
             <div class="photo" style="${hasImg?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">
               ${markIcon(t.mark)}
@@ -1373,13 +1444,14 @@ function renderRadar(){
       <div class="filter-row">
         ${chips.map(([key,label])=>`<button class="filter-chip ${key==='all'?'active':''}" data-filter="${key}">${label} <span>${counts[key]||0}</span></button>`).join('')}
       </div>
+      ${seasonFilterBar()}
       <div class="radar-list" id="radar-list">
         ${trends.map(t=>{
           const matchStory = stories.find(s=>s.name===t.name);
           const imgSrc = t.img || (matchStory && matchStory.img);
           const focal = t.focal || (matchStory && matchStory.focal) || '50% 50%';
           return `
-          <div class="radar-row" data-status="${t.status}">
+          <div class="radar-row" data-status="${t.status}" data-season="${seasonOf(t.name)}">
             ${imgSrc ? `<img class="radar-photo-img" src="${imgSrc}" style="object-position:${focal}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${t.name}">` : ''}
             <div class="radar-photo" style="${imgSrc?'display:none;':''}background:${HEX[t.status]}17;color:${HEX[t.status]}">${markIcon(t.mark)}</div>
             <div class="radar-mid">
@@ -1399,9 +1471,10 @@ function renderStories(){
   return `
     ${heroBanner('Consumer narratives', 'Trend Stories', 'The consumer mindset and concrete product direction behind Holiday 2027 and Spring 2028\u2019s biggest movements.', headerStory.img, headerStory.focal)}
     ${metaRow(['8 detailed stories','Holiday 2027 + Spring 2028','Click a card for the full brief'])}
+    ${seasonFilterBar()}
     <div class="grid cols-3 section-block">
       ${stories.map(s=>`
-        <div class="trend-card story-clickable" style="border-top:3px solid ${HEX[s.status]}" onclick="openStoryModal('${s.id}')">
+        <div class="trend-card story-clickable" data-season="${seasonOf(s.name)}" style="border-top:3px solid ${HEX[s.status]}" onclick="openStoryModal('${s.id}')">
           <img class="story-thumb" src="${s.img}" style="object-position:${s.focal||'50% 50%'}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="${s.name}">
           <div class="photo" style="display:none;background:${HEX[s.status]}17;color:${HEX[s.status]}">
             ${markIcon(s.mark)}
@@ -1427,6 +1500,7 @@ function renderOpportunity(){
   return `
     ${heroBanner('Where to invest', 'Opportunity Map', 'Cross-category range potential for the season\u2019s strongest trend stories.', 'images/trend-stories/collectors-garden-simone-rocha-rose.jpg', '50% 34%')}
     ${metaRow(['8 trends × 6 categories','6 signals on watch list','Refreshed monthly'])}
+    ${seasonFilterBar()}
     <div class="grid cols-2 section-block">
       <div class="card">
         <h3>Category opportunity matrix</h3>
@@ -1434,7 +1508,7 @@ function renderOpportunity(){
           <thead><tr><th>Trend</th>${opportunityCols.map(c=>`<th>${c}</th>`).join('')}</tr></thead>
           <tbody>
             ${opportunityRows.map(r=>`
-              <tr>
+              <tr data-season="${seasonOf(r.name)}">
                 <td class="row-title"><span class="row-photo" style="background:${HEX[r.status]}17;color:${HEX[r.status]}">${markIcon(r.mark)}</span>${r.name}</td>
                 ${r.cells.map(c=>{const s=oppStyle[c];return `<td><span class="opp-cell" style="background:${s.bg};color:${s.color}">${s.label}</span></td>`}).join('')}
               </tr>`).join('')}
@@ -1473,6 +1547,7 @@ function renderHeat(){
   return `
     ${heroBanner('Momentum tracker', 'Trend Heat Map', 'Status and evidence breadth across all 12 tracked trends. No invented percentages.', 'images/trend-stories/earthformed-the-ouze-rings.png', '50% 50%')}
     ${metaRow(['12 trends tracked','Momentum without invented percentages','Confidence = evidence breadth'])}
+    ${seasonFilterBar()}
     <div class="grid cols-2 section-block">
       <div class="card">
         <h3>Momentum tracker</h3>
@@ -1480,7 +1555,7 @@ function renderHeat(){
           <thead><tr><th>Trend</th><th>Momentum</th><th>Confidence</th><th>Evidence</th><th>Stage</th></tr></thead>
           <tbody>
             ${heatRows.map(r=>`
-              <tr>
+              <tr data-season="${seasonOf(r.name)}">
                 <td class="row-title"><span class="row-photo" style="background:${HEX[r.status]}17;color:${HEX[r.status]}">${markIcon(r.mark)}</span>${r.name}</td>
                 <td>${tag(r.status)}</td>
                 <td style="color:var(--ink-soft);font-size:11.8px">${r.confidence}</td>
@@ -1510,6 +1585,7 @@ function renderTiming(){
   return `
     ${heroBanner('Development horizon', 'Now / Next / Future', 'What to chase today, what to build for the pipeline, and what to watch for the long range.', 'images/trend-stories/dressed-in-keepsakes-ralph-lauren-fw26.jpg', '50% 28%')}
     ${metaRow(['24 trends mapped','NOW 3 \u00b7 NEXT 14 \u00b7 FUTURE 7','Confidence fades with distance'])}
+    ${seasonFilterBar()}
     <div class="timing-cols">
       ${cols.map(([key,color,grain])=>{
         const c = timing[key];
@@ -1519,7 +1595,7 @@ function renderTiming(){
           <div class="window">${c.window}</div>
           <div class="confidence">${c.confidence}</div>
           ${c.items.map(([n,d,mark])=>`
-            <div class="timing-item">
+            <div class="timing-item" data-season="${seasonOf(n)}">
               <div class="t-photo ${grain}" style="background:${color}17;color:${color}">${markIcon(mark)}</div>
               <div>
                 <div class="t-name">${n}</div>
@@ -1539,44 +1615,49 @@ function renderColor(){
     .filter(d=>d.value>0);
   return `
     ${heroBanner('Palette forecast', 'Color Direction: Holiday \u201927 \u2192 Spring \u201928', 'Rich, gift-ready jewel tones carry the season into Holiday, giving way to a softer, pastel reset for Spring.', IMG_COLOR, '50% 35%')}
-    ${metaRow(['10 core colors, real Pantone TCX refs','Scroll for Spring 2028','Updated each season'])}
-    <div class="section-block">
-      <div class="block-head"><h3>Holiday 2027 core palette</h3></div>
-      <div class="swatch-strip">
-        ${palette.map(p=>`
-          <div class="chip">
-            <div class="block" style="background:${p.hex}"></div>
-            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
-          </div>`).join('')}
-      </div>
-    </div>
-    <div class="grid cols-2">
-      <div class="card">
-        <h3>Color confidence</h3>
-        <div class="donut-wrap">
-          ${donut(paletteDonut)}
-          <div class="legend">${paletteDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+    ${metaRow(['10 core colors, real Pantone TCX refs','Filter by season below','Updated each season'])}
+    ${seasonFilterBar()}
+    <div data-season="holiday">
+      <div class="section-block">
+        <div class="block-head"><h3>Holiday 2027 core palette</h3></div>
+        <div class="swatch-strip">
+          ${palette.map(p=>`
+            <div class="chip">
+              <div class="block" style="background:${p.hex}"></div>
+              <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
+            </div>`).join('')}
         </div>
-        ${source('Pantone FHI Cotton TCX references; digital swatches are approximations. Confirm against physical standards before production.')}
       </div>
-      <div class="card">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${colorTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Color confidence</h3>
+          <div class="donut-wrap">
+            ${donut(paletteDonut)}
+            <div class="legend">${paletteDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+          </div>
+          ${source('Pantone FHI Cotton TCX references; digital swatches are approximations. Confirm against physical standards before production.')}
+        </div>
+        <div class="card">
+          <h3>Key takeaways</h3>
+          <ul class="bullets">${colorTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        </div>
       </div>
     </div>
 
-    <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Spring 2028 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Real Pantone TCX references</span></div>
-      <div class="swatch-strip">
-        ${springPalette.map(p=>`
-          <div class="chip">
-            <div class="block" style="background:${p.hex}"></div>
-            <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
-          </div>`).join('')}
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${springTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+    <div data-season="spring">
+      <div class="section-block" style="margin-top:30px">
+        <div class="block-head"><h3>Spring 2028 palette</h3><span style="font-size:11.5px;color:var(--ink-faint)">Real Pantone TCX references</span></div>
+        <div class="swatch-strip">
+          ${springPalette.map(p=>`
+            <div class="chip">
+              <div class="block" style="background:${p.hex}"></div>
+              <div class="meta"><div class="name">${p.name}</div>${tag(p.status)}</div>
+            </div>`).join('')}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>Key takeaways</h3>
+          <ul class="bullets">${springTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        </div>
       </div>
     </div>
   `;
@@ -1588,50 +1669,55 @@ function renderMaterials(){
     .filter(d=>d.value>0);
   return `
     ${heroBanner('Texture & construction', 'Materials & Finishes', 'The finishes, textures and constructions carrying Holiday 2027 into Spring 2028.', 'images/trend-stories/earthformed-the-ouze-rings.png', '50% 50%')}
-    ${metaRow(['7 materials tracked','Scroll for Spring 2028','Refreshed each season'])}
-    <div class="section-block">
-      <div class="block-head"><h3>Holiday 2027 materials to watch</h3></div>
-      <div class="mat-grid">
-        ${materials.map(m=>`
-          <div class="mat-chip">
-            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
-            <div class="txt">
-              <div class="name">${m.name}</div>
-              ${tag(m.status)}
-            </div>
-          </div>`).join('')}
-      </div>
-    </div>
-    <div class="grid cols-2">
-      <div class="card">
-        <h3>Material momentum</h3>
-        <div class="donut-wrap">
-          ${donut(materialsDonut)}
-          <div class="legend">${materialsDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+    ${metaRow(['7 materials tracked','Filter by season below','Click a material for photos'])}
+    ${seasonFilterBar()}
+    <div data-season="holiday">
+      <div class="section-block">
+        <div class="block-head"><h3>Holiday 2027 materials to watch</h3></div>
+        <div class="mat-grid">
+          ${materials.map(m=>`
+            <div class="mat-chip story-clickable" onclick="openMaterialModal('${m.name.replace(/'/g,"\\'")}')">
+              <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+              <div class="txt">
+                <div class="name">${m.name}</div>
+                ${tag(m.status)}
+              </div>
+            </div>`).join('')}
         </div>
-        ${source('Momentum and price fit per Materials & Finishes register; development checks required before sourcing.')}
       </div>
-      <div class="card">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${materialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Material momentum</h3>
+          <div class="donut-wrap">
+            ${donut(materialsDonut)}
+            <div class="legend">${materialsDonut.map(s=>`<div class="legend-row"><span class="left"><span class="dot" style="background:${s.color}"></span>${s.label}</span><span class="val">${s.value}</span></div>`).join('')}</div>
+          </div>
+          ${source('Momentum and price fit per Materials & Finishes register; development checks required before sourcing.')}
+        </div>
+        <div class="card">
+          <h3>Key takeaways</h3>
+          <ul class="bullets">${materialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        </div>
       </div>
     </div>
 
-    <div class="section-block" style="margin-top:30px">
-      <div class="block-head"><h3>Spring 2028 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
-      <div class="mat-grid">
-        ${springMaterials.map(m=>`
-          <div class="mat-chip">
-            <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
-            <div class="txt">
-              <div class="name">${m.name}</div>
-              ${tag(m.status)}
-            </div>
-          </div>`).join('')}
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h3>Key takeaways</h3>
-        <ul class="bullets">${springMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+    <div data-season="spring">
+      <div class="section-block" style="margin-top:30px">
+        <div class="block-head"><h3>Spring 2028 materials</h3><span style="font-size:11.5px;color:var(--ink-faint)">Directional forecast</span></div>
+        <div class="mat-grid">
+          ${springMaterials.map(m=>`
+            <div class="mat-chip story-clickable" onclick="openMaterialModal('${m.name.replace(/'/g,"\\'")}')">
+              <div class="photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+              <div class="txt">
+                <div class="name">${m.name}</div>
+                ${tag(m.status)}
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>Key takeaways</h3>
+          <ul class="bullets">${springMaterialTakeaways.map(t=>`<li>${t}</li>`).join('')}</ul>
+        </div>
       </div>
     </div>
   `;
@@ -1667,10 +1753,11 @@ function renderRetail(){
 function renderInspo(){
   return `
     ${heroBanner('Ready to develop', 'Product Inspiration', 'Concrete product concepts translating each trend story into a sellable item.', 'images/trend-stories/laced-in-love-cord-choker.jpg', '50% 50%')}
-    ${metaRow(['6 curated themes','Refreshed each season'])}
+    ${metaRow(['12 curated concepts','Refreshed each season'])}
+    ${seasonFilterBar()}
     <div class="trend-grid">
       ${inspoThemes.map(t=>`
-        <div class="trend-card">
+        <div class="trend-card" data-season="${PRODUCT_SEASON[t.name]||'both'}">
           <div class="photo" style="background:${t.color}17;color:${t.color}">${markIcon(t.mark)}</div>
           <div class="body">
             <div class="name">${t.name}</div>
@@ -1689,9 +1776,10 @@ function renderMicroDrops(){
       <span class="kicker">New this month</span>
       Smaller, faster-moving signals that are worth watching before they're big enough to earn a full trend profile.
     </div>
+    ${seasonFilterBar()}
     <div class="micro-grid">
       ${microTrends.map((m,i)=>`
-        <div class="micro-chip story-clickable" onclick="openMicroModal(${i})">
+        <div class="micro-chip story-clickable" data-season="${MICRO_SEASON[m.name]||'both'}" onclick="openMicroModal(${i})">
           <div class="micro-photo" style="background:${m.color}17;color:${m.color}">${markIcon(m.mark)}<span class="micro-badge">New</span></div>
           <div class="micro-txt">
             <div class="micro-name">${m.name}</div>
@@ -1750,10 +1838,11 @@ function renderPlaybook(){
 function renderMerchandising(){
   return `
     ${heroBanner('How to sell it', 'Merchandising', 'Ideas for translating this season\u2019s trends into displays, bundles and stories that move product on the floor.', 'images/trend-stories/handmade-holiday-burberry-craft.jpg', '50% 48%')}
-    ${metaRow(['6 field-tested ideas','Sourced from retailer walkthroughs'])}
+    ${metaRow(['8 field-tested ideas','Sourced from retailer walkthroughs'])}
+    ${seasonFilterBar()}
     <div class="grid cols-3">
       ${merchandisingIdeas.map(m=>`
-        <div class="card">
+        <div class="card" data-season="${MERCH_SEASON[m.title]||'both'}">
           <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
             <div class="name" style="font-family:'Playfair Display',serif;font-size:15.5px;font-weight:600">${m.title}</div>
           </div>
@@ -1767,10 +1856,11 @@ function renderMerchandising(){
 function renderPackaging(){
   return `
     ${heroBanner('Unboxing & gifting', 'Packaging Inspiration', 'Directions that extend the story from product into the gifting moment.', 'images/trend-stories/handmade-holiday-burberry-craft.jpg', '50% 48%')}
-    ${metaRow(['4 packaging directions','Tied to this season\u2019s sustainability signal'])}
+    ${metaRow(['8 packaging directions','Tied to this season\u2019s sustainability signal'])}
+    ${seasonFilterBar()}
     <div class="trend-grid">
       ${packagingIdeas.map(p=>`
-        <div class="trend-card">
+        <div class="trend-card" data-season="${PACKAGING_SEASON[p.name]||'both'}">
           <div class="photo" style="background:${p.color}17;color:${p.color}">${markIcon(p.mark)}</div>
           <div class="body">
             <div class="name">${p.name}</div>
@@ -1881,6 +1971,19 @@ function go(id){
         const f = chip.dataset.pbFilter;
         target.querySelectorAll('.playbook-card').forEach(card=>{
           card.style.display = (f==='all' || card.dataset.pbSeason===f) ? '' : 'none';
+        });
+      });
+    });
+    target.querySelectorAll('.season-filter').forEach(bar=>{
+      bar.querySelectorAll('.filter-chip[data-season-filter]').forEach(chip=>{
+        chip.addEventListener('click', ()=>{
+          bar.querySelectorAll('.filter-chip[data-season-filter]').forEach(c=>c.classList.remove('active'));
+          chip.classList.add('active');
+          const f = chip.dataset.seasonFilter;
+          target.querySelectorAll('[data-season]').forEach(el=>{
+            const s = el.dataset.season;
+            el.style.display = (f==='all' || s==='both' || s===f) ? '' : 'none';
+          });
         });
       });
     });
@@ -2061,6 +2164,25 @@ function openCardModal(trendName){
   if(matchStory){ openStoryModal(matchStory.id); return; }
   const matchTrend = trends.find(t=>t.name===trendName);
   if(matchTrend){ openTrendModal(matchTrend.id); }
+}
+
+function openMaterialModal(name){
+  const m = materials.find(x=>x.name===name) || springMaterials.find(x=>x.name===name);
+  if(!m) return;
+  const modal = document.getElementById('story-modal');
+  const overviewHTML = `
+    <div class="m-facts" style="grid-template-columns:1fr;margin-bottom:0">
+      <div class="m-fact"><div class="k">Status</div><div class="v">${STATUS[m.status].label}</div></div>
+    </div>
+  `;
+  modal.innerHTML = `
+    <button class="close-btn" onclick="closeStoryModal()">&times;</button>
+    <div class="m-photo" style="background:${HEX[m.status]}17;color:${HEX[m.status]}">${markIcon(m.icon)}</div>
+    <h3 class="m-title">${m.name}</h3>
+    <div style="margin-bottom:12px">${tag(m.status)}</div>
+    ${modalTabsHTML(overviewHTML, renderGallery(m.gallery))}
+  `;
+  document.getElementById('story-modal-overlay').classList.add('show');
 }
 
 function openMicroModal(idx){
