@@ -80,13 +80,46 @@
   .m-tab-panel.active{display:block;}
   .m-desc{font-size:13.5px;line-height:1.65;color:var(--ink);margin:0;}
   .m-desc.empty{font-style:italic;color:var(--ink-faint);}
-  .gallery-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;}
-  .gallery-item{flex:0 0 auto;width:150px;position:relative;border-radius:10px;overflow:hidden;background:var(--accent-soft);}
-  .gallery-item img{width:150px;height:190px;object-fit:cover;display:block;}
+  .gallery-scroll{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-height:62vh;overflow-y:auto;padding-right:6px;}
+  .gallery-item{position:relative;border-radius:10px;overflow:hidden;background:var(--accent-soft);cursor:zoom-in;}
+  .gallery-item img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
   .gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:7px 9px;background:linear-gradient(to top,rgba(0,0,0,.72),transparent);color:#fff;font-size:11px;font-weight:600;opacity:0;transition:opacity .15s;}
   .gallery-item:hover .gallery-caption{opacity:1;}
   .gallery-empty{font-size:12.5px;color:var(--ink-faint);font-style:italic;}
 
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(10,14,20,.92);z-index:300;align-items:center;justify-content:center;flex-direction:column;padding:24px;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:82vh;object-fit:contain;border-radius:6px;}
+  .lightbox .lb-cap{color:#fff;font-size:13px;font-weight:600;margin-top:12px;min-height:18px;}
+  .lightbox button{all:unset;cursor:pointer;color:#fff;font-size:30px;padding:10px 16px;position:absolute;}
+  .lightbox .lb-close{top:14px;right:18px;}
+  .lightbox .lb-prev{left:10px;top:50%;}
+  .lightbox .lb-next{right:10px;top:50%;}
+  .map-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
+  .map-col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+  .map-col h4{font-family:'Playfair Display',serif;font-size:16px;margin:0 0 12px;}
+  .map-chip{display:block;width:100%;text-align:left;cursor:pointer;margin-bottom:8px;padding:9px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink);}
+  .map-chip small{display:block;font-weight:500;color:var(--ink-faint);font-size:10.5px;margin-top:2px;}
+  .map-empty{font-size:12px;color:var(--ink-faint);font-style:italic;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow-sm);}
+  .panel .ptitle{font-size:13px;font-weight:600;color:var(--ink-soft);margin:0 0 16px;}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px;}
+  .tbl th{text-align:left;font-size:11.5px;font-weight:600;color:var(--ink-faint);padding:0 10px 12px 0;border-bottom:1px solid var(--line);}
+  .tbl td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .tbl tr:last-child td{border-bottom:none;}
+  .tcell{display:flex;align-items:center;gap:12px;font-weight:600;cursor:pointer;}
+  .ticon{width:34px;height:34px;border-radius:50%;flex:none;border:1px solid var(--line);background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:var(--ink-soft);}
+  .pill{display:inline-block;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:8px;}
+  .pill.emerging{background:rgba(89,100,60,.14);color:var(--c-emerging);}
+  .pill.growing{background:rgba(197,161,111,.22);color:#8a6a3a;}
+  .pill.next{background:rgba(168,70,45,.12);color:var(--c-next);}
+  .pill.blank{background:var(--bg);color:var(--ink-faint);font-weight:600;}
+  .heat-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:20px;align-items:start;}
+  .side-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer;}
+  .side-row:last-child{border-bottom:none;}
+  .side-row b{font-size:12px;white-space:nowrap;}
+  .foot-note{font-size:11.5px;font-style:italic;color:var(--ink-faint);margin-top:14px;}
+  @media (max-width:980px){.heat-layout{grid-template-columns:1fr;} .panel{overflow-x:auto;}}
   /* overview hero */
   .hero{background:var(--accent);border-radius:var(--radius);padding:36px 40px;color:#fff;margin-bottom:28px;}
   .hero .eyebrow{color:rgba(255,255,255,.65);}
@@ -126,6 +159,13 @@
   <main id="main"></main>
 </div>
 
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <button class="lb-prev" onclick="lbStep(-1)">&#8249;</button>
+  <img id="lbImg" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+  <button class="lb-next" onclick="lbStep(1)">&#8250;</button>
+</div>
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalBody"></div>
 </div>
@@ -289,8 +329,6 @@ const stories = [
 /* ===== Placeholder sections (no data supplied in source file) ===== */
 const PLACEHOLDER_SECTIONS = {
   radar: {label:'Trend Radar', itemName:'Example Trend'},
-  opportunity: {label:'Opportunity Map', itemName:'Example Opportunity'},
-  heat: {label:'Heat Map', itemName:'Example Signal'},
   timing: {label:'Timing', itemName:'Example Timing Item'},
   color: {label:'Color Palette', itemName:'Example Colorway'},
   retail: {label:'Retail Watch', itemName:'Example Retail Signal'},
@@ -303,7 +341,7 @@ const PLACEHOLDER_SECTIONS = {
 };
 
 const SECTIONS = [
-  {id:'overview', label:'Overview'},
+  {id:'overview', label:'Main Page'},
   {id:'micro', label:'Micro Trend Drops'},
   {id:'materials', label:'Materials'},
   {id:'stories', label:'Trend Stories'},
@@ -362,8 +400,9 @@ function cardHTML(item, idx, kind){
 
 function galleryHTML(gallery){
   if(!gallery || !gallery.length) return `<div class="gallery-empty">No photos on file for this item.</div>`;
-  return `<div class="gallery-scroll">${gallery.map(g=>`
-    <div class="gallery-item">
+  LB_LIST = gallery;
+  return `<div class="gallery-scroll">${gallery.map((g,gi)=>`
+    <div class="gallery-item" onclick="openLightbox(${gi})">
       <img src="${g.img}" alt="${esc(g.caption)}" onerror="this.parentElement.remove()">
       ${g.caption ? `<div class="gallery-caption">${esc(g.caption)}</div>` : ''}
     </div>`).join('')}</div>`;
@@ -413,6 +452,49 @@ function placeholderCardHTML(key){
     <div class="name">${ph.itemName}</div>
     <div class="sub">No data was provided for this section in the source file. Example shown with blank fields.</div>
   </div>`;
+}
+
+let LB_LIST=[], LB_I=0;
+function openLightbox(i){ LB_I=i; showLb(); document.getElementById('lightbox').classList.add('open'); }
+function showLb(){ const g=LB_LIST[LB_I]; if(!g) return; document.getElementById('lbImg').src=g.img; document.getElementById('lbCap').textContent=g.caption&&g.caption!=='xx'?g.caption:''; }
+function lbStep(d){ if(!LB_LIST.length) return; LB_I=(LB_I+d+LB_LIST.length)%LB_LIST.length; showLb(); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown',e=>{ const lb=document.getElementById('lightbox'); if(!lb||!lb.classList.contains('open')) return; if(e.key==='Escape')closeLightbox(); if(e.key==='ArrowRight')lbStep(1); if(e.key==='ArrowLeft')lbStep(-1); });
+
+const STATUS_ORDER=['emerging','growing','next'];
+function allItems(){
+  return [].concat(
+    microTrends.map((x,i)=>({x,i,kind:'micro',type:'Micro Trend Drop'})),
+    materials.map((x,i)=>({x,i,kind:'materials',type:'Material'})),
+    stories.map((x,i)=>({x,i,kind:'stories',type:'Trend Story'})));
+}
+function rowName(o){
+  return `<div class="tcell" onclick="openItemModal('${o.kind}',${o.i})"><span class="ticon">${esc(o.x.name).charAt(0)}</span>${esc(o.x.name)}</div>`;
+}
+function seasonLabel(s){ return s==='holiday'?'Holiday 2027':'Spring 2027'; }
+function statusPill(s){ return `<span class="pill ${s}">${s.charAt(0).toUpperCase()+s.slice(1)}</span>`; }
+function renderHeat(){
+  const items=allItems().sort((a,b)=>STATUS_ORDER.indexOf(a.x.status)-STATUS_ORDER.indexOf(b.x.status));
+  const rows=items.map(o=>`<tr data-season="${o.x.season}">
+    <td>${rowName(o)}</td><td>${statusPill(o.x.status)}</td>
+    <td style="color:var(--ink-soft)">${seasonLabel(o.x.season)}</td></tr>`).join('');
+  const rising=items.filter(o=>o.x.status==='growing');
+  const side=rising.map((o,n)=>`<div class="side-row" data-season="${o.x.season}" onclick="openItemModal('${o.kind}',${o.i})"><span>${n+1} &nbsp;${esc(o.x.name)}</span><b style="color:#8a6a3a">Growing</b></div>`).join('');
+  return `<div class="page-head"><h2>Heat Map</h2><p>${items.length} trends tracked</p></div>
+    ${seasonFilterBar('heat')}
+    <div class="heat-layout">
+      <div class="panel"><div class="ptitle">Momentum tracker</div>
+        <table class="tbl"><thead><tr><th>Trend</th><th>Momentum</th><th>Season</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="panel"><div class="ptitle">Rising fast</div>${side||'<div class="map-empty">None flagged.</div>'}</div>
+    </div>`;
+}
+function renderOpportunity(){
+  const items=allItems();
+  const rows=items.map(o=>`<tr data-season="${o.x.season}"><td>${rowName(o)}</td><td style="color:var(--ink-soft)">${o.type}</td><td>${statusPill(o.x.status)}</td><td style="color:var(--ink-soft)">${seasonLabel(o.x.season)}</td></tr>`).join('');
+  return `<div class="page-head"><h2>Opportunity Map</h2></div>
+    ${seasonFilterBar('opportunity')}
+    <div class="panel"><div class="ptitle">Opportunity by trend</div>
+      <table class="tbl"><thead><tr><th>Trend</th><th>Type</th><th>Status</th><th>Season</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 /* ===== Section renderers ===== */
@@ -506,6 +588,8 @@ function go(id){
   else if(id==='micro') html = renderMicro();
   else if(id==='materials') html = renderMaterials();
   else if(id==='stories') html = renderStories();
+  else if(id==='heat') html = renderHeat();
+  else if(id==='opportunity') html = renderOpportunity();
   else if(PLACEHOLDER_SECTIONS[id]) html = renderPlaceholderSection(id);
   main.innerHTML = html;
 
