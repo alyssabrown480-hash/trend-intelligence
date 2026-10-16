@@ -205,6 +205,74 @@
     nav#nav{flex-direction:row;overflow-x:auto;padding:0 12px 6px;}
     main{padding:22px 18px 60px;}
   }
+
+  /* ===== v39: Main Page, Chase Items, Resources ===== */
+  .hero2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);background:linear-gradient(135deg,#1c2e45 0%,#253B55 55%,#2f4a6b 100%);border-radius:18px;overflow:hidden;color:#fff;margin-bottom:22px;min-height:320px;box-shadow:var(--shadow);}
+  .hero2 .h-copy{padding:40px 40px 34px;display:flex;flex-direction:column;justify-content:center;}
+  .hero2 .eyebrow{color:var(--gold);}
+  .hero2 h2{font-size:38px;line-height:1.1;font-weight:600;margin:0 0 12px;}
+  .hero2 p{color:rgba(255,255,255,.8);font-size:14px;line-height:1.65;margin:0 0 22px;max-width:470px;}
+  .hero2 .h-cta{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero2 .h-cta button{all:unset;cursor:pointer;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:700;background:var(--gold);color:#1c2e45;transition:transform .15s;}
+  .hero2 .h-cta button.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);}
+  .hero2 .h-cta button:hover{transform:translateY(-1px);}
+  .h-mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4px;padding:4px 4px 4px 0;}
+  .h-mosaic div{background-size:cover;background-position:center;min-height:150px;}
+  .h-mosaic div:first-child{border-top-left-radius:0;}
+  .kpi-row.k2{margin-bottom:34px;}
+  .kpi-row.k2 .kpi{flex:1;min-width:130px;border-top:3px solid var(--gold);}
+  .home-sec{margin-bottom:38px;}
+  .home-sec .block-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;}
+  .home-sec .block-head h3{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;margin:0;}
+  .home-sec .lede{font-size:13px;color:var(--ink-soft);margin:0 0 16px;max-width:720px;line-height:1.55;}
+  .view-all{font-size:12px;font-weight:700;color:var(--accent);cursor:pointer;white-space:nowrap;}
+  .view-all:hover{color:var(--gold);}
+  .sig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+  .sig-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:var(--shadow-sm);transition:box-shadow .15s,transform .15s;}
+  .sig-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+  .sig-card .collage{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:3px;height:200px;background:var(--accent-soft);}
+  .sig-card .collage div{background-size:cover;background-position:center;}
+  .sig-card .collage div:first-child{grid-row:1/3;}
+  .sig-card .collage.one{grid-template-columns:1fr;}
+  .sig-card .collage.two{grid-template-rows:1fr;}
+  .sig-card .collage.two div:first-child{grid-row:auto;}
+  .sig-card .body{padding:14px 16px 16px;}
+  .sig-card .name{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;margin:0 0 4px;}
+  .sig-card .count{font-size:11.5px;color:var(--ink-soft);margin-bottom:9px;font-weight:600;}
+  .sig-card .meta{display:flex;gap:6px;flex-wrap:wrap;}
+  .col-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .col-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;cursor:pointer;box-shadow:var(--shadow-sm);}
+  .col-box:hover{box-shadow:var(--shadow);}
+  .col-box .t{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:10px;}
+  .col-box .pal-strip{margin:0 0 10px;height:54px;}
+  .col-box .names{font-size:11.5px;color:var(--ink-soft);line-height:1.6;}
+  @media(max-width:900px){.hero2{grid-template-columns:1fr;}.h-mosaic{grid-template-columns:repeat(3,1fr);padding:0 4px 4px;}.col-wrap{grid-template-columns:1fr;}}
+
+  .page-tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:4px 0 24px;}
+  .page-tabs button{all:unset;cursor:pointer;padding:10px 18px;font-size:13px;font-weight:600;color:var(--ink-soft);border-bottom:2px solid transparent;margin-bottom:-1px;}
+  .page-tabs button.active{color:var(--accent);border-bottom-color:var(--gold);}
+  .doclib .doc-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+  .file-btn{display:inline-block;cursor:pointer;padding:9px 18px;border-radius:999px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;}
+  .file-btn:hover{background:#1c2e45;}
+  .file-btn input{display:none;}
+  .doc-note{font-size:12px;color:var(--ink-faint);line-height:1.5;max-width:640px;}
+  .drop{border:1.5px dashed var(--line);border-radius:var(--radius);padding:18px;text-align:center;color:var(--ink-faint);font-size:12.5px;margin-bottom:18px;background:var(--surface);}
+  .drop.over{border-color:var(--gold);background:#fbf7f0;color:var(--ink-soft);}
+  .doc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;}
+  .doc-card{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-sm);}
+  .doc-ico{flex:none;width:46px;height:56px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;letter-spacing:.6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;border-top:3px solid var(--gold);}
+  .doc-main{flex:1;min-width:0;}
+  .doc-name{font-size:13.5px;font-weight:600;color:var(--ink);word-break:break-word;margin-bottom:3px;}
+  .doc-sub{font-size:11.5px;color:var(--ink-faint);margin-bottom:8px;}
+  .doc-act{display:flex;gap:8px;flex-wrap:wrap;}
+  .doc-act button,.doc-act a{all:unset;cursor:pointer;font-size:11.5px;font-weight:700;color:var(--accent);padding:4px 10px;border:1px solid var(--line);border-radius:999px;}
+  .doc-act button:hover,.doc-act a:hover{background:var(--accent-soft);}
+  .doc-act .rm{color:var(--c-next);}
+  .doc-empty{padding:34px;text-align:center;color:var(--ink-faint);font-size:13px;background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);}
+  .doc-view{width:100%;height:74vh;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .doc-view-img{max-width:100%;border-radius:8px;}
+  .live-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#e5534b;margin-right:14px;vertical-align:middle;position:relative;top:-3px;animation:livepulse 1.8s infinite;}
+  @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(229,83,75,.55);}70%{box-shadow:0 0 0 12px rgba(229,83,75,0);}100%{box-shadow:0 0 0 0 rgba(229,83,75,0);}}
 </style>
 </head>
 <body>
@@ -682,27 +750,22 @@ const tripReports = [
 const FC={"colors":[{"name":"Bitter Tangerine","season":"spring28","sl":"SS 28","pantone":null,"hex":"#e47429","summary":"Sharp, preserved, and pulsing with acidic heat, Bitter Tangerine commands accessories with vital intensity. Emerging from the Color Shift, Abundant Brights, this citrus-charged orange evolves from the red-based and coral-hued oranges of the past two seasons, introducing cooler, bluer undertones that nod to its namesake's bitter bite. Enticing and alert, it is orange in its truest form, succulent, invigorating, and grounded by an organic earthiness that tempers its searing brightness.","why":"Cultural curiosity is deepening as a counterweight to isolationist movements that tighten political borders worldwide, as noted in the Cultural Sentiment, Cultural Appreciation. Younger generations are moving beyond passive observation toward a sincere desire to fully embody and honor different worldviews. Cultural specificity is proving it can travel further than broad appeal, and Bitter Tangerine channels this appetite for bold, place-based expression. Its audacious warmth reflects cultures where color is central to daily life, reinforcing a palette that is meaningful and alive with cross-cultural fluency.","app":"Bitter Tangerine energizes across polished resins, woven raffia, supple leathers, and eyewear, its citrus charge heightening seasonal warmth. Orange carnelian and enamel detailing anchor it as a refined accent. Consider scaled applications from all-over usage to targeted pops on hardware, trims, and components.","combos":[["#e47429","#1f2a44","#006ba6","#c6313d"],["#e47429","#deca5f","#cc8a00"],["#e47429","#bd7682","#e1bbb4"]],"g":[["64e9e231c2","Credit not listed in report"],["76051b3162","Credit not listed in report"],["1c2403cb7f","Credit not listed in report"],["42886ce0d2","Credit not listed in report"],["1f0ef4fbce","Credit not listed in report"],["3394dcad3d","Credit not listed in report"]]},{"name":"Twinkling Opal","season":"spring28","sl":"SS 28","pantone":null,"hex":"#a6dcd5","summary":"Shimmering with the invigorating coolness of a morning plunge, Twinkling Opal refreshes footwear with a pulsating, aquatic luminosity. Drawn from the Color Shift, Rippled Light, this crystalline blue builds on the heightened aqua tones of SS 27, capturing the hue’s enduring power to both energize and restore. Its translucent quality shifts its character from sheer to softly saturated, embodying the vibrant and meditative mood of the season's duality.","why":"As digital overload distances us from tangible experience, emerging technologies become an unexpected means to feeling more, as explored in the Cultural Sentiment, Speculative Engagement. Twinkling Opal lands in response to this tension, offering sensory recalibration through color that feels both familiar and otherworldly. For accessories, its cool iridescence answers a growing consumer desire for pieces that shift, catch light, and elevate the everyday into something more experiential.","app":"Twinkling Opal surfaces across stones, silk satins, and tonal leathers, its coolness shifting between opaque and translucent finishes. Glossy finishes channel its aquatic playfulness. Explore full-color saturation on legwear and eyewear, or introduce it as an accent on trims and hardware for a sensory lift.","combos":[["#a6dcd5","#f2cd00","#395542","#4f4a3c"],["#a6dcd5","#00965e","#06038d"],["#a6dcd5","#0f5e6c","#cadda6","#7d9f4e"]],"g":[["3c5801c65a","Credit not listed in report"],["b49420de41","Credit not listed in report"],["1ca18c95f2","Credit not listed in report"],["60917d57d9","Credit not listed in report"],["06c1c37f6f","Credit not listed in report"],["30242efddf","Credit not listed in report"]]},{"name":"Sesame Syrup","season":"spring28","sl":"SS 28","pantone":"7499 C","hex":"#f1e6b2","summary":"Sticky, translucent, and glowing with sun-warmed softness, Sesame Syrup brings a luminous tenderness to accessories, inviting a sense of touch. Part of the Color Shift, Thawed Nuance, this clarified yellow evolves from the soured, green-tinged undertones of the past two seasons, introducing a lighter, fresher energy that evokes purity and brightness. A quiet bridge between bolder seasonal hues, its understated glow possesses an intimacy that warms tonal pairings like earthy midtones and petal-like pastels, adding softness, while maintaining its presence.","why":"Reflected in the Cultural Sentiment, Myth in the Making, consumers are finding creative renewal in looking backward, turning to nostalgia, fantasy, and handcraft as a counterpoint to acceleration. Sesame Syrup embodies this sentiment, carrying a glow that feels both ancient and intimate, as if slowly shaped by light and time. In accessories, this translates into a hue that quietly elevates foundational styles, lending sandals, flats, and soft-soled silhouettes a luminous, handcrafted tenderness.","app":"Sesame Syrup glows on smooth leathers, tinted acetate, and yellow agate, its sun-warmed clarity reading as a seasonal neutral. Tight-knit textures deepen its handcrafted character. Apply across assortments for a golden ease that bridges decorative and foundational.","combos":[["#f1e6b2","#493738","#c6bcd0"],["#f1e6b2","#c0bb87","#4f4a3c","#daaa00"],["#f1e6b2","#a5a09b","#643335"]],"g":[["4c227b8fd7","Credit not listed in report"],["afcbca74e5","Credit not listed in report"],["8be185d846","Credit not listed in report"],["f8a2aa6ff9","Credit not listed in report"],["1969d1fe49","Credit not listed in report"],["6fbbe92667","Credit not listed in report"]]},{"name":"Aubergine Skin","season":"spring28","sl":"SS 28","pantone":null,"hex":"#5d4a4c","summary":"Shadowy, magnetic, and steeped in dusky undertones, Aubergine Skin offers accessories a sophisticated alternative to black for the Spring/Summer season. Aligned with the Color Shift, After Dusk, this purple-brown evolves from FW 27/28 hue, Mudberry, darkening and warming with subtle brown shadows while retaining lingering purple undertones. Atmospheric and shape-shifting, its moody saturation draws the eye and invites exploration.","why":"A growing recognition of the darker sides of nature, from literal darkness to decay, is deepening the respect for the planet and ourselves, as captured in the Cultural Sentiment, Dark Natures. Aubergine Skin channels this shift, embodying an appetite for richer tones, layered complexity, and alternative paths to wellness. Within accessories, this shadowy magnetism offers a sophisticated summer alternative to black, lending emotional weight to silhouettes.","app":"Aubergine Skin commands across sculpted glass, gathered leathers, and acetate, positioning itself as a core alternative to black. Silk and linen soften its intensity, while burnished metals and resin detailing sharpen its edge. Adopt it as a full-spectrum color across bags, jewelry, and components for a layered, moody depth.","combos":[["#5d4a4c","#06038d","#d4b59e","#c4bde0"],["#5d4a4c","#493738","#f1e6b2"],["#5d4a4c","#8c869e","#9b386f","#c6313d"]],"g":[["3cd12daa64","Credit not listed in report"],["69a0672919","Credit not listed in report"],["625258d1b4","Credit not listed in report"],["a4a6ae7092","Credit not listed in report"],["fdd53246bf","Credit not listed in report"],["a393f9f9d2","Credit not listed in report"]]},{"name":"Smoked Rosewood","season":"spring28","sl":"SS 28","pantone":null,"hex":"#bd7682","summary":"Dusky, tender, and tempered by shadow, Smoked Rosewood settles into accessories with a quiet warmth that feels matured through wear. Central to the Color Shift, Skin-Contact, this muted pink evolves from the expansive range of pinks across the past several seasons, from sugared pastels to the exhilarating intensity of nearly neon hues. Its reassuring mid-tone carries the depth of something aged and cared for, anchoring assortments with a hushed, seasoned quality that invites closeness.","why":"As technology optimizes for perfection, embracing vulnerability emerges as a new form of authenticity, a shift at the heart of the Cultural Sentiment, Casual Candor. Within this landscape, consumers seek hues that communicate empathy and tenderness without pretense. That seasoned quality translates naturally into accessories, giving a lived-in softness that feels personal and considered from the first wear.","app":"Smoked Rosewood translates fluidly across supple suedes, translucent acetate, and textured knits, its muted warmth perfectly calibrated for seasonal assortments. Faceted gemstones like tourmaline elevate its grounded disposition. Apply across structured bags, belts, and legwear for an emotive hue that bridges accent and statement.","combos":[["#bd7682","#c0bb87"],["#bd7682","#f2acb9","#deca5f"],["#bd7682","#00965e"]],"g":[["b4db110f4d","Chanel"],["a6699791bd","Credit not listed in report"],["ca6e267d36","Credit not listed in report"],["7969691fb4","Credit not listed in report"],["47588532c7","Credit not listed in report"],["e2fbc65e28","@elisa_voto"]]},{"name":"Candied Peony","season":"spring28","sl":"SS 28","pantone":null,"hex":"#d7acd1","summary":"Buoyant, expressive, and charged with a lively charm, Candied Peony injects accessories with a fresh, uncomplicated energy that is instinctive and immediate. Channeling the Color Shift, Abundant Brights, this vivacious pink sits on the opposite end of the spectrum from the season's deeper, juicier tones, offering a brightness that lifts and contrasts without overwhelming it. As the next step in the evolution of blue-tinted pinks, Candied Peony arrives with cool sweetness.","why":"As identity becomes more fluid, there is a growing freedom to explore expression on one's own terms. Candied Peony thrives in this territory, as outlined in the Cultural Sentiment, Just 'Be,' where instinct replaces curation and color becomes a vehicle for impulse and personal energy. Across accessories, this spirited pink enlivens trainers, sandals, and statement flats with an uncomplicated joy that makes every silhouette feel spontaneous and self-assured.","app":"Candied Peony brings a levity to ribbed knits, printed silks, and smooth leathers, performing best as a seasonal accent. Enameled treatments on jewelry capture a sharpness with a playful edge. Pair with saturated brights and juicy hues for a spirited combination.","combos":[["#d7acd1","#ab5c57"],["#d7acd1","#e5e1e6","#00965e","#bd5d40"],["#d7acd1","#006ba6","#06038d"]],"g":[["7ff75a1c5c","Credit not listed in report"],["9f8729e64b","Credit not listed in report"],["013e3b2929","Credit not listed in report"],["7f6d545e81","Credit not listed in report"],["5d884cafc9","Credit not listed in report"],["00fd542e17","Credit not listed in report"]]},{"name":"Bone","season":"spring28","sl":"SS 28","pantone":"663 C","hex":"#e5e1e6","summary":"Calm, mineral, and stripped to its essence, Bone brings an organic quality to accessories that is soft and deliberate. Sitting within the Color Shift, Thawed Nuance, this considered off-white moves away from stark, clinical whites toward something warmer and more tactile, establishing a light foundation that feels composed and enduring. As neutrals step forward with renewed intention this season, Bone offers a clean simplicity that anchors assortments with understated confidence.","why":"Frustrated by performative authenticity and information overload, consumers are orienting identity around inner alignment and personal clarity, a direction explored in the Cultural Sentiment, Quiet Self. Bone mirrors this recalibration, offering a color that communicates stillness and self-possession. Within accessories silhouettes, Bone establishes a foundation of calm, lending essential styles a mineral purity that feels resolved and enduring.","app":"Bone settles across matte leathers, sculpted resin, and cotton canvas, its mineral warmth favoring smooth, pared-back surfaces. Crafted and lace detailing bring visual interest while tonal acetate underscores its tactile restraint. Action this core neutral that anchors bags, belts, headwear, and jewelry with a composed presence.","combos":[["#e5e1e6","#643335","#0f5e6c"],["#e5e1e6","#dedab3","#c6313d"],["#e5e1e6","#edd2ba","#d4b59e"]],"g":[["abb76a49a0","Credit not listed in report"],["bf20e9547e","Credit not listed in report"],["0bb2c682e1","Credit not listed in report"],["406db426ad","Credit not listed in report"],["97bfa8be23","Credit not listed in report"],["752f18a2e3","Credit not listed in report"]]},{"name":"Washed Loom","season":"spring28","sl":"SS 28","pantone":null,"hex":"#517391","summary":"Measured, composed, and carrying the faded depth of well-worn cloth, Washed Loom brings a grounded mid-tone blue to accessories that feel resolute and unhurried. Evolving from FW 27/28's Overcast Blue, this textile-inflected shade trades atmospheric coolness for something more tactile and stable, settling into silhouettes with the ease of a color that has been aged by time. Its muted saturation bridges the gap between the season's brighter aquatic tones and its deeper, shadowed hues, offering a blue that performs with the reliability of a true core color.","why":"Pointing to the Cultural Sentiment, Inner Workings, the intricate processes and expertise behind creative output are becoming the new point of fascination as consumers grow more curious about how things are made. Applied to accessories, this textile-inflected blue rewards closer inspection, bringing a handworked sensibility where stitching, texture, and construction become part of the design language.","app":"Washed Loom grounds denim, brushed suede, and lived-in leathers with their faded depth, which rewards tactile, handworked treatments. Blown glass and Swarovski crystal detailing introduce a refined counterpoint to its workwear sensibility. This core shade is built to perform trans-seasonally and across categories.","combos":[["#517391","#8c869e"],["#517391","#e5e1e6","#f2cd00"],["#517391","#efefea","#87acaf","#1f2a44"]],"g":[["aaec0aa83d","Credit not listed in report"],["ca2caedd4f","Credit not listed in report"],["a49108fc9a","Credit not listed in report"],["0a1f22a136","Credit not listed in report"],["6b083b9d19","Credit not listed in report"],["5eb0cff712","Credit not listed in report"]]},{"name":"Chlorophyll","season":"spring28","sl":"SS 28","pantone":null,"hex":"#7d9f4e","summary":"Vital, saturated, and pulsing with biological energy, Chlorophyll reaffirms green's natural authority across accessories with an activated brightness. Linked to the Color Shift, Abundant Brights, this confident green builds on the olive-centric and pistachio shades of recent seasons, pushing toward a fuller, more photosynthetic intensity. Its chromatic presence strikes a balance between restoration and striking visual impact, offering a green that is simultaneously grounding and energizing.","why":"Nature is setting the pace for those seeking more individualized yet simple health solutions, with elemental alignment and biological rhythms guiding a new approach to well-being, as captured in the Cultural Sentiment, Bio Sync. Chlorophyll lives at this touchpoint of vitality and purposeful renewal, reaffirming green's role as a color rooted in growth. Applied to accessories, this activated green energizes core silhouettes from trainers to slides, infusing everyday styles with a vitality that signals conscious, forward-moving intention.","app":"Chlorophyll works across marbled bio-resin, open mesh, and structured leathers; its saturated depth carrying equal weight in bold and understated applications. Consider knit and woven textures to reinforce its organic rootedness. This seasonal hue performs best as an all-over treatment, radiating living energy.","combos":[["#7d9f4e","#af9800","#1f2a44"],["#7d9f4e","#395542","#0f5e6c","#af6d04"],["#7d9f4e","#8c869e","#ab5c57"]],"g":[["e01258a8a4","Credit not listed in report"],["149b420ccd","Credit not listed in report"],["f856099017","Credit not listed in report"],["09d3cf9a62","Credit not listed in report"],["d3ce0cb20f","Credit not listed in report"],["6b48aa6c15","Credit not listed in report"]]},{"name":"Enriched Soil","season":"spring28","sl":"SS 28","pantone":null,"hex":"#493738","summary":"Warm, nourishing, and layered with organic depth, Enriched Soil brings a deep richness to accessories that feels cultivated and purposeful. A natural progression from the cool, near-black browns of recent seasons, this warmer, more saturated iteration shifts toward something earthier and more alive, carrying the weight of materials steeped in narrative and time. Its robust warmth connects to the season's broader embrace of tactile, sun-baked tones, offering a core brown that feels tended to and intentional.","why":"Everyday rituals are taking on new significance as consumers seek practices that nurture personal well-being and foster a sense of grounding, a shift explored in the Cultural Sentiment, Ritual Reassurance. Enriched Soil embodies this patient, devotional energy, reflecting a mindset where care is cumulative. Across accessories, this cultivated brown deepens transseasonal staples from loafers to boots, offering a richness that matures with wear and rewards long-term investment in quality.","app":"Enriched Soil deepens accessories with its cultivated warmth, giving tinted lenses and acetate frames a rich, resinous quality. Across jewelry, wooden beads and carved elements echo its organic origins, while braided and woven leather treatments bring tactile dimension to bags and small leather goods.","combos":[["#493738","#674736","#98796a"],["#493738","#bd5d40"],["#493738","#9faee5"]],"g":[["21981b7657","Credit not listed in report"],["87c3dfd6f5","Credit not listed in report"],["c4d72d57a6","Credit not listed in report"],["8a72a68d78","Credit not listed in report"],["e04555ec3c","Credit not listed in report"],["617100a5db","Credit not listed in report"]]},{"name":"Plasma","season":"holiday","sl":"FW 27/28","pantone":"110 C","hex":"#daaa00","summary":"Plasma imbues accessories with a grounded sensibility alongside an optimistic lift, elevating assortments with a nourishing warmth that feels both considered and decadent. Derived from the FW 27/28 Color Shift, Offbeat Gems reimagines luxurious and sensual jewel tones through a warped lens. Plasma aligns with the transformation of yellow shades from barely there butter tones to powerful and expressive golds that are magnetic yet subtly askew.","why":"Striking the balance between familiar and unconventional, Plasma points to the contradiction between the natural and manufactured, the tactile and the synthetic. This sentiment mirrors how AI advancements in design enable rapid experimentation that feels both precise and organically inspired, allowing consumers to embrace novelty as it morphs into infinite possibilities, empowering the search for bold creative choices that blend digital innovation with hands-on creativity.","app":"As enriched golden yellow tones gain momentum in accessories, both as a statement color and a core hue, look to tactile materials like supple suedes for bags and belts to highlight tactile depth. Silicone renders Plasma with a matte finish ideal for watches and tech accessories, while leather reflects the elegance of this regal hue. For cold weather assortments, consider wool knits and shearling textures that embrace Plasma's warmth. Pair with contrasting components and hardware in neutralized light and dark shades, placing the focus on this opulent sour-tinted yellow.","combos":[["#daaa00","#827a04","#83786f"],["#daaa00","#1d3c34","#dfd1a7"],["#daaa00","#53565a","#5c3d31"]],"g":[["2415399418","Credit not listed in report"],["cc8e5c98e3","Credit not listed in report"],["e450860a94","Credit not listed in report"],["cb4a0cce99","Credit not listed in report"],["571f220f1b","Credit not listed in report"],["b57bd6e51e","Credit not listed in report"]]},{"name":"Blue Thunder","season":"holiday","sl":"FW 27/28","pantone":"648 C","hex":"#002e5d","summary":"Central to the FW 27/28 Color Shift Emotional Darks, Blue Thunder builds intrigue through shadowy and nuanced depths as deep navy tones evolve into something more profound that is both measured and meaningful. This nearly black blue transcends traditional navy, offering complex undertones that speak to a desire for colors with emotional weight and contemplative depth. In accessories, Blue Thunder captures the tension between restraint and intensity, lending a sophistication that feels both versatile and resonant.","why":"As foundational hues like Blue Thunder prove time-resistant, they serve as anchors in defiance of cultural acceleration, allowing consumers to reclaim temporality and engage with the past, present, and future on their own terms. With nostalgia cycling through reinvention, consumers gravitate toward colors that offer stability in the face of cultural change. Blue Thunder acts as a visual constant, providing continuity while remaining open to reinterpretation across applications.","app":"Essential to the Fall Winter season, consider rich leathers from premium skins and brushed suedes for gloves and bags to emphasize the depths of Blue Thunder. Lightweight ribbed knits translate this shade into beanies and scarves, absorbing the saturation with tactile warmth. For eyewear, tinted lenses capture the moody intensity, while resin and enamel in jewelry and keychains showcase the inherent drama of this dense blue. Metallic accents enhance the sophisticated character, while tonal stitching and hardware maintain focus on Blue Thunder's presence.","combos":[["#002e5d","#5b7f95","#827a04","#c63527","#ab5c57"],["#002e5d","#c05131","#e8e6d3","#643335"],["#002e5d","#53565a"]],"g":[["94474dfd1d","Credit not listed in report"],["5dc8c43711","Credit not listed in report"],["d6df71efe8","Credit not listed in report"],["932d989768","Credit not listed in report"],["5f10429819","Credit not listed in report"],["c101848a72","Credit not listed in report"]]},{"name":"Mudberry","season":"holiday","sl":"FW 27/28","pantone":"7639 C","hex":"#936d73","summary":"Embracing the beauty of time-worn elegance with its muted mauve tone, Mudberry echoes the gentle patina of smoky amethyst as this lived-in shade refreshes accessories with its tactile warmth and understated richness. Part of the FW 27/28 Color Shift, Toasted Neutrals, Mudberry demonstrates a romantic return to traditional fall tones that are reimagined with steadfastness.","why":"As resistance to conspicuous consumption pushes brands toward more lasting impact, subtly impactful hues like Mudberry offer intentional elegance. With legacy brands facing challenges and private labels ascending, there's a shift toward a more emotional luxury that prioritizes experience. Mudberry embodies this movement, inviting sensorial discovery through its lived-in feel and inherent history. Its demure quietude appeals to consumers seeking authenticity through assortments that reward closer examination and develop deeper meaning over time.","app":"The transition of purples into more expressive iterations converges with the return of mauves as a romantic and dynamic way to ground seasonal accessories. Look to leathers and suedes for bags and wallets that become more dimensional with wear. Silk and cotton blends translate Mudberry across scarves and ties. Fine-gauge knits express this shade in socks and hats. Tinted crystals and acetates capture its nuanced appeal in jewelry and eyewear.","combos":[["#936d73","#5c4738","#e9dfc4"],["#936d73","#c39367"],["#936d73","#d4b59e","#83786f","#651d32"]],"g":[["c7e5c1045c","Credit not listed in report"],["9fb3a1e6ba","Credit not listed in report"],["bfc1d5c586","Credit not listed in report"],["d499bf2979","Credit not listed in report"],["c11768f48c","Credit not listed in report"],["fd1129ac76","Credit not listed in report"]]},{"name":"Optic Fog","season":"holiday","sl":"FW 27/28","pantone":"665 C","hex":"#c6bcd0","summary":"Floating between light blue, soft lilac, and tinted grey, Optic Fog lends a barely there, translucent quality to footwear that feels both present and ethereal. Drawn from the FW 27/28 Color Shift, Hazy Hues, which focuses on coolly comforting colors that offer solace during times of intensity. Optic Fog acts as both a pastel and a lightweight neutral that is delicate yet resolved.","why":"As awareness around hidden factors affecting well-being pushes consumers to become more protective of their environment, new wellness colors like Optic Fog evolve as energy sensors within holistic approaches. This full-circle mindset extends beyond visual appeal to encompass multi-sensory enrichment, nourishing senses through touch and atmosphere. Optic Fog acts as a bridge between the seen and felt, offering a color that is responsive to the heightened sensitivity of external influences and the search for restorative experience.","app":"With its shapeshifting quality, action Optic Fog crosses categories from bags, eyewear, jewelry, and sheer legwear. By adjusting material opacities, this pastel-tinted grey captures atmospheric depth, offering a gentle contrast to substantial metal hardware and components. Consider cold weather applications with waterproofed and quilted finishes where the hue's translucent nature creates intrigue against functional elements like sealed seams and insulated constructions.","combos":[["#c6bcd0","#e8e6d3"],["#c6bcd0","#dfd1a7"],["#c6bcd0","#1d3c34","#936d73","#41273b"]],"g":[["9bcaaa4eea","Credit not listed in report"],["00e48431b6","Credit not listed in report"],["e9c444cb65","Credit not listed in report"],["6f83ed8ee9","Credit not listed in report"],["650398835a","Credit not listed in report"],["96f4d9d914","Credit not listed in report"]]},{"name":"Neon Rouge","season":"holiday","sl":"FW 27/28","pantone":"1787 C","hex":"#f4364c","summary":"Lending a dynamic spark of full-bodied vitality to the FW 27/28 Color Shift, Powerful Pops, Neon Rouge is a shockingly vibrant coral-pink that energizes footwear with a concentrated burst of saturation. Delivered in calculated doses, Neon Rouge amplifies assortments, even when used sparingly as an accent on trims and components.","why":"With the overwhelming pressure to hyper-optimize, consumers are turning to expressions of joy as their guiding compass. In this landscape, owning a distinctive point of view serves as a safeguard against sameness. Neon Rouge embodies this radical resonance, centering sincere joy as a crucial creative tool that transforms the ordinary into an individual perspective. As younger generations gravitate toward reclaiming previously dismissed aesthetics, this vibrant hue represents the power of embracing what was once considered too bold or unconventional.","app":"To amplify the vivid intensity of Neon Rouge, consider an all-over placement with contrasting details and components. Action on trims and hardware for targeted pops of color, activating assortments through strategic bursts, and turning functional components into focal points. This nearly neon hue translates seamlessly across materials from supple leathers and technical nylons to lustrous satins and laces, while cording and enamel applications in jewelry reveal different facets of its bold expression, ensuring maximum impact.","combos":[["#f4364c","#002e5d","#006ba6"],["#f4364c","#651d32","#be84a3"],["#f4364c","#c39367","#d4b59e"]],"g":[["3f97ca7c3b","Credit not listed in report"],["229ad38e18","Credit not listed in report"],["ded1d38030","Credit not listed in report"],["560e24df8d","Credit not listed in report"],["bf0a1b5005","Credit not listed in report"],["2c48831b11","Credit not listed in report"]]},{"name":"Dark Carnelian","season":"holiday","sl":"FW 27/28","pantone":"7624 C","hex":"#802f2d","summary":"Aligning with the FW 27/28 Color Shift, Emotional Darks, as deeply felt colors reflect a collective craving for substance over decoration, Dark Carnelian emerges as an evolution of Burgundy as a shadowy tinted red that is enticing and defiant. Where previous burgundies leaned berry-infused and bright, Dark Carnelian offers a warmer yet more mysterious presence, drawing from ancient stone pigments that suggest intrigue and hidden complexity.","why":"As enduring hues like Dark Carnelian prove their permanence, they serve as grounding forces in defiance of cultural acceleration, allowing consumers to reclaim a connection with history. With fear of the future inspiring renewed interest in the past, we gravitate toward colors rooted in ancient materials that offer perspective amid rapid change. Dark Carnelian draws from stone pigments used across civilizations, acting as a bridge between inherited traditions and contemporary expression, providing stability while remaining adaptable to modern reinterpretation.","app":"Dark Carnelian enables a density seen in the previous fall, but with an approachable versatility that provides comfort and stability, acting as a stable pillar of strength for other colors to thrive. Consider pairing this emotional red with lived-in neutrals, as well as vibrant brights that contrast its depths. Look to leathers and calf hair for gloves, belts, bags, and tech accessories, while tinted glass and coated enamels in jewelry capture the richly saturated character of this hue.","combos":[["#802f2d","#41273b","#643335","#be4d00"],["#802f2d","#5c3d31","#5b7f95"],["#802f2d","#827a04","#789d4a"]],"g":[["0811027797","Credit not listed in report"],["ef9477f7da","Credit not listed in report"],["43e23619b9","Credit not listed in report"],["1e7786a340","Credit not listed in report"],["836b2585bd","Credit not listed in report"],["5f1ecc62dd","Credit not listed in report"]]},{"name":"Smudge","season":"holiday","sl":"FW 27/28","pantone":"Warm Gray 11 C","hex":"#6e6259","summary":"Aligning with the rooted naturals of the FW 27/28 Color Shift, Toasted Neutrals, Smudge, one of the Accessories exclusive colors for the season, lies between roasted brown and smoky grey, offering an evolved take on reliable core accessories colors. Building on the progression of greys from recent seasons, Smudge represents an enduring refinement that embraces the patina of lived experience, shifting classic autumnal hues into newly weathered iterations.","why":"Amid shifting attitudes toward excessive consumption, brands pursue lasting endurance, as understated hues like Smudge provide thoughtful refinement as a contrast to the quickened trend cycle. As heritage companies navigate declining influence while emerging brands capture attention, there's a movement toward substantive luxury that values longevity above novelty. Smudge embodies this shift, offering gradual revelation through its weathered character and accumulated depth that speaks to prioritizing quality over quantity.","app":"Consider enveloping textural materials that render Smudge warming and generously comforting, like soft shearling, cashmere and mohair knits, felted wools, and fine gauge ribs. Suede is a key material for this smoky brown across bags and small leather goods, while leather works effectively for bag charms and belts. Coated wire frames in eyewear and tinted glass applications in jewelry position Smudge as a core hue across seasonal assortments.","combos":[["#6e6259","#802f2d"],["#6e6259","#d4b59e","#919388"],["#6e6259","#53565a","#daaa00"]],"g":[["348390eba8","Credit not listed in report"],["c4b0446787","Credit not listed in report"],["a58a1f6ec2","Credit not listed in report"],["a99e259ede","Credit not listed in report"],["5df9e28e96","Credit not listed in report"],["b846dd8c3d","Credit not listed in report"]]},{"name":"Cloud Bloom","season":"holiday","sl":"FW 27/28","pantone":"2716 C","hex":"#9faee5","summary":"One of the Accessories exclusive colors of the season, Cloud Bloom points to the influx of nuanced blues on the rise. With its cooler undertones and glacial finish, this mercurial blue lies adjacent to the FW 27/28 Color Shift, Hazy Hues, channeling a sense of peacefulness that comes through literally rising above the chaos.","why":"As awareness of digital overwhelm intensifies, consumers are increasingly setting personal boundaries and choosing to engage with greater intention online. Cloud Bloom embodies this shift toward digital self-regulation, representing the clarity that emerges when individuals rise above algorithmic chaos to curate their own experiences. This ethereal tone reflects the pursuit of calm in crowded digital spaces, appealing to those seeking colors that respond to their desire for an elevated perspective rather than external validation.","app":"With its powdery, almost translucent finish, Cloud Bloom performs well on both matte and subtly shiny surfaces like leather, satins, and quilted nylons. Smooth matte leathers work across bags, belts, and watch straps, while jewelry applications in stones like chalcedony capture the ethereal character of this fluid blue. Emphasize the lightened quality of Cloud Bloom, pairing it back with the prominent, deeper blue hues of the season, as well as anchoring it against bold pops of brights.","combos":[["#9faee5","#006ba6","#06038d"],["#9faee5","#ede8c0"],["#9faee5","#58a291","#cf6f77"]],"g":[["665c482b46","Credit not listed in report"],["3d01e79ef3","Credit not listed in report"],["7b9a189f88","Credit not listed in report"],["d6877ea613","Credit not listed in report"],["10ef1e89ce","Credit not listed in report"],["7f3aa0b6ff","Credit not listed in report"]]},{"name":"Verdant","season":"holiday","sl":"FW 27/28","pantone":"576 C","hex":"#789d4a","summary":"Highlighting the value of intentional color selection for trans-seasonal relevance, Verdant is carried over from the SS 27 Accessories Colors, illustrating the evolution of dark olive-centric greens from previous seasons into more yellowed, pistachio shades. Verdant expresses the nuanced depths that greens can achieve, emphasizing their versatility and possessing a multi-dimensional quality that embraces the richness of reliable greens while infusing fresh vitality into foundational colors. Its luxurious saturation offers indulgent decadence that elevates palates with an earthy opulence.","why":"As consumers reawaken to the importance of social connection, experiences that center togetherness gain new value. With community becoming a health imperative, colors like Verdant reflect this shift toward communal practices. This adaptable hue embodies the spirit of shared economics by representing sustainable color and material choices that benefit collective well-being while offering a unifying expression. Verdant's cross-seasonal and cross-category versatility mirrors the desire for investments that serve multiple purposes, representing choices that prioritize mutual benefit.","app":"Consider this balanced green as a refreshed core color, implemented across knit accessories, watches, eyewear and jewelry. Consider a variety of materials from vegetable-tanned leathers and suedes for bags, wallets, and belts. Slubbed wool knits provide sustainable warmth and lend textural interest, aligning with the conscious influence of Verdant.","combos":[["#789d4a","#c39367"],["#789d4a","#ba0c2f","#802f2d"],["#789d4a","#5b7f95","#9faee5"]],"g":[["a1b4a62ac1","Credit not listed in report"],["4a7ef83881","Credit not listed in report"],["3fa91ad344","Credit not listed in report"],["3c9e7ce19e","Credit not listed in report"],["025ac9c756","Credit not listed in report"],["341b2becd0","Credit not listed in report"]]},{"name":"Truffle Leather","season":"holiday","sl":"FW 27/28","pantone":"412 C","hex":"#382f2d","summary":"Carried over from the SS 27 Accessories Colors, Truffle Leather aligns with the complex and shadowy hues of the FW 27/28 Color Shift, Emotional Darks. This superbly rich, cool-toned brown verges on the darkness of black yet maintains the composure to act as a fresh core brown shade to anchor assortments. Its timeless character speaks to the growing value placed on responsible color choices that transcend seasonal boundaries, offering longevity and enduring relevance.","why":"As resistance to conspicuous consumption pushes brands toward more lasting impact, consumers increasingly reject performative material choices in favor of authentic expression. Growing cultural skepticism toward trend-driven purchases reflects a desire for hues that transcend seasonal cycles. Truffle Leather responds to this shift by offering quiet sophistication, appealing to those who prioritize longevity over novelty, and representing a move toward intentional decisions.","app":"Capture the sophisticated depth of Truffle Leather, emphasizing decadent natural materials that showcase its textural richness. Patent leather finishes highlight this hue's luxurious character across bags, hair accessories, and belts with knotted detailing. Smooth woods in jewelry and components provide organic contrast, while high gloss acetates for eyewear reflect Truffle Leather's dark intensity.","combos":[["#382f2d","#06038d"],["#382f2d","#9d4815","#bcc9c5","#9faee5"],["#382f2d","#c05131","#004c97"]],"g":[["ab2aa3b2db","Credit not listed in report"],["77180b775b","Credit not listed in report"],["599f243389","Credit not listed in report"],["193dbcb6c9","Credit not listed in report"],["6b4ae010fc","Credit not listed in report"],["4d396177f6","Credit not listed in report"]]}],"keys":[],"mats":[],"stories":[{"name":"Bio Balm","season":"spring28","seg":"","desc":"","sections":[],"palette":[],"road":[],"g":[],"k":"bio"},{"name":"Lustre","season":"spring28","seg":"","desc":"","sections":[],"palette":[{"n":"Black","h":"#000000"},{"n":"Swamp Green","h":"#4f4a3c"},{"n":"Candied Peony","h":"#d7acd1"},{"n":"Lilac Glow","h":"#c4bde0"},{"n":"Optic Fog","h":"#c4c0c6"},{"n":"Soft Ash","h":"#a5a09b"},{"n":"Salted Sage","h":"#b9b79e"},{"n":"Fermented Fizz","h":"#dedab3"},{"n":"Bone","h":"#efeadf"},{"n":"Saltstone","h":"#efefea"}],"road":[],"g":[],"k":"lustre"},{"name":"Preziosa","season":"spring28","seg":"","desc":"","sections":[],"palette":[{"n":"Plasma","h":"#cda120"},{"n":"Jelly Red","h":"#c6313d"},{"n":"Fired Clay","h":"#bd5d40"},{"n":"Inferno","h":"#ed5a2d"},{"n":"Muskmelon","h":"#f2a472"},{"n":"Sun Dry","h":"#edd2ba"},{"n":"Cloud Bloom","h":"#9ab6da"},{"n":"Chlorophyll","h":"#7d9f4e"},{"n":"Enriched Soil","h":"#493738"}],"road":[],"g":[],"k":"prez"},{"name":"Good Nature","season":"spring28","seg":"","desc":"","sections":[],"palette":[{"n":"Spiced Dijon","h":"#ce8e28"},{"n":"Limewash","h":"#c6bb81"},{"n":"Chlorophyll","h":"#7d9f4e"},{"n":"Smoky Lavender","h":"#8c869e"},{"n":"Bitter Tangerine","h":"#e47429"},{"n":"Golden Algae","h":"#deca5f"},{"n":"Lobster","h":"#ff4a41"},{"n":"Candied Peony","h":"#d7acd1"},{"n":"Still Water","h":"#87acaf"},{"n":"Fennel Root","h":"#83846c"},{"n":"Salted Sage","h":"#b9b79e"}],"road":[],"g":[],"k":"gn"},{"name":"Folk Sleaze","season":"spring28","seg":"","desc":"","sections":[],"palette":[{"n":"Solar Midnight","h":"#2b2e43"},{"n":"Pomegranate Seed","h":"#612b3b"},{"n":"Swamp Green","h":"#4f4a3c"},{"n":"Fennel Root","h":"#83846c"},{"n":"Mocha Mist","h":"#98868b"},{"n":"Plasma","h":"#bc9312"},{"n":"Straw Bale","h":"#dcc6a8"},{"n":"Saltstone","h":"#efefea"},{"n":"Washed Loom","h":"#517391"},{"n":"Evergreen","h":"#324f40"},{"n":"Smudge","h":"#685c53"}],"road":[],"g":[],"k":"fs"},{"name":"Sun Chaser","season":"spring28","seg":"","desc":"","sections":[],"palette":[{"n":"Crush","h":"#9fc131"},{"n":"Evergreen","h":"#324f40"},{"n":"Mahogany Glow","h":"#603535"},{"n":"Inferno","h":"#f45720"},{"n":"Elation","h":"#f1cd39"},{"n":"Bone","h":"#efeadf"},{"n":"Candied Peony","h":"#d7acd1"},{"n":"Jelly Red","h":"#c6313d"},{"n":"Meditative Mint","h":"#cadda6"},{"n":"Twinkling Opal","h":"#a6dcd5"}],"road":[],"g":[],"k":"sc"}]};
 </script><script>/* ===== Placeholder sections (no data supplied in source file) ===== */
 const PLACEHOLDER_SECTIONS = {
-  radar: {label:'Trend Radar', itemName:'Example Trend'},
   packaging: {label:'Packaging', itemName:'Example Packaging Idea'},
-  watch: {label:'Watch List', itemName:'Example Watch Item'},
-  playbook: {label:'$5 & $10 Key Items', itemName:'Example Key Item'},
 };
 
 const SECTIONS = [
   {id:'overview', label:'Main Page'},
-  {id:'micro', label:'Micro Trend Drops'},
-  {id:'materials', label:'Materials'},
   {id:'stories', label:'Trend Stories'},
-  {id:'radar', label:'Trend Radar'},
-  {id:'opportunity', label:'Opportunity Map'},
+  {id:'micro', label:'Micro Trend Drops'},
   {id:'heat', label:'Heat Map'},
   {id:'color', label:'Color Palette'},
+  {id:'materials', label:'Materials'},
+  {id:'prints', label:'Prints & Patterns'},
+  {id:'chase', label:'Chase Items'},
   {id:'retail', label:'Retail Watch'},
   {id:'inspo', label:'Product Inspiration'},
   {id:'merch', label:'Merchandising'},
   {id:'packaging', label:'Packaging'},
-  {id:'watch', label:'Watch List'},
-  {id:'playbook', label:'$5 & $10 Key Items'},
   {id:'resources', label:'Resources'},
 ];
 
@@ -847,16 +910,6 @@ function renderHeat(){
         <div class="foot-note">From the China, Hong Kong and Korea recaps.</div></div>
     </div>`;
 }
-function renderOpportunity(){
-  const items=allItems();
-  const rows=items.map(o=>`<tr data-season="${o.x.season}"><td>${rowName(o)}</td><td style="color:var(--ink-soft)">${o.type}</td><td>${statusPill(o.x.status)}</td><td style="color:var(--ink-soft)">${seasonLabel(o.x.season)}</td><td>${linksFor(o.kind,o.x.name).length?`<span class="pill growing" style="cursor:pointer" onclick="openItemModal('${o.kind}',${o.i})">${linksFor(o.kind,o.x.name).length} market item${linksFor(o.kind,o.x.name).length>1?'s':''}</span>`:'<span style="color:var(--ink-faint)">&mdash;</span>'}</td></tr>`).join('');
-  return `<div class="page-head"><h2>Opportunity Map</h2></div>
-    ${seasonFilterBar('opportunity')}
-    <div class="panel"><div class="ptitle">Opportunity by trend</div>
-      <table class="tbl"><thead><tr><th>Trend</th><th>Type</th><th>Status</th><th>Season</th><th>Market evidence</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-}
-
-
 /* ===== Market recap (trip) data helpers ===== */
 const tripItems=[];
 tripReports.forEach((r,ri)=>r.items.forEach(it=>{ it.rid=r.id; it.market=r.market; it.report=r.title; it.ri=ri; it.fi=tripItems.length; tripItems.push(it); }));
@@ -949,20 +1002,6 @@ function applyMarketFilter(f,scope){
     b.style.display=vis?'':'none';
   });
 }
-function renderResources(){
-  const cards=tripReports.map((r,ri)=>`<div class="card rep-card" onclick="openReportModal(${ri})"><div class="thumb"><img src="${r.cover}" alt="${esc(r.title)}"></div>
-    <div class="body"><div class="name">${esc(r.title)}</div><div class="sub">${r.date}</div><div class="meta"><span class="tag market">${r.market}</span><span class="tag cat">${r.kind}</span></div>
-    <p class="desc">${r.items.length} items &middot; ${r.items.reduce((a,i)=>a+i.gallery.length,0)} photos</p></div></div>`).join('');
-  return `<div class="page-head"><div class="eyebrow">Resources</div><h2>Resources</h2><p>Market and retail recaps from the September 2026 Asia trip. Open a report to browse every item and photo.</p></div><div class="grid">${cards}</div>`;
-}
-function renderRetail(){
-  const retail=tripReports.filter(r=>r.kind==='Retail Recap');
-  const hi=tripItems.filter(t=>t.cat==='Highlights');
-  const sec=(title,list)=>`<div class="section-block"><div class="block-head"><h3>${title}</h3></div><div class="grid">${list.map(tripCardHTML).join('')}</div></div>`;
-  return `<div class="page-head"><div class="eyebrow">Retail Watch</div><h2>Retail Watch</h2><p>What we saw in stores in Hong Kong and Korea, from the September 2026 retail recaps.</p></div>${marketFilterBar()}`
-   +sec('Highlights',hi)
-   +retail.map(r=>sec(r.title+' &mdash; Key Items &amp; Design Details',r.items.filter(i=>i.cat!=='Highlights'))).join('');
-}
 function renderMerch(){
   return `<div class="page-head"><div class="eyebrow">Merchandising</div><h2>Merchandising</h2><p>Customization and in-store experience ideas observed on the September 2026 trip.</p></div>`
    +MERCH_GROUPS.map(g=>`<div class="section-block"><div class="block-head"><h3>${g.name}</h3></div><div class="grid">${g.items.map(tripCardHTML).join('')}</div></div>`).join('');
@@ -990,28 +1029,6 @@ function recapSection(title,note,list){
 }
 
 /* ===== Section renderers ===== */
-function renderOverview(){
-  const storyCards = stories.map((s,i)=>cardHTML(s,i,'stories')).join('');
-  return `
-  <div class="hero">
-    <div class="eyebrow">Holiday 2027 &middot; Spring 2027</div>
-    <h2>FAF Trend Intelligence</h2>
-    <p>A season-scoped view of what's moving across micro trend drops, materials, and trend stories, built directly from the latest sourced trend research.</p>
-  </div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="num">${microTrends.length}</div><div class="lbl">Micro Trend Drops</div></div>
-    <div class="kpi"><div class="num">${materials.length}</div><div class="lbl">Materials</div></div>
-    <div class="kpi"><div class="num">${stories.length}</div><div class="lbl">Trend Stories</div></div>
-    <div class="kpi"><div class="num">${fcColors.length}</div><div class="lbl">Colors</div></div>
-  </div>
-  ${seasonFilterBar('overview')}
-  <div class="section-block">
-    <div class="block-head"><h3>What's Moving</h3><span class="view-all" onclick="go('stories')">View Trend Stories &rarr;</span></div>
-    <div class="grid">${storyCards}</div>
-  </div>
-  `;
-}
-
 function renderMicro(){
   const cards = microTrends.map((m,i)=>cardHTML(m,i,'micro')).join('');
   return `
@@ -1085,7 +1102,8 @@ function go(id){
   else if(id==='materials') html = renderMaterials();
   else if(id==='stories') html = renderStories();
   else if(id==='heat') html = renderHeat();
-  else if(id==='opportunity') html = renderOpportunity();
+  else if(id==='prints') html = renderPrints();
+  else if(id==='chase') html = renderChase();
   else if(id==='color') html = renderColor();
   else if(id==='resources') html = renderResources();
   else if(id==='retail') html = renderRetail();
@@ -1093,6 +1111,8 @@ function go(id){
   else if(id==='inspo') html = renderInspo();
   else if(PLACEHOLDER_SECTIONS[id]) html = renderPlaceholderSection(id);
   main.innerHTML = html;
+  if(window.afterRender) afterRender(id);
+  window.scrollTo(0,0);
 
   main.querySelectorAll('.market-filter .chip').forEach(chip=>{
     chip.addEventListener('click',()=>{ chip.closest('.season-filter').querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); applyMarketFilter(chip.dataset.mfilter, chip.closest('.recap-section')); });
@@ -1264,8 +1284,199 @@ function renderColor(){
       <div class="panel">${pals.map(s=>`<div class="pal-line"><div class="t">${esc(s.name)}</div><div class="b">${s.palette.map(p=>`<div style="background:${p.h}" title="${esc(p.n)}"></div>`).join('')}</div><div class="pal-chips" style="flex-basis:100%">${s.palette.map(p=>`<span class="pal-chip"><i style="background:${p.h}"></i>${esc(p.n)}</span>`).join('')}</div></div>`).join('')}</div>
     </div>`;
 }
-initNav();
-go('overview');
+/* ===== v39: Main Page, Retail Watch, Prints & Patterns, Chase Items, Resources ===== */
+
+/* ---- Prints & Patterns and Chase Items (empty until content is supplied; one blank example each) ---- */
+const printItems=[{name:'Example Print / Pattern',season:'',desc:'',gallery:[]}];
+const chaseItems=[{name:'Example Chase Item',season:'',desc:'',gallery:[]}];
+DATA_SOURCES.prints=printItems; DATA_SOURCES.chase=chaseItems;
+
+/* ---- Main Page ---- */
+function heroImgs(){
+  const src=[microTrends[0],microTrends[1],microTrends[2],microTrends[3],microTrends[5],stories[0]];
+  return src.map(x=>x&&x.gallery&&x.gallery[0]?x.gallery[0].img:'').filter(Boolean).slice(0,6);
+}
+function photoCount(){
+  const n=a=>a.reduce((s,x)=>s+((x.gallery||[]).length),0);
+  return n(microTrends)+n(materials)+n(stories)+n(tripItems)+n(fcColors);
+}
+function renderOverview(){
+  const imgs=heroImgs();
+  const tracked=microTrends.length+materials.length+stories.length;
+  const movers=allItems().sort((a,b)=>STATUS_ORDER.indexOf(a.x.status)-STATUS_ORDER.indexOf(b.x.status))
+    .filter(o=>o.x.gallery&&o.x.gallery.length).sort((a,b)=>(b.x.status==='growing')-(a.x.status==='growing')).slice(0,3);
+  const multi=SIGNALS.filter(s=>s.markets.length>1);
+  const sigCard=s=>{
+    const ims=[];
+    s.items.forEach(it=>{ if(it.gallery[0]) ims.push(it.gallery[0].img); });
+    const pics=ims.slice(0,3);
+    const cls=pics.length===1?'one':pics.length===2?'two':'';
+    return `<div class="sig-card" onclick="openTripModal(${s.items[0].fi})">
+      <div class="collage ${cls}">${pics.map(p=>`<div style="background-image:url('${p}')"></div>`).join('')}</div>
+      <div class="body"><div class="name">${esc(s.name)}</div>
+      <div class="count">Seen in ${s.markets.length} market${s.markets.length>1?'s':''} &middot; ${s.items.length} callouts</div>
+      <div class="meta">${s.markets.map(m=>`<span class="tag market">${m}</span>`).join('')}</div></div></div>`;
+  };
+  const ss=fcColors.filter(c=>c.sl==='SS 28'), fw=fcColors.filter(c=>c.sl==='FW 27/28');
+  const strip=l=>`<div class="pal-strip">${l.map(c=>`<div style="background:${c.hex}" title="${esc(c.name)}"></div>`).join('')}</div>`;
+  const nm=l=>l.slice(0,6).map(c=>esc(c.name)).join(' &middot; ')+(l.length>6?' &middot; +'+(l.length-6)+' more':'');
+  return `
+  <div class="hero2">
+    <div class="h-copy">
+      <div class="eyebrow">FAF Trend Intelligence</div>
+      <h2><span class="live-dot"></span>Live Now</h2>
+      <p>Everything the team is tracking in one place: what is moving on the runway, what we saw in stores and markets across Asia, and the colors coming next.</p>
+      <div class="h-cta"><button onclick="go('stories')">Explore Trend Stories</button><button class="ghost" onclick="go('retail')">See the Asia Trip</button></div>
+    </div>
+    <div class="h-mosaic">${imgs.map(p=>`<div style="background-image:url('${p}')"></div>`).join('')}</div>
+  </div>
+  <div class="kpi-row k2">
+    <div class="kpi"><div class="num">${tracked}</div><div class="lbl">Trends Tracked</div></div>
+    <div class="kpi"><div class="num">${tripItems.length}</div><div class="lbl">Trip Callouts</div></div>
+    <div class="kpi"><div class="num">${multi.length}</div><div class="lbl">Cross-Market Signals</div></div>
+    <div class="kpi"><div class="num">${fcColors.length}</div><div class="lbl">Colors</div></div>
+    <div class="kpi"><div class="num">${photoCount()}</div><div class="lbl">Photos</div></div>
+  </div>
+  ${seasonFilterBar('overview')}
+  <div class="home-sec">
+    <div class="block-head"><h3>Rising Now</h3><span class="view-all" onclick="go('heat')">Open Heat Map &rarr;</span></div>
+    <p class="lede">The trends with the strongest momentum in the Spring 2027 and Holiday 2027 research.</p>
+    <div class="grid">${movers.map(o=>cardHTML(o.x,o.i,o.kind)).join('')}</div>
+  </div>
+  <div class="home-sec">
+    <div class="block-head"><h3>Trend Stories</h3><span class="view-all" onclick="go('stories')">View all &rarr;</span></div>
+    <p class="lede">The headline jewelry stories for the season.</p>
+    <div class="grid">${stories.map((s,i)=>cardHTML(s,i,'stories')).join('')}</div>
+  </div>
+  <div class="home-sec">
+    <div class="block-head"><h3>Seen Across Asia</h3><span class="view-all" onclick="go('retail')">All trip recaps &rarr;</span></div>
+    <p class="lede">Ideas that showed up in more than one market on the September 2026 trip. The more places we saw it, the stronger the signal.</p>
+    <div class="sig-grid">${multi.map(sigCard).join('')}</div>
+  </div>
+  <div class="home-sec">
+    <div class="block-head"><h3>Color Story</h3><span class="view-all" onclick="go('color')">Open Color Palette &rarr;</span></div>
+    <p class="lede">The Top 10 accessories colors for the next two seasons.</p>
+    <div class="col-wrap">
+      <div class="col-box" onclick="go('color')"><div class="t">Spring/Summer 2028</div>${strip(ss)}<div class="names">${nm(ss)}</div></div>
+      <div class="col-box" onclick="go('color')"><div class="t">Fall/Winter 2027/28</div>${strip(fw)}<div class="names">${nm(fw)}</div></div>
+    </div>
+  </div>`;
+}
+
+/* ---- Retail Watch: same layout as the old Resources page (trip recaps) ---- */
+function renderRetail(){
+  const cards=tripReports.map((r,ri)=>`<div class="card rep-card" onclick="openReportModal(${ri})"><div class="thumb"><img src="${r.cover}" alt="${esc(r.title)}"></div>
+    <div class="body"><div class="name">${esc(r.title)}</div><div class="sub">${r.date}</div><div class="meta"><span class="tag market">${r.market}</span><span class="tag cat">${r.kind}</span></div>
+    <p class="desc">${r.items.length} items &middot; ${r.items.reduce((a,i)=>a+i.gallery.length,0)} photos</p></div></div>`).join('');
+  return `<div class="page-head"><div class="eyebrow">Retail Watch</div><h2>Retail Watch</h2><p>Market and retail recaps from the September 2026 Asia trip. Open a report to browse every item and photo.</p></div><div class="grid">${cards}</div>`;
+}
+
+/* ---- Prints & Patterns ---- */
+function renderPrints(){
+  return `<div class="page-head"><div class="eyebrow">Prints &amp; Patterns</div><h2>Prints &amp; Patterns</h2>
+    <p>FAF prints and patterns. No content has been supplied yet, so one blank example is shown. It will fill in like Materials once the information is provided.</p></div>
+    ${seasonFilterBar('prints')}
+    <div class="grid">${printItems.map((m,i)=>cardHTML(m,i,'prints')).join('')}</div>`;
+}
+
+/* ---- Chase Items (Items tab + Resources tab) ---- */
+function renderChase(){
+  return `<div class="page-head"><div class="eyebrow">Chase Items</div><h2>Chase Items</h2>
+    <p>The pieces we are chasing. Open an item for its description and extra photos. One blank example is shown until content is supplied.</p></div>
+    <div class="page-tabs"><button class="active" data-ct="items" onclick="chaseTab('items')">Items</button><button data-ct="res" onclick="chaseTab('res')">Resources</button></div>
+    <div id="chase-body">${chaseItemsHTML()}</div>`;
+}
+function chaseItemsHTML(){
+  return `<div class="grid">${chaseItems.map((m,i)=>cardHTML(m,i,'chase')).join('')}</div>`;
+}
+function chaseTab(t){
+  document.querySelectorAll('.page-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.ct===t));
+  document.getElementById('chase-body').innerHTML = t==='res' ? docLibHTML('chase') : chaseItemsHTML();
+  if(t==='res') docRefresh('chase');
+}
+
+/* ---- Resources: internal documents ---- */
+function renderResources(){
+  return `<div class="page-head"><div class="eyebrow">Resources</div><h2>Resources</h2>
+    <p>Additional documents the team creates internally. PDFs and other files are saved here.</p></div>${docLibHTML('resources')}`;
+}
+
+/* Permanent documents (built into this file). Each: {name, date, type:'application/pdf', data:'data:application/pdf;base64,...'} */
+const SHARED_DOCS={resources:[], chase:[]};
+
+/* Files added with the button are stored in this browser only (IndexedDB), with an in-memory fallback. */
+const DOCSTORE=(function(){
+  let dbp=null; const mem=[]; let n=0;
+  function open(){
+    if(dbp) return dbp;
+    dbp=new Promise((res,rej)=>{
+      try{
+        const rq=indexedDB.open('faf-docs',1);
+        rq.onupgradeneeded=()=>rq.result.createObjectStore('f',{keyPath:'id',autoIncrement:true});
+        rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+      }catch(e){ rej(e); }
+    }).catch(()=>null);
+    return dbp;
+  }
+  const tx=(db,mode,fn)=>new Promise((res,rej)=>{ const t=db.transaction('f',mode); const r=fn(t.objectStore('f')); t.oncomplete=()=>res(r&&r.result); t.onerror=()=>rej(t.error); });
+  return {
+    async all(scope){ const db=await open(); if(!db) return mem.filter(x=>x.scope===scope); try{ const a=await tx(db,'readonly',s=>s.getAll()); return (a||[]).filter(x=>x.scope===scope);}catch(e){ return mem.filter(x=>x.scope===scope); } },
+    async add(rec){ const db=await open(); if(!db){ rec.id='m'+(++n); mem.push(rec); return; } try{ await tx(db,'readwrite',s=>s.add(rec)); }catch(e){ rec.id='m'+(++n); mem.push(rec); } },
+    async del(id){ const db=await open(); const i=mem.findIndex(x=>x.id===id); if(i>=0){ mem.splice(i,1); return; } if(db) try{ await tx(db,'readwrite',s=>s.delete(id)); }catch(e){} }
+  };
+})();
+const DOC_CACHE={};
+function docKind(name,type){
+  const e=(name.split('.').pop()||'').toLowerCase();
+  if(type==='application/pdf'||e==='pdf') return 'PDF';
+  if(/^image\//.test(type||'')||['png','jpg','jpeg','gif','webp'].includes(e)) return 'IMG';
+  return (e||'FILE').slice(0,4).toUpperCase();
+}
+function fmtSize(b){ if(!b&&b!==0) return ''; return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB'; }
+function docLibHTML(scope){
+  return `<div class="doclib" data-scope="${scope}">
+    <div class="doc-bar"><label class="file-btn">+ Add files<input type="file" multiple onchange="docAdd('${scope}',this.files);this.value=''"></label>
+      <span class="doc-note">Files you add stay on this browser only. To make a file permanent and visible to everyone, send it to Claude and it will be built into the dashboard.</span></div>
+    <div class="drop" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="event.preventDefault();this.classList.remove('over');docAdd('${scope}',event.dataTransfer.files)">Drop PDFs or other files here</div>
+    <div class="doc-list" id="doclist-${scope}"></div></div>`;
+}
+async function docAdd(scope,files){
+  for(const f of files){ await DOCSTORE.add({scope,name:f.name,type:f.type,size:f.size,added:Date.now(),blob:f}); }
+  docRefresh(scope);
+}
+async function docRefresh(scope){
+  const el=document.getElementById('doclist-'+scope); if(!el) return;
+  const shared=(SHARED_DOCS[scope]||[]).map((d,i)=>({key:'s'+scope+i,name:d.name,type:d.type,date:d.date||'',data:d.data,shared:true}));
+  const local=(await DOCSTORE.all(scope)).sort((a,b)=>b.added-a.added).map(r=>({key:'l'+r.id,id:r.id,name:r.name,type:r.type,size:r.size,date:new Date(r.added).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}),blob:r.blob,shared:false}));
+  const all=shared.concat(local);
+  all.forEach(d=>DOC_CACHE[d.key]=d);
+  el.innerHTML = all.length ? all.map(d=>`<div class="doc-card"><div class="doc-ico">${docKind(d.name,d.type)}</div>
+    <div class="doc-main"><div class="doc-name">${esc(d.name)}</div><div class="doc-sub">${[d.date,d.size?fmtSize(d.size):'',d.shared?'Shared':'This browser only'].filter(Boolean).join(' &middot; ')}</div>
+    <div class="doc-act"><button onclick="docOpen('${d.key}')">Open</button><button onclick="docDownload('${d.key}')">Download</button>${d.shared?'':`<button class="rm" onclick="docRemove('${scope}',${typeof d.id==='number'?d.id:`'${d.id}'`})">Remove</button>`}</div></div></div>`).join('')
+    : `<div class="doc-empty" style="grid-column:1/-1">No documents yet. Use <b>+ Add files</b> to save a PDF here.</div>`;
+}
+async function docBlob(d){
+  if(d.blob) return d.blob;
+  const r=await fetch(d.data); return await r.blob();
+}
+async function docOpen(key){
+  const d=DOC_CACHE[key]; if(!d) return;
+  const b=await docBlob(d), kind=docKind(d.name,d.type);
+  if(kind!=='PDF'&&kind!=='IMG'){ docDownload(key); return; }
+  const url=URL.createObjectURL(kind==='PDF'?new Blob([b],{type:'application/pdf'}):b);
+  document.getElementById('modalBody').innerHTML=`<button class="close-btn" onclick="closeModal()">&times;</button><h3 class="m-title">${esc(d.name)}</h3>`+
+    (kind==='PDF'?`<iframe class="doc-view" src="${url}"></iframe>`:`<img class="doc-view-img" src="${url}" alt="">`);
+  document.getElementById('modalOverlay').classList.add('open');
+}
+async function docDownload(key){
+  const d=DOC_CACHE[key]; if(!d) return;
+  const b=await docBlob(d), url=URL.createObjectURL(b);
+  const a=document.createElement('a'); a.href=url; a.download=d.name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+}
+async function docRemove(scope,id){ await DOCSTORE.del(id); docRefresh(scope); }
+function afterRender(id){ if(id==='resources') docRefresh('resources'); }
+initNav(); go('overview');
 </script>
 </body>
 </html>
