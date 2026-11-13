@@ -1157,7 +1157,13 @@ function placeholderCardHTML(key){
 
 let LB_LIST=[], LB_I=0, LB_GID=0;
 function openLightbox(i){ LB_I=i; showLb(); document.getElementById('lightbox').classList.add('open'); }
-function showLb(){ const g=LB_LIST[LB_I]; if(!g) return; document.getElementById('lbImg').src=g.img; document.getElementById('lbCap').textContent=g.caption&&g.caption!=='xx'?g.caption:''; }
+function showLb(){ const g=LB_LIST[LB_I]; if(!g) return; const el=document.getElementById('lbImg');
+  /* The enlarged view reuses one image element: clear any failed-load state left from an earlier photo so it never stays hidden */
+  delete el.dataset.nxOrig; delete el.dataset.nxQueue; el.style.visibility='';
+  /* Use the same file the thumbnail actually loaded (stored copy, or the R2 file found after retries) */
+  let src=g.img; const twin=[...document.querySelectorAll('img')].find(i=>i!==el&&i.naturalWidth>1&&(i.getAttribute('src')===src||i.dataset.nxOrig===src));
+  if(twin) src=twin.currentSrc||twin.src;
+  el.src=src; document.getElementById('lbCap').textContent=g.caption&&g.caption!=='xx'?g.caption:''; }
 function lbStep(d){ if(!LB_LIST.length) return; LB_I=(LB_I+d+LB_LIST.length)%LB_LIST.length; showLb(); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 document.addEventListener('keydown',e=>{ const lb=document.getElementById('lightbox'); if(!lb||!lb.classList.contains('open')) return; if(e.key==='Escape')closeLightbox(); if(e.key==='ArrowRight')lbStep(1); if(e.key==='ArrowLeft')lbStep(-1); });
